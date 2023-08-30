@@ -3,4 +3,6 @@
 // inputs." -Fern
 
 #include <stdio.h>
+#include <game_functions.h>
+
 
