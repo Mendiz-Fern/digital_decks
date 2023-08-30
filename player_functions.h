@@ -4,6 +4,6 @@
 
 int select_game(); //returns a game_id
 int draw_card();
-int discard_card(int player, int pos_in_deck);
-int* select_card(int player, int pos_in_deck);
+int discard_card(int player_ID, int pos_in_deck);
+int* select_card(int player_ID, int pos_in_deck);
 int* play_card();
