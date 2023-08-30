@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
-int* select_card(int* deck, int pos_in_deck);
-
+int select_game(); //returns a game_id
+int draw_card();
+int discard_card(int player, int pos_in_deck);
+int* select_card(int player, int pos_in_deck);
 int* play_card();
