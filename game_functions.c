@@ -5,19 +5,27 @@
 #include <stdio.h>
 #include "game_functions.h"
 
-void setup_game(char game_ID, char* decks[4], int num_players){
+char* deal(char* game_deck, int num_cards){
+  /*
+  This will deal num_cards random cards from game_deck, making sure to 
+  */
+}
+
+char* setup_game(char game_ID, char* decks[4], int num_players){
   /*
   This function will set up the game based on which game the setup script is given
   and how many people are playing. We have a hard-coded number of decks (4) because
   an empty deck is still a deck, even if it's not being used.
   */
-
+  char* deck;
+  
   switch(game_ID):
     case 0x1: // Setup for UNO
-      // Load UNO deck. 
+      deck = 0x0; // CHANGE- Load UNO deck. 
       for(int i = 0; i < num_players; i++){
         // deal 7 random cards to each player
-        // NOTE: pass by address to decks
+        decks[i] = deal(deck = 7); // POSSIBLE BUG. CHECK NOTE BELOW.
+        // NOTE: does this pass by address to decks? It's supposed to
       }
     
     break;
