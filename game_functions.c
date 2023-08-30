@@ -12,5 +12,7 @@ int* select_card(int* deck, int pos_in_deck){
      represented as a list of these Card IDs, then to select a card, the code will simply see 
      what card is in position pos_in_deck of the deck, and return a list containing
      [player_ID, card_ID]
+
+     before returning the int*, though, we're going to run the card_discard function.
   */
 }
