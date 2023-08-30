@@ -5,7 +5,7 @@
 #include "player_functions.h"
 
 int main(int argc, char* argv[]){
+  char* game_deck;
   char* decks[4]; //Create 4 decks of variable length that include the card IDs. Deck 0 is player 1's deck, 1 is player 2's deck, etc.
-  
-  
+
 }
