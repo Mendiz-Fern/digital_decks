@@ -4,13 +4,15 @@
 #include <stdio.h>
 #include 'game_functions.h'
 
-char* deal(char* game_deck, int num_cards){
-  /*
-  This will deal num_cards random cards from game_deck, making sure to 
-  */
+void shuffle(Deck* deck){
+
 }
 
-char* setup_game(char game_ID, char* decks[4], int num_players, char* discard_pile){
+Hand* deal(Deck* deck, int num_players){
+
+}
+
+void setup_game(Deck* deck, int num_players){
   /*
   This function will set up the game based on which game the setup script is given
   and how many people are playing. We have a hard-coded number of decks (4) because
@@ -41,12 +43,4 @@ char* setup_game(char game_ID, char* decks[4], int num_players, char* discard_pi
     case 0x3: // Setup for... game 3?
 
     break;
-}
-
-int* get_deck(int player_ID){
-  /*
-  this will get the deck from player player_ID (number between 1 and 4).
-  Simple as that
-  */
-  return /*insert the list of decks*/[player_ID-1] 
 }
