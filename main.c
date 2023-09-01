@@ -1,8 +1,8 @@
 // Main file
 
 #include <stdio.h>
-#include "game_functions.h"
-#include "player_functions.h"
+#include 'game_functions.h'
+#include 'player_functions.h'
 
 int main(int argc, char* argv[]){
   char* game_deck;

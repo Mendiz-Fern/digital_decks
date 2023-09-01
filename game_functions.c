@@ -3,7 +3,7 @@
 
 
 #include <stdio.h>
-#include "game_functions.h"
+#include 'game_functions.h'
 
 char* deal(char* game_deck, int num_cards){
   /*
