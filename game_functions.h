@@ -1,7 +1,5 @@
 // Function declarations for the game functions described in game_functions.c" -Fern
 
-#include <stdio.h>
-
 // == STRUCTS == //
 /*
 These are structs that will be useful to us (maybe) in the future
@@ -33,7 +31,7 @@ typedef struct _deck {
 typedef struct _hand {
 
   int size; // Size of the player's hand
-  Card* in_deck; // A list of cards found in the player's hand
+  Card* in_hand; // A list of cards found in the player's hand
 
 } Hand;
 
