@@ -1,7 +1,6 @@
 // "These are all the functions that are going to be performed by the computer/ the game without any direct input for the player.
 // one could say these are the functions that will be called most inside the player_fucntions." -Fern
 
-
 #include <stdio.h>
 #include 'game_functions.h'
 
@@ -35,7 +34,7 @@ char* setup_game(char game_ID, char* decks[4], int num_players, char* discard_pi
     
     break;
   
-    case 0x2; // Setup for Rummy
+    case 0x2: // Setup for Rummy
       
     break;
 
