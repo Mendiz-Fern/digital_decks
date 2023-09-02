@@ -63,8 +63,8 @@ These functions will have a more concrete explanation in game_functions.c
 //  - [room for more]
 */
 
-void shuffle(Deck* deck); // shuffles deck deck
-//void shuffle_hand(int player); // shuffles a player's hand (might get moved over to player_functions.h)
+// void shuffle(Deck* deck); // shuffles deck- Obsolete
+// void shuffle_hand(int player); // shuffles a player's hand (might get moved over to player_functions.h)
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
 void setup_game(Deck* deck, int num_players); // Sets game up (will be tricky)
 

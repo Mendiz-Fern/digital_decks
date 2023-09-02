@@ -7,40 +7,42 @@
 #include 'game_functions.h'
 
 // SHUFFLE
+// THIS FUNCTION HAS BEEN MARKED AS OBSOLTETE. INSTEAD, SHUFFLING WILL BE DONE WHEN THE PLAYER GRABS A 
+// CARD, WHICH IS TO SAY, THE CODE WILL RANDOMIZE THE SELECTED CARD
 // This function will shuffle the given Deck* deck and change the order of the cards inside it 
 // Args: Deck* deck (Just the deck to be shuffled)
 // Returns: Nothing. The function modifies by address
-void shuffle(Deck* deck){ // UNTESTED // 
-  /*
-  The way this will work is that we're going to pick every card and move it somewhere randomly on the other half of the 
-  deck (i.e., if we have a card on the first half of the deck, then we change its place with a random card on the second
-  half of the deck)
-  */
+// void shuffle(Deck* deck){ // UNTESTED // 
+//   /*
+//   The way this will work is that we're going to pick every card and move it somewhere randomly on the other half of the 
+//   deck (i.e., if we have a card on the first half of the deck, then we change its place with a random card on the second
+//   half of the deck)
+//   */
 
-  int randy; // create a random variable
+//   int randy; // create a random variable
 
-  for(int i = 0; i < (deck->size); i ++){ // Do this for every card in the deck 
-    Card current_card = (deck->in_deck)[i]; // get the current card and save the value of it (hopefully)
-    srand(time(NULL)); // use the current time as seed... on every pass, for MORE random
-    randy = rand() % (deck->size)/2; // Actually fill the random variable with a number less than half the size of the deck
+//   for(int i = 0; i < (deck->size); i ++){ // Do this for every card in the deck 
+//     Card current_card = (deck->in_deck)[i]; // get the current card and save the value of it (hopefully)
+//     srand(time(NULL)); // use the current time as seed... on every pass, for MORE random
+//     randy = rand() % (deck->size)/2; // Actually fill the random variable with a number less than half the size of the deck
 
-    if(i < (deck->size)/2){ // if we're on the first half of the deck
-      //We add deck->size/2 to make sure randy is in the second half of the deck
-      randy += (deck->size)/2;
-      Card new_card = (deck->in_deck)[randy]; // get the new card and save the value of it (hopefully)
-      (deck->in_deck)[randy] = current_card; // Put the current card where the other card goes
-      (deck->in_deck)[i] = new_card; // put the other card where the current card goes
-    }
-    else{ // otherwise
-      // Randy doesn't change because we want the new random position to be within the first half of the deck
-      Card new_card = (deck->in_deck)[randy]; // get the new card and save the value of it (hopefully)
-      (deck->in_deck)[randy] = current_card; // Put the current card where the other card goes
-      (deck->in_deck)[i] = new_card; // put the other card where the current card goes
-    }
-  }
-}
+//     if(i < (deck->size)/2){ // if we're on the first half of the deck
+//       //We add deck->size/2 to make sure randy is in the second half of the deck
+//       randy += (deck->size)/2;
+//       Card new_card = (deck->in_deck)[randy]; // get the new card and save the value of it (hopefully)
+//       (deck->in_deck)[randy] = current_card; // Put the current card where the other card goes
+//       (deck->in_deck)[i] = new_card; // put the other card where the current card goes
+//     }
+//     else{ // otherwise
+//       // Randy doesn't change because we want the new random position to be within the first half of the deck
+//       Card new_card = (deck->in_deck)[randy]; // get the new card and save the value of it (hopefully)
+//       (deck->in_deck)[randy] = current_card; // Put the current card where the other card goes
+//       (deck->in_deck)[i] = new_card; // put the other card where the current card goes
+//     }
+//   }
+// }
 
-Hand* deal(Deck* deck, int num_players){
+Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Can't we just call "draw" multiple times? 
 
 }
 
