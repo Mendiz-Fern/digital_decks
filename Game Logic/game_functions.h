@@ -68,6 +68,9 @@ These functions will have a more concrete explanation in game_functions.c
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
 void setup_game(Deck* deck, int num_players); // Sets game up (will be tricky)
 
+char recv(int controller); // recieves a signal from a controller
+char send(int controller); // sends a signal from a controller
+
 
 // == CONSTANTS FOR GAME ITEMS AND WHATNOT == //
 //= NOT ALL GAMES BELOW  WILL BE IMPLEMENTED =//

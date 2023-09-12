@@ -42,6 +42,14 @@
 //   }
 // }
 
+char recv(int controller){
+  // Button press code ideas- 
+  // 0x1 - Left Button
+  // 0x2 - Center Button
+  // 0x3 - Right Button
+}
+
+
 Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Can't we just call "draw" multiple times? 
 
 }
