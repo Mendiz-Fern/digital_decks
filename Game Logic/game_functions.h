@@ -9,7 +9,7 @@ These are structs that will be useful to us (maybe) in the future
 // *someone correct me if I'm wrong, I'm assuming a pointer is 4 bytes, but I could be wrong.
 typedef struct _card {
   int number;
-  char* suit; // Also applies for color
+  char suit; // Also applies for color
   char* ability; // Game-dependent
   char* image_path; // The path where the image for the card is stored
 
@@ -66,23 +66,48 @@ These functions will have a more concrete explanation in game_functions.c
 // void shuffle(Deck* deck); // shuffles deck- Obsolete
 // void shuffle_hand(int player); // shuffles a player's hand (might get moved over to player_functions.h)
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
-void setup_game(Deck* deck, int num_players); // Sets game up (will be tricky)
+void setup_game(int game, Deck** deck, int num_players); // Sets game up (will be tricky)
+Card* get_from_deck(Deck* deck); // Gets a card from deck lol
 
-char recv(int controller); // recieves a signal from a controller
-char send(int controller); // sends a signal from a controller
-
+int recv(int controller); // recieves a signal from a controller
+void send(int controller, int packet); // sends a signal from a controller
 
 // == CONSTANTS FOR GAME ITEMS AND WHATNOT == //
 //= NOT ALL GAMES BELOW  WILL BE IMPLEMENTED =//
 
 #define UNO_GAME        0x1
 #define SOLITAIRE_GAME  0x2
-#define RUMMY_GAME      0x3
+#define SKULL_GAME      0x3 
+#define RUMMY_GAME      0x4
 #define GPT_IDEAS       RUMMY_GAME
-#define EUCHRE_GAME     0x4
+#define EUCHRE_GAME     0x5
 
 // Paul Suggestions //
-
-#define SKULL_GAME      0x5 
+// SKULL used to be here but now it's not :)
 #define SUSHI_GAME      0x6
 #define THE_CREW_GAME   0x7
+
+// == CONSTANTS FOR SENDING AND RECEIVING DATA == //
+
+#define CONNECTION      0x1 // Will be sent and received as a connection confirmation. Send 1, receive 1, done.
+#define SET_UP          0x10 // indicates that we have to set up the controller to receive and send signals from a game
+#define SET_UP_UNO      SETUP + UNO_GAME // 0x11
+#define SET_UP_SOLITAIRE SETUP + SOLITAIRE_GAME  // 0x12
+#define SET_UP_SKULL    SET_UP + SKULL_GAME // 0x13
+// other game setups can go here when I use them
+// Constants from 0x11-0xA are reserved for this, although this wouldn't be scalable above 15 games, it's important to note we only even thought of 7
+
+// game-speficic packets //
+
+#define UNO_SUCCEED     0x1
+#define UNO_FAIL        0x0
+#define UNO_RED         0x20
+#define UNO_GREEN       0x30
+#define UNO_BLUE        0x40
+#define UNO_YELLOW      0x50
+#define UNO_GOT_COLOR   0x200 // GOT_COLOR is meant to be a question (do you have this color?)
+#define UNO_GOT_RED     UNO_GOT_COLOR + UNO_RED
+#define UNO_GOT_GREEN   UNO_GOT_COLOR + UNO_GREEN
+#define UNO_GOT_BLUE    UNO_GOT_COLOR + UNO_BLUE
+#define UNO_GOT_YELLOW  UNO_GOT_COLOR + UNO_YELLOW
+#define UNO_WANT_COLOR  0x260 // If a player plays a wild, they will be asked what color they want by sending this code

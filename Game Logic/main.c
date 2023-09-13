@@ -1,17 +1,33 @@
 // Main file
 
 #include <stdio.h>
+#include <stdlib.h>
 #include 'game_functions.h'
 #include 'player_functions.h'
 
 int main(int argc, char* argv[]){ // This will run in the Center console
-  char* game_deck;
-  char* decks[4]; //Create 4 decks of variable length that include the card IDs. Deck 0 is player 1's deck, 1 is player 2's deck, etc.
+  Deck* game_deck;
+  Hand* decks[4]; //Create 4 hands of variable length that include the card IDs. Deck 0 is player 1's deck, 1 is player 2's deck, etc.
   bool game_on = true;
   char current_game = 0x0;
   char current_selection = 0x0; // The current main menu item selection.
   bool sel0 = false;
-  char* 
+  char* settings_filepath = "";
+  int num_players = 0;
+  FILE* settings;
+  settings = fopen(settings_filepath, "wb+"); // Open for reading and writing.
+  
+  while(!num_players){
+    for(int i = 0; i < 4; ){ // check controllers
+      char response;
+      send(i, CONNECTION);
+      response = recv(i);
+      if(response == CONNECTION) num_players ++;
+      else break;
+    }
+  }
+
+  
 
   while(game_on){ // Main game loop
     while (!current_game && !current_selection){ // Main Menu Loop
@@ -23,8 +39,8 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       // |  A  ___    | /   \___                    * UNO
       // |    /   \   |/  /     \___                * Solitaire
       // |   /     \  /   __       /                * Skull
-      // |   \_/|\_/ /   /   \    /       
-      // |      |   /   /    /   /               Options
+      // |   \_/|\_/ /   /__ \    /       
+      // |      |   /   / // /   /               Options
       // |         /    \ __/   /         
       // |________/__          /                 Credits
       //             \___  /  /
@@ -33,18 +49,19 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       // (c) Paul, Varun, Orry, and I
       //
       char hovering = 0;
-      if(recv(0) == 0x1){ // if we receive a left arrow click
+      char instr = recv(0);
+      if(instr == 0x1){ // if we receive a left arrow click
         hovering --; // we go to the previous element
         hovering %= 4; // with, of course, circular logic :)
       }
-      else if (recv(0) == 0x2){ // if we receive a center button click
+      else if (instr == 0x2){ // if we receive a center button click
         current_selection = hovering; // we make the thing we're hovering the current selection
         if(current_selection == 0){ // if we selected item 0 (select game)
           sel0 = ~sel0; // we tell the computer that we're inside the Select Game sub-menu, unless we already were, in which we aren't anymore
           hovering ++; // we go on to hover on item number 1 (which is now going to be the first game)
         }
       }
-      else if (recv(0) == 0x3){ // if we receive a right arrow click
+      else if (instr == 0x3){ // if we receive a right arrow click
         hovering ++; // we go to the next element
         hovering %= 4; // with circular logic again
       }
@@ -110,9 +127,45 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       int number_of_settings = 4;
       int hovering = 0;
       while(in_settings){
-
+        // modify the values per setting depeding on the value of hovering
+        // The basic gist-
+        //    - If you're hovering over setting number x
+        //    - go to line x of the file
+        //    - should have a single bit atm (as all settings are t/f)
+        //    - if the setting is selected, flip the bit
       }
+    }
+    else if(current_selection == 0x2){ // Credits
+
+    }
+    else{ // Power Off
+      game_on = false;
+    }
+    if(current_game == UNO_GAME){ // UNO Game Loop!! 
+      char winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exixst
+      char curr_player = 0x3; // current player
+      bool direction = true; // 1 for {1,2,3,4}, 0 for {1,4,3,2}
+      int to_draw = 0;
+      int response;
+      bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
+      bool play_after_draw = false; // CHANGE THIS so it actually reads the value from the settings file
+    
+      setup_game(UNO_GAME, &game_deck, num_players); // Setup UNO
+      face_up_card = get_from_deck(game_deck);
+
+      while(winner == 0x4){ // as long as nobody has won
+        curr_player = (curr_player + 1) % 4; // Start by selecting the next player
+        send((int)(curr_player), UNO_GOT_COLOR + /*CURRENT COLOR*/);
+      }
+    }
+    else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
+    }
+    else if(current_game == SKULL_GAME){ // Skull Game Loop
+    }
+    else{
+      printf("More games [might be] coming soon!!!\n");
+    }
     }
   }
 
-}
+// } Uhhhh...
