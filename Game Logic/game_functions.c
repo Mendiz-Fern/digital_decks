@@ -18,14 +18,11 @@
 //   deck (i.e., if we have a card on the first half of the deck, then we change its place with a random card on the second
 //   half of the deck)
 //   */
-
 //   int randy; // create a random variable
-
 //   for(int i = 0; i < (deck->size); i ++){ // Do this for every card in the deck 
 //     Card current_card = (deck->in_deck)[i]; // get the current card and save the value of it (hopefully)
 //     srand(time(NULL)); // use the current time as seed... on every pass, for MORE random
 //     randy = rand() % (deck->size)/2; // Actually fill the random variable with a number less than half the size of the deck
-
 //     if(i < (deck->size)/2){ // if we're on the first half of the deck
 //       //We add deck->size/2 to make sure randy is in the second half of the deck
 //       randy += (deck->size)/2;
@@ -54,7 +51,7 @@ Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Ca
 
 }
 
-void setup_game(Deck* deck, int num_players){
+void setup_game(int game_ID, Deck* deck, int num_players){
   /*
   This function will set up the game based on which game the setup script is given
   and how many people are playing. We have a hard-coded number of decks (4) because
@@ -63,18 +60,29 @@ void setup_game(Deck* deck, int num_players){
   It's going to return the game deck in its current state after dealing to num_players
   players.
   */
-  char* deck;
   
   switch(game_ID):
-    case 0x1: // Setup for UNO
-      deck = 0x0; // CHANGE- Load UNO deck. 
-      for(int i = 0; i < num_players; i++){
-        // deal 7 random cards to each player
-        decks[i] = deal(deck, 7); // POSSIBLE BUG. CHECK NOTE BELOW.
-        // NOTE: does this pass by address to decks? It's supposed to.
+    case UNO_GAME: // Setup for UNO
+    // We start by adding all the cards to the deck
+    deck->in_deck = (short*) malloc(108 * sizeof(short)); // Allocate for all 108 cards that will be in the deck
+    deck->size = 108;
+    for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
+      short color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
+      //f(0) = 0
+      //f(1) = 19
+      //f(2) = 38
+      //f(3) = 57
+      (deck->in_deck)[i*19] = (short)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
+      for(int j = 1; j < 10; j ++){
+        (deck->in_deck)[i*19 + j]   = (short)(CARD_GAME_UNO + color + j << CARD_COLOR_SHIFT); // add the card with number j in the jth position after its color's 0 card
+        (deck->in_deck)[i*19 + 2*j] = (short)(CARD_GAME_UNO + color + j << CARD_COLOR_SHIFT); // and also the 2jth position after its color's 0 card
       }
-      // add one card to the center
-      // initialize the discard pile to an empty deck-like structure
+      for(j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
+        (deck->in_deck)[76 + i*6 + j]   = (short)(CARD_GAME_UNO + color + j + 1 << CARD_ABILITY_SHIFT);
+        (deck->in_deck)[76 + i*6 + 2*j] = (short)(CARD_GAME_UNO + color + j + 1 << CARD_ABILITY_SHIFT);
+      }
+    }
+
     
     break;
   
