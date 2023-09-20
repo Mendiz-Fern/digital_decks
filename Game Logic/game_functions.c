@@ -63,27 +63,34 @@ void setup_game(int game_ID, Deck* deck, int num_players){
   
   switch(game_ID):
     case UNO_GAME: // Setup for UNO
-    // We start by adding all the cards to the deck
-    deck->in_deck = (short*) malloc(108 * sizeof(short)); // Allocate for all 108 cards that will be in the deck
-    deck->size = 108;
-    for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
-      short color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
-      //f(0) = 0
-      //f(1) = 19
-      //f(2) = 38
-      //f(3) = 57
-      (deck->in_deck)[i*19] = (short)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
-      for(int j = 1; j < 10; j ++){
-        (deck->in_deck)[i*19 + j]   = (short)(CARD_GAME_UNO + color + j << CARD_COLOR_SHIFT); // add the card with number j in the jth position after its color's 0 card
-        (deck->in_deck)[i*19 + 2*j] = (short)(CARD_GAME_UNO + color + j << CARD_COLOR_SHIFT); // and also the 2jth position after its color's 0 card
-      }
-      for(j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
-        (deck->in_deck)[76 + i*6 + j]   = (short)(CARD_GAME_UNO + color + j + 1 << CARD_ABILITY_SHIFT);
-        (deck->in_deck)[76 + i*6 + 2*j] = (short)(CARD_GAME_UNO + color + j + 1 << CARD_ABILITY_SHIFT);
-      }
-    }
+      // We start by adding all the cards to the deck
+      deck->in_deck = (short*) malloc(108 * sizeof(short)); // Allocate for all 108 cards that will be in the deck
+      deck->size = 108;
+      for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
+        short color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
 
-    
+        (deck->in_deck)[i*19] = (short)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
+        for(int j = 1; j < 10; j ++){
+          (deck->in_deck)[i*19 + j]   = (short)(CARD_GAME_UNO + color + (j << CARD_COLOR_SHIF)T); // add the card with number j in the jth position after its color's 0 card
+          (deck->in_deck)[i*19 + j + 10] = (short)(CARD_GAME_UNO + color + (j << CARD_COLOR_SHIFT)); // and also the j + 10th position after its color's 0 card
+        }
+        // If the above loop runs all four times, we have the first 76 cards populated.
+        // If the loop below runs all four times, we have the next 24 cards populated. 
+        for(j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
+          (deck->in_deck)[76 + i*6 + j]   = (short)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
+          (deck->in_deck)[76 + i*6 + j + 3] = (short)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
+        }
+      }
+      // At this moment we have 100 cards in the deck. Missing the 8 wilds
+      for(i = 100; i < 105; i ++){ // Populating with wild +4s
+        (deck->in_deck)[i] = (short)(CARD_GAME_UNO + (CARD_ABILITY_UNO_P4 << CARD_ABILITY_SHIFT)); 
+      }
+      for(i = 104; i < 107; i++){
+        (deck->in_deck)[i] = (short)(CARD_GAME_UNO + (CARD_ABILITY_UNO_WILD << CARD_ABILITY_SHIFT)); 
+      }
+      // We have completely populated the deck now
+      // Now we have to Deal cards to the players. 
+
     break;
   
     case 0x2: // Setup for Rummy
