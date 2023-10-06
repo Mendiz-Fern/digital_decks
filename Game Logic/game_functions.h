@@ -1,4 +1,7 @@
 // Function declarations for the game functions described in game_functions.c" -Fern
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 // == STRUCTS == //
 /*
@@ -14,7 +17,7 @@ These are structs that will be useful to us (maybe) in the future
 //   char* image_path; // The path where the image for the card is stored
 // } Card;
 
-// THE CARD STRUCT HAS BEEN REMOVED AND INSTEAD REPLACED WITH A SHORT, WITH THE BITS DEFINED AS FOLLOWS:
+// THE CARD STRUCT HAS BEEN REMOVED AND INSTEAD REPLACED WITH A uint16_t, WITH THE BITS DEFINED AS FOLLOWS:
 // [ 2 ][    4    ][     4     ][     3     ][   3   ]
 // [n/a][GAME NAME][CARD NUMBER][COLOR/ SUIT][ABILITY]
 
@@ -23,7 +26,7 @@ These are structs that will be useful to us (maybe) in the future
 typedef struct _deck {
 
   int size; // Size of the deck
-  short* in_deck; // A list of cards found in the deck
+  uint16_t* in_deck; // A list of cards found in the deck
   char game; // The game this deck is for (might be useful for verification purposes)
   int to_deal; // Directly tied to game, how many cards you should be dealing from this deck
 
@@ -34,7 +37,7 @@ typedef struct _deck {
 typedef struct _hand {
 
   int size; // Size of the player's hand
-  short* in_hand; // A list of cards found in the player's hand
+  uint16_t* in_hand; // A list of cards found in the player's hand
 
 } Hand;
 
@@ -70,11 +73,11 @@ These functions will have a more concrete explanation in game_functions.c
 // void shuffle_hand(int player); // shuffles a player's hand (might get moved over to player_functions.h)
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
 void setup_game(int game, Deck* deck, int num_players); // Sets game up (will be tricky)
-short* get_from_deck(Deck* deck); // Gets a card from deck lol
+uint16_t get_from_deck(Deck* deck); // Gets a card from deck lol
 
 
-int recv(int controller); // recieves a signal from a controller
-void send(int controller, int packet); // sends a signal from a controller
+uint16_t recv(int controller); // recieves a signal from a controller
+uint16_t send(int controller, uint16_t packet); // sends a signal from a controller
 
 // == CONSTANTS FOR GAME ITEMS AND WHATNOT == //
 //= NOT ALL GAMES BELOW  WILL BE IMPLEMENTED =//
@@ -97,10 +100,13 @@ void send(int controller, int packet); // sends a signal from a controller
 #define RECV_LEFT       0x1 // I know it's the same as CONNECTION, but I mean... I don't see why not?
 #define RECV_CENTER     0x2 // I know this is reused
 #define RECV_RIGHT      0x3 // I know this is reused. 
+#define FN_RET_NULL     0x4 //counterintuitive, but who cares? 
 #define SET_UP          0x10 // indicates that we have to set up the controller to receive and send signals from a game
 #define SET_UP_UNO      SETUP + UNO_GAME // 0x11
 #define SET_UP_SOLITAIRE SETUP + SOLITAIRE_GAME  // 0x12
 #define SET_UP_SKULL    SET_UP + SKULL_GAME // 0x13
+// other setups go here
+#define CARD_REQUEST_DENIED   0xF0CC
 
 // other game setups can go here when I use them
 // Constants from 0x11-0xA are reserved for this, although this wouldn't be scalable above 15 games, it's important to note we only even thought of 7
@@ -146,3 +152,4 @@ void send(int controller, int packet); // sends a signal from a controller
 #define CARD_ABILITY_UNO_SKIP 0x0003 // Ability 3 is skip
 #define CARD_ABILITY_UNO_REVERSE 0x0004 // Ability 4 is Reverse
 #define CARD_ABILITY_UNO_WILD 0x0005 // Abiity 5 is a plain wild
+#define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible state to reach, so it will be the indicator that you have no cards to play

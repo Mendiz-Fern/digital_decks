@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
   FILE* settings;
   settings = fopen(settings_filepath, "wb+"); // Open for reading and writing.
   
-  while(!num_players){
+  while(!num_players){ // This will change, but it'll be strange so I'll have to see to it
     for(int i = 0; i < 4; ){ // check controllers
       char response;
       send(i, CONNECTION);
@@ -149,13 +149,41 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       int response;
       bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
       bool play_after_draw = false; // CHANGE THIS so it actually reads the value from the settings file
+      uint16_t played_card;
+      uint16_t fuc_color, fuc_num, fuc_ability;
+      uint16_t plc_color, plc_num, plc_ability;
     
       setup_game(UNO_GAME, &game_deck, num_players); // Setup UNO
-      face_up_card = get_from_deck(game_deck);
+      uint16_t face_up_card = get_from_deck(game_deck);
 
       while(winner == 0x4){ // as long as nobody has won
+        fuc_color = face_up_card & CARD_COLOR;
+        fuc_num = face_up_card & CARD_NUMBER;
+        fuc_ability = face_up_card & CARD_ABILITY;
+
         curr_player = (curr_player + 1) % 4; // Start by selecting the next player
-        send((int)(curr_player), UNO_GOT_COLOR + /*CURRENT COLOR*/);
+        played_card = recv(int(curr_player)); // now receive a card from the current player
+        plc_color = played_card & CARD_COLOR;
+        plc_num = played_card & CARD_NUMBER;
+        plc_ability = played_card & CARD_ABILITY;
+
+        while((plc_color != fuc_color) | (plc_number != fuc_number) | (plc_ability != fuc_ability) | (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
+          send(int(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
+          played_card = recv(int(curr_player)); // and ask for another one
+          plc_color = played_card & CARD_COLOR;
+          plc_num = played_card & CARD_NUMBER;
+          plc_ability = played_card & CARD_ABILITY;
+        } // this repeats until they actually give us what we want
+
+        if(played_card == 0xFACC){ // if the player doesn't have any cards
+          // CHANGE
+          uint16_t card_drawn = get_from_deck(game_deck);
+          send(int(curr_player), card_drawn); // for now, just give them a card
+        }
+        else{
+          // CHANGE -- Activate ability here
+          face_up_card = played_card; // change the face_up_card to the card that was just played
+        }
       }
     }
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
