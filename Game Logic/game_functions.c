@@ -115,7 +115,7 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       
     break;
 
-    case 0x3: // Setup for... game 3?
+    case 0x3: // Setup for skull!
 
     break;
 }
