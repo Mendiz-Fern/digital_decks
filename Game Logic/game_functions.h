@@ -107,6 +107,7 @@ uint16_t send(int controller, uint16_t packet); // sends a signal from a control
 #define SET_UP_SKULL    SET_UP + SKULL_GAME // 0x13
 // other setups go here
 #define CARD_REQUEST_DENIED   0xF0CC
+#define CARDS_LEFT            0xFECC // Asking the player how many cards they've left
 
 // other game setups can go here when I use them
 // Constants from 0x11-0xA are reserved for this, although this wouldn't be scalable above 15 games, it's important to note we only even thought of 7

@@ -144,7 +144,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     if(current_game == UNO_GAME){ // UNO Game Loop!! 
       char winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exixst
       char curr_player = 0x3; // current player
-      bool direction = true; // 1 for {1,2,3,4}, 0 for {1,4,3,2}
+      uint4_t direction = 1; // 1 for {1,2,3,4}, 0 for {1,4,3,2}
       int to_draw = 0;
       int response;
       bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
@@ -157,11 +157,13 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       uint16_t face_up_card = get_from_deck(game_deck);
 
       while(winner == 0x4){ // as long as nobody has won
-        fuc_color = face_up_card & CARD_COLOR;
         fuc_num = face_up_card & CARD_NUMBER;
         fuc_ability = face_up_card & CARD_ABILITY;
+        if((fuc_ability != CARD_ABILITY_UNO_WILD) && (fuc_ability != CARD_ABILITY_UNO_P4)){ // if the player hasn't already picked the color
+          fuc_color = face_up_card & CARD_COLOR; // then we look for it
+        }
 
-        curr_player = (curr_player + 1) % 4; // Start by selecting the next player
+        curr_player = (curr_player + ((direction * 2) - 1)) % 4; // Start by selecting the next player
         played_card = recv(int(curr_player)); // now receive a card from the current player
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
@@ -175,14 +177,50 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           plc_ability = played_card & CARD_ABILITY;
         } // this repeats until they actually give us what we want
 
-        if(played_card == 0xFACC){ // if the player doesn't have any cards
+        if(played_card == 0xFACC){ // if the player doesn't have any useful cards
           // CHANGE
           uint16_t card_drawn = get_from_deck(game_deck);
-          send(int(curr_player), card_drawn); // for now, just give them a card
+          send(int(curr_player), card_drawn); // for now, just give them a card and skip their turn
         }
-        else{
-          // CHANGE -- Activate ability here
+        else{ // if the player DOES have playable cards and plays a card
           face_up_card = played_card; // change the face_up_card to the card that was just played
+          send(int(curr_player), CARDS_LEFT); // Asking the current player how many cards they have left
+          uint16_t cards_left = recv(int(curr_player)); // receive a response
+
+          if(!cards_left){ // if the player has no cards left
+            winner = curr_player; // give the win to the currrent player
+          }
+          else { // Otherwise activate the card's ability
+            switch(plc_ability):
+              case 0x0: // if the card has no ability
+                break; // don't do anything
+              case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
+                card_drawn = get_from_deck(game_deck);
+                send(int(curr_player), card_drawn);
+                card_drawn = get_from_deck(game_deck);
+                send(int(curr_player), card_drawn); // this is about as efficient as a for loop
+                break;
+              case CARD_ABILITY_UNO_P4:
+                for(int i = 0; i < 3; i ++){
+                  card_drawn = get_from_deck(game_deck);
+                  send(int(curr_player), card_drawn);
+                }
+                send(int(curr_player), UNO_WANT_COLOR); // ask what color they want
+                fuc_color = recv(int(player));
+                break;
+              case CARD_ABILITY_UNO_REVERSE:
+                direction = (direction == 1) ? 0 : 1; // can't just flip the bits, sadly
+                break;
+              case CARD_ABILITY_UNO_SKIP:
+                curr_player = (curr_player + ((direction * 2) - 1)) % 4; // go to the next player, but then this player doesn't get to play, thus skipping the player
+                break;
+              case CARD_ABILITY_UNO_WILD:
+                send(int(curr_player), UNO_WANT_COLOR); // ask what color they want
+                fuc_color = recv(int(player));
+                break;
+              default:
+              // ERROR
+          }
         }
       }
     }
