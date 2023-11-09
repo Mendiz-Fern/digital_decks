@@ -50,7 +50,6 @@ uint16_t recv(int controller){
   // if there's no response, just return FN_RET_NULL
 }
 
-
 Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Can't we just call "draw" multiple times? 
 
 }
@@ -118,4 +117,10 @@ void setup_game(int game_ID, Deck* deck, int num_players){
     case 0x3: // Setup for skull!
 
     break;
+}
+
+void free_deck(Deck* deck){
+  free(deck->in_deck);
+  // if I end up having to maloc the deck, I'll also uncomment the below line:
+  // free(deck);
 }

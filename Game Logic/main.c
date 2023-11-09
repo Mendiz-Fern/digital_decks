@@ -11,15 +11,15 @@ int main(int argc, char* argv[]){ // This will run in the Center console
   bool game_on = true;
   char current_game = 0x0;
   char current_selection = 0x0; // The current main menu item selection.
-  bool sel0 = false;
-  char* settings_filepath = "";
+  bool sel0 = false; // this guy will tell us if we're currently in the select submenu
+  char* settings_filepath = ""; // no such file yet
   int num_players = 0;
   FILE* settings;
   settings = fopen(settings_filepath, "wb+"); // Open for reading and writing.
   
   while(!num_players){ // This will change, but it'll be strange so I'll have to see to it
     for(int i = 0; i < 4; ){ // check controllers
-      char response;
+      uint16_t response;
       send(i, CONNECTION);
       response = recv(i);
       if(response == CONNECTION) num_players ++;
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       // (c) Paul, Varun, Orry, and I
       //
       char hovering = 0;
-      char instr = recv(0);
+      uint16_t instr = recv(0);
       if(instr == 0x1){ // if we receive a left arrow click
         hovering --; // we go to the previous element
         hovering %= 4; // with, of course, circular logic :)
@@ -59,6 +59,10 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         if(current_selection == 0){ // if we selected item 0 (select game)
           sel0 = ~sel0; // we tell the computer that we're inside the Select Game sub-menu, unless we already were, in which we aren't anymore
           hovering ++; // we go on to hover on item number 1 (which is now going to be the first game)
+        }
+        if(sel0 && current_selection != 0){ // if you're in the game submenu
+          current_game = current_selection; // then the current_game is the current selection
+          current_selection = 0; // and also the  current selection is set to 0 because if you select a game we're going into a different statement
         }
       }
       else if (instr == 0x3){ // if we receive a right arrow click
@@ -99,8 +103,13 @@ int main(int argc, char* argv[]){ // This will run in the Center console
             printf("Power off\n");
             break;
       }
-    }    
-    if(current_selection == 0x1){ // Options Loop
+    }
+    if(!current_selection){ // we're playing a game
+      // Display stand in
+      printf("Starting game %d", current_game); // We tell the player we're loading their game
+      // This is here EXCLUSIVELY because we don't want the code to accidentally go into power off mode bc the currrent_selection isn't 1 or 2
+    }   
+    else if(current_selection == 0x1){ // Options Loop
       // Options screen ASCII art Mockup
       // 
       // == OPTIONS ==
@@ -141,12 +150,14 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     else{ // Power Off
       game_on = false;
     }
+
+
     if(current_game == UNO_GAME){ // UNO Game Loop!! 
-      char winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exixst
-      char curr_player = 0x3; // current player
-      uint4_t direction = 1; // 1 for {1,2,3,4}, 0 for {1,4,3,2}
+      uint8_t winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exist (1 byte)
+      uint8_t curr_player = 0x3; // current player (1 byte)
+      uint4_t direction = 1; // 1 for {1,2,3,4}, 0 for {1,4,3,2} (1 nibble)
       int to_draw = 0;
-      int response;
+      // int response; // this variable was 
       bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
       bool play_after_draw = false; // CHANGE THIS so it actually reads the value from the settings file
       uint16_t played_card;

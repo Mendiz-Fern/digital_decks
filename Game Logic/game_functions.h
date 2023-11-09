@@ -79,6 +79,8 @@ uint16_t get_from_deck(Deck* deck); // Gets a card from deck lol
 uint16_t recv(int controller); // recieves a signal from a controller
 uint16_t send(int controller, uint16_t packet); // sends a signal from a controller
 
+
+void free_deck(Deck* deck); // guess what this does
 // == CONSTANTS FOR GAME ITEMS AND WHATNOT == //
 //= NOT ALL GAMES BELOW  WILL BE IMPLEMENTED =//
 
