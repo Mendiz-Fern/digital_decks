@@ -81,15 +81,15 @@ void setup_game(int game_ID, Deck* deck, int num_players){
   switch(game_ID):
     case UNO_GAME: // Setup for UNO
       // We start by adding all the cards to the deck
-      deck->in_deck = (uint16_t*) malloc(108 * sizeof(uint16_t)); // Allocate for all 108 cards that will be in the deck
+      deck->in_deck = (uint16_t*)malloc(108 * sizeof(uint16_t)); // Allocate for all 108 cards that will be in the deck
       deck->size = 108;
       for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
         uint16_t color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
 
         (deck->in_deck)[i*19] = (uint16_t)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
         for(int j = 1; j < 10; j ++){
-          (deck->in_deck)[i*19 + j]   = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_COLOR_SHIF)T); // add the card with number j in the jth position after its color's 0 card
-          (deck->in_deck)[i*19 + j + 10] = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_COLOR_SHIFT)); // and also the j + 10th position after its color's 0 card
+          (deck->in_deck)[i*19 + j]   = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // add the card with number j in the jth position after its color's 0 card
+          (deck->in_deck)[i*19 + j + 10] = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // and also the j + 10th position after its color's 0 card
         }
         // If the above loop runs all four times, we have the first 76 cards populated.
         // If the loop below runs all four times, we have the next 24 cards populated. 
@@ -107,11 +107,26 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       }
       // We have completely populated the deck now
       // Now we have to Deal cards to the players. 
+      for(i = 0; i < num_players; i++){ // for each connected player
+          for(j = 0; j < 7; j++){ // for each of 7 cards
+            uint16_t card_drawn = get_from_deck(deck); // grab a card
+            send(i, card_drawn); // and send it over
+          }
+      }
 
     break;
   
-    case 0x2: // Setup for Rummy
-      
+    case SOLITAIRE_GAME:// Setup for Solitaire (not Rummy)
+      // we start by adding all the cards to the game
+      deck->in_deck = (uint16_t*)malloc(52 * sizeof(uint16_t));
+      deck->size = 52;
+      for(int i = 0; i < 4; i++){ // divide cards by suit
+        uint16_t suit = i << CARD_COLOR_SHIFT;
+        for(int j = 0; j < 13; j ++){
+          (deck->in_deck)[13*i + j] = (uint16_t)(CARD_GAME_SOLITAIRE + suit + ((j + 1) << CARD_NUMBER_SHFIT)); 
+          // add a card in the (13i+j)th position that corresponds to the (i+1)th suit and the (j+1)th number (if j=1 this card will be interpreted as an ace, duh)
+        }
+      }
     break;
 
     case 0x3: // Setup for skull!

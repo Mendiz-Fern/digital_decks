@@ -155,7 +155,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     if(current_game == UNO_GAME){ // UNO Game Loop!! 
       uint8_t winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exist (1 byte)
       uint8_t curr_player = 0x3; // current player (1 byte)
-      uint4_t direction = 1; // 1 for {1,2,3,4}, 0 for {1,4,3,2} (1 nibble)
+      uint8_t direction = 1; // 1 for {1,2,3,4}, 0 for {1,4,3,2} (1 nibble)
       int to_draw = 0;
       // int response; // this variable was 
       bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
@@ -236,6 +236,12 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       }
     }
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
+      uint8_t win= 0x0; // this cariable will state if we've won or not yet
+      uint16_t played_card;
+      uint16_t fuc_color, fuc_num, fuc_ability; // might have to change these a LOT
+      uint16_t plc_color, plc_num, plc_ability;
+    
+      setup_game(SOLITAIRE_GAME, &game_deck, 1); // Setup UNO
     }
     else if(current_game == SKULL_GAME){ // Skull Game Loop
     }

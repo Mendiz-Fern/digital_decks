@@ -156,3 +156,9 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY_UNO_REVERSE 0x0004 // Ability 4 is Reverse
 #define CARD_ABILITY_UNO_WILD 0x0005 // Abiity 5 is a plain wild
 #define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible state to reach, so it will be the indicator that you have no cards to play
+
+#define CARD_SUIT_CLUB        0x0008 // suit 2 is clubs
+#define CARD_SUIT_HEART       0x0010 // suit 2 is hearts
+#define CARD_SUIT_SPADE       0x0018 // suit 3 is spades
+#define CARD_SUIT_DIMOND      0x0020 // suit 4 is dimonds
+#define CARD_ABILITY_JOKER    0x0001 // ability 1 is not an ability it's just a joker card lol
