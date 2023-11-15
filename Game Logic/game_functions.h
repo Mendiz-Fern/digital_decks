@@ -103,6 +103,7 @@ void free_deck(Deck* deck); // guess what this does
 #define RECV_CENTER     0x2 // I know this is reused
 #define RECV_RIGHT      0x3 // I know this is reused. 
 #define FN_RET_NULL     0x4 //counterintuitive, but who cares? 
+#define RECV_PAUSE      0x5 // lol
 #define SET_UP          0x10 // indicates that we have to set up the controller to receive and send signals from a game
 #define SET_UP_UNO      SETUP + UNO_GAME // 0x11
 #define SET_UP_SOLITAIRE SETUP + SOLITAIRE_GAME  // 0x12
@@ -162,3 +163,5 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_SUIT_SPADE       0x0018 // suit 3 is spades
 #define CARD_SUIT_DIMOND      0x0020 // suit 4 is dimonds
 #define CARD_ABILITY_JOKER    0x0001 // ability 1 is not an ability it's just a joker card lol
+#define CARD_ABILITY_FCUP     0x0002 // ability 2 is a card being faceup
+#define CARD_ABILITY_JKFU     0x0003 // if a joker is faceup lol

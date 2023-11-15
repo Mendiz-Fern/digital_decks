@@ -151,7 +151,6 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       game_on = false;
     }
 
-
     if(current_game == UNO_GAME){ // UNO Game Loop!! 
       uint8_t winner = 0x4; // Winner starts as player 5, since Player 5 doesn't exist (1 byte)
       uint8_t curr_player = 0x3; // current player (1 byte)
@@ -238,10 +237,83 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
       uint8_t win= 0x0; // this cariable will state if we've won or not yet
       uint16_t played_card;
+      uint16_t move;
+      uint8_t hovering_pile = 0;
+      uint8_t selected_pile = 69; // 69 means we haven't selected a pile
       uint16_t fuc_color, fuc_num, fuc_ability; // might have to change these a LOT
       uint16_t plc_color, plc_num, plc_ability;
-    
-      setup_game(SOLITAIRE_GAME, &game_deck, 1); // Setup UNO
+      Hand* piles[12]; // list of hands which will make up the piles in the thing
+      Hand* holding; // cards currently being held 
+      // Piles 0-6 are the piles where the cards go face down 
+      // Piles 7-10 are the piles where the finished cards go
+      // Pile 11 is the pile where you can grab cards from
+      // The face-down version of said pile will simply be the deck
+
+      setup_game(SOLITAIRE_GAME, &game_deck, 1); // Setup the solitaire deck
+      for(int i = 0; i < 7; i++){ // filling in the first 7 decks
+        piles[i]->in_hand = (uint16_t)malloc(20 * sizeof(uint16_t)); // Pile size here will not exceed 20
+        piles[i]->size = 0;
+        int j;
+        for(j = 0; j < i+1; j++){
+          uint16_t card_drawn = get_from_deck(game_deck);
+          piles[i]->size ++;
+          piles[i]->in_hand[j] = card_drawn; 
+        }
+        piles[i]->in_hand[j] |= CARD_ABILITY_FCUP; // make the top card be face up in each pile
+      }
+      for(i = 7; i < 11){ // the 4 final piles
+        piles[i]->in_hand = (uint16_t)malloc(13 * sizeof(uint16_t)); // Pile size here will not exceed 13
+        piles[i]->size = 0;
+      }
+
+      piles[11]->in_hand = (uint16_t)malloc(24 * sizeof(uint16_t)); // this pile will start having a max size of 52-7-6-5-4-3-2-1 = 24
+      piles[11]->size = 0;
+
+      holding->in_hand = (uint16_t)malloc(13 * sizeof(uint16_t));
+      holding->size = 0;
+      // Pile setup complete
+
+      while(!win){ // begin GAME LOOP (long as we haven't won)
+        move = recv(0); // get the player's move
+        if(move == RECV_LEFT){ // if the player wants to go left
+          hovering_pile = (hovering_pile - 1) % 12; // we hover over the previous pile
+        }
+
+        else if(move == RECV_CENTER){ // if player pressed center
+          if(selected_pile == 69){ // if we haven't selected a pile
+            if(hovering_pile < 7){ // and we're selecting one of the grabbable piles
+              int u = 0; 
+              while(!(piles[hovering_pile]->in_hand[u] & CARD_ABILITY_FCUP)){ // we look to see what cards are available to grab
+                u ++;
+              }
+              for(int i = 0; i < 13; i ++){ // and we transfer them over to the "holding" hand in the following manner
+                holding->in_hand[i] = piles[hovering_pile]->in_hand[u]; // put card u (first face up to begin) in the pile inside the current holding hand at i (0 to begin)
+                piles[hovering_pile]->in_hand[u] = 0; // remove card u from the deck
+                piles[hovering_pile]->size --; // and also decrease its size 
+                holding->size ++; // also add a number to the size of the holding hand
+              }
+              selected_pile = hovering_pile; // and we tell the game which pile we have in our hands
+            }
+            else if(hovering_pile == 11){ // if we clicked on the draw pile
+              uint8_t draw_pile_size = piles[11]->size
+              piles[11]->in_hand[draw_pile_size - 1] = get_from_deck(game_deck); // The last card is a random drawn card
+              piles[11]->size ++; // and also increase the size of the pile so we can keep at it
+            }
+            // if we don't have a selected pile and we select one of the piles that isn't a selectable pile, we can go die
+          }
+          else{
+
+          }
+        }
+        else if(move == RECV_RIGHT){ // if player goinng right :)
+          hovering_pile = (hovering_pile + 1) % 12; // we hover over the next pile
+        }
+        else if(move == RECV_PAUSE){ // if player pauses
+
+        }
+      }
+
+
     }
     else if(current_game == SKULL_GAME){ // Skull Game Loop
     }
