@@ -160,8 +160,8 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       bool stack = false; // CHANGE THIS so it actually reads the value from the settings file
       bool play_after_draw = false; // CHANGE THIS so it actually reads the value from the settings file
       uint16_t played_card;
-      uint16_t fuc_color, fuc_num, fuc_ability;
-      uint16_t plc_color, plc_num, plc_ability;
+      uint16_t fuc_color, fuc_num, fuc_ability; // face-up card
+      uint16_t plc_color, plc_num, plc_ability; // played card
     
       setup_game(UNO_GAME, &game_deck, num_players); // Setup UNO
       uint16_t face_up_card = get_from_deck(game_deck);
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           fuc_color = face_up_card & CARD_COLOR; // then we look for it
         }
 
-        curr_player = (curr_player + ((direction * 2) - 1)) % 4; // Start by selecting the next player
+        curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
         played_card = recv(int(curr_player)); // now receive a card from the current player
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
@@ -206,14 +206,14 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
                 card_drawn = get_from_deck(game_deck);
-                send(int(curr_player), card_drawn);
+                send(int((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 card_drawn = get_from_deck(game_deck);
-                send(int(curr_player), card_drawn); // this is about as efficient as a for loop
+                send(int((curr_player + ((direction * 2) - 1)) % num_players), card_drawn); // this is about as efficient as a for loop
                 break;
               case CARD_ABILITY_UNO_P4:
                 for(int i = 0; i < 3; i ++){
                   card_drawn = get_from_deck(game_deck);
-                  send(int(curr_player), card_drawn);
+                  send(int((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 }
                 send(int(curr_player), UNO_WANT_COLOR); // ask what color they want
                 fuc_color = recv(int(player));
@@ -222,7 +222,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 direction = (direction == 1) ? 0 : 1; // can't just flip the bits, sadly
                 break;
               case CARD_ABILITY_UNO_SKIP:
-                curr_player = (curr_player + ((direction * 2) - 1)) % 4; // go to the next player, but then this player doesn't get to play, thus skipping the player
+                curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // go to the next player, but then this player doesn't get to play, thus skipping the player
                 break;
               case CARD_ABILITY_UNO_WILD:
                 send(int(curr_player), UNO_WANT_COLOR); // ask what color they want
