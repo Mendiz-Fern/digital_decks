@@ -20,6 +20,7 @@ These are structs that will be useful to us (maybe) in the future
 // THE CARD STRUCT HAS BEEN REMOVED AND INSTEAD REPLACED WITH A uint16_t, WITH THE BITS DEFINED AS FOLLOWS:
 // [ 2 ][    4    ][     4     ][     3     ][   3   ]
 // [n/a][GAME NAME][CARD NUMBER][COLOR/ SUIT][ABILITY]
+// This allows to have cards with 8 different abilities picked from 6 different colors, with numbers 1-16 picked from a selection of 16 games.
 
 // Struct for Deck. It contains a couple of items, and takes up 13 bytes of data (under the size assumptions of the Card struct)
 // I would once more like to urge people to correct any issues here

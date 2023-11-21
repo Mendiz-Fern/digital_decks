@@ -1,0 +1,1558 @@
+WEEK 1 (will not be as detailed as WEEK 2, as it is being written from memory)
+> None of Week 1 is in actual order
+> Spent about an hour trying to get ChatGPT to give ideas for original games for our console, but it was futile, ChatGPT only knows how to invent Rummy [pic related]
+>	- Link to GPT chat https://chat.openai.com/share/3c084338-5492-41b6-9458-fbfc72e4cb40 
+> Consulted Dr. Walter about dates and deadlines
+> Furthermore, we all organized ourselves for the future, picking our roles (I had to discuss some deadlines and whatnot)
+> Spent around 30 monites adding Dr. Walters comments on the shared version of the initial project proposal so we could get it done without having to 
+> switch between documents all the time
+> Spent maybe 2-2.5 hours revising section 5.0 of the Initial project proposal. Here's what was done:
+>	- Read the entire section
+>	- Looked for and added pictures for every Patent, Open source product, and real product
+>	- Added more comparison points between our product and the ones listed in section 5 (for every one of them)
+>	- Familiaraized myself a little more with some of the previously selected products:
+>		* Watched the kickstarter campaign for Commercial product #2
+>		* Downloaded and Played (for a small while) Open source project #3
+>	- Wrote a very long paragraph about open source project #3 in an attempt to compare and contrast it with our project [Pic related]
+>	- After realizing Open source project #3 didn't quite fit anything similar to our own project, I went and told the team about it, so we found another one
+>	- After a new Open-source project was found, I was the one who looked at it, read the website, and wrote the section for it. 
+>	- Changed the sources in the proposal (since some had to change), also made sure the links worked (some didn't before)
+>	- I feel like it makes sense this all took me 2 hours and maybe 15 minutes
+> This section might be incomplete, as I don't quite recall what else was done last week.
+
+>> 3:30 HOURS:MINUTES of work this week <<
+
+>>> == 3:30 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 2
+> [8/30/23 14:40] Created git repository for code
+> [8/30/23 14:50] Started working on code for player actions (mostly brainstorming and skeleton code) [Pics related]
+> 	    	  Created the following files: main.c, player_functions.h and .c, game_functions.h and .c (not in that order)
+> 		  Added function skeletons for the non-main files (discussed functionality with teammates)
+>		  Function skeletons added: [Pics related]
+>			- select_card
+>			- get_deck
+>			- setup_game
+>			- deal
+> 		  A speculative struct for what a card is was also added to game_functions.h
+> [8/30/23 15:55] Stopped working on code. It's sllightly messy, but it will do for now. A lot of this might be overhauled
+> [8/30/23 15:55] Started team discussion regarding bill of materials.
+> 		  Not much was done. Discussion lasted about 65 minutes, we all looked through different memory chips we could use to								  store some game data (card pictures) and didn't really reach a decision
+		  I asked Orry about interfacing with the ESP32 using USB, which he had worked with before while I hadn't 
+		  there was some discussion had about what card games to include
+> [8/30/23 16:30] This was probably about how much useful contribution I personally had to the discussion. Let's count me 35 min here
+> [8/30/23 17:00] Team discussion ended, team talk with Dr. Walter, TA, and Joseph started
+> [8/30/23 17:17] Team discussion with Dr. Walter, TA, and Joseph ended.
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+> [8/30/23 18:05] Got on Bus, worked on revising what had been previously written for A2
+>		  Added on to the existing functional diagram
+>		  Added a small amount of specifics to parts 1, 3 and 4.
+>		  Read through all the existing document
+> [8/30/23 18:25] Got off bus, stopped working on A2
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:30 HOURS:MINUTES of work this week so far <<
+
+> [8/31/23 17:15] Started discussion with Paul about adding a new feature
+>		  Said feature is the idea to add a gyroscope to the controller
+>		  This gyroscope could, in theory, control some very intuitive things, for example:
+>			- Flick controller Upwards to "flip the table" and rage quit
+>			- At the beginning of a game, be given the deck and shake your controller to shuffle the deck
+>			- During your turn, shake your controller to rnadomize card order (bonus for this - you can also randomize the
+>			  selected card if you really care that little)
+> [8/31/23 17:45] Ended discussion, now having included Orry and Varun.
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:00 HOURS:MINUTES of work this week so far <<
+
+> [9/01/23 16:50] Got home, started debugging compiler issues on the code (stdio not working properly)
+> [9/01/23 17:20] Added temporary fix for issue
+>		  Downloaded Windows build for GCC (MinGW) separately (from https://winlibs.com/) and put it in the Git repository for the time being.
+>		  This does, however, make the repository almost a whole GB larger, so this will later have to be fixed
+>		  After finishing that solution, I had 4 times as many errors
+> [9/01/23 17:26] Started trying to fix the issue by updating the include path
+> [9/01/23 17:30] Error turned to warning, had to go into VSCode Settings, C_Cpp -> Default Settings -> enable intelliSense engine fallback
+> [9/01/23 17:30] Warning- stdio.h not on include path
+> [9/01/23 17:35] Decided to leave the warning for now to focus on coding, it WILL come back later
+> [9/01/23 17:35] Started cleaning up the mess I left last time
+>		  Discussed what games to add with team, personally decided to add euchre, other games were also decided on. Not all are requirements in our opinion
+>		  Added constants for Games in the code. [Pic related]
+>		  There's a joke in there, because we once asked ChatGPT what ideas it had for card games, and it always just ended up "inventing" Rummy
+>		  so I added a constant "GPT_IDEAS" which is the same as RUMMY_GAME.
+>		  
+>		  Added descriptive comments to the Card Struct (and fixed incorrect syntax)
+>		  Made another struct, Deck. You can imagine what it is. I also added descriptitve comments to this. [Pic related]
+>		  Thought about making a GameState Struct, but eventually ended up not doing it, as games are quite different from
+>		  each other, and having 
+>		  Made a function to Shuffle the deck and documented it as well as I could. [Pic related]
+>		  Marked "Shuffle" as // UNTESTED //. At this point- everything is
+> [9/01/23 19:10] Took a break from coding. Made sure everything was properly uploaded to the GitHub (we're at 2 hours 20 minutes here)
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+> [9/01/23 20:55] Bounced some ideas about shuffling the deck with some teammates and ended up deciding it'd be better to not have the shuffling code
+>		  at all, and that it's better to simply pick a random card when the player picks a card from the deck. 
+> [9/01/23 21:00] Realized the "deal" function is kind of useless as well, since we can simply call the player's "draw" function however many times
+>		  correspond to the amount of cards that have to be had 
+> [9/01/23 21:10] Made a small description of what player functions are, as well as deleted all the reduntant skeletons from game_functions.c [Pic related]
+> [9/01/23 21:15] Finished for the day and for the week
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 5:30 HOURS:MINUTES of work this week so far <<
+
+>>> == 9:00 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 3
+
+> [9/03/23 18:20] Began Reading A3
+> 		  researched some shuffling algorithms to use in order to shuffle a player's hand
+>		  Pages used:
+>			- https://observablehq.com/@jonhelfman/shuffling-algorithms
+>			- https://medium.com/nerd-for-tech/shuffling-algorithms-and-randomization-to-improve-algorithm-s-runtime-47f7fc705df 
+>			- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+>			- https://saturncloud.io/blog/python-shuffle-algorithm-performance-a-comprehensive-analysis/#:~:text=The%20Fisher%2DYates%20Shuffle%20Algorithm%20guarantees%20a%20uniform%20distribution%20of,choice%20for%20shuffling%20large%20lists.
+>		  	- https://mathworld.wolfram.com/RiffleShuffle.html
+>		 Settled on Riffle Shuffle after reading all those web-pages		  
+> 		 Wrote about two of the algorithms I'm planning on using regarding the game logic (shuffling algorithms or lack thereof)
+> [9/03/23 19:10] Began flow charts for game logic [Pic(s) related]
+> [9/03/23 19:30] Took break from working
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 1:10 HOURS:MINUTES of work this week so far <<
+
+> [9/04/23 14:00] Decided to refactor the flor chart because it looks nothing like a flow chart
+> [9/04/23 15:00] UNO flowchart complete [Pic related]
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+> [9/04/23 17:30] Started making the UNO state machine
+>		  Began by listing off all possible states I could think of that were visible from the flow chart [Pic realted]
+>		  Continued by listing all variables that could be realistically used in a change of state. [Pic Related]
+>		  Finally, ended up making a color-coded state machine which operates using a 19-bit state variable (this is only for UNO)
+> [9/04/23 19:00] Finished a rudimentary UNO mealy state machine, which has a questionable state [Pic related]
+> [9/04/23 19:00] Shared mealy state machine with teammates for tips and approval.
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:40 HOURS:MINUTES of work this week so far << 
+
+> [9/06/23 14:50] Checked into lab to Resume work on A3- Software OVerview
+> 		  Added Some data structures to the Data structures section
+>		  Added exitisting flowcharts to document
+>		  Continued making flowcharts for document
+>			- Top-Level game logic
+>			- UNO game logic
+>			- Solitaire Game Logic
+>		  Spent a small while testing the screen with Paul
+> [9/06/23 16:26] Prof Walter put everyone aside for a talk. This time doesn't count 
+> [9/06/23 16:40] Went back to A3 and Flow charting.
+>		  Fixed some missing state issues with the UNO flow chart
+>		  Completed the solitaire flow chart
+> [9/06/23 17:15] Individual Team meeting
+>		  Discussed PSDRs and Stretch Goals
+> [9/06/23 17:30] Individual meeting done
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 4:55 HOURS:MINUTES of work this week so far <<
+
+> [9/07/23 11:55] Went back to lab to work on A3 once more (yeah I know, this is all I've been doing) 
+>		  Resumed working mostly on the first part, describing the logic in the microcontrollers and the main computer
+> [9/07/23 12:20] Realized the Solitaire game Flow chart was missing draw logic. Went to fix that.
+> [9/07/23 12:35] Finished adding the draw logic for Solitaire and resumed working on A3
+>		  Finished part 1- Software Overview. Onto part 2- Description of algorithms
+> [9/07/23 12:50] Took lunch break
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 5:55 HOURS:MINUTES of work this week so far <<
+
+> [9/07/23 14:05] Returned to lab to work on A3
+>		  Pulled up the example files to read through them and base my structure on them
+> [9/07/23 14:40] Started Flow chart for shuffling algorithm
+>		  Struggling with Flow chart for Shuffling
+>		  Acquired help from Paul to get an explanation on how the algorithm works
+> [9/07/23 15:20] Finished the flow chart for Shuffling algorithm
+> [9/07/23 15:20] Investigated card games to add as the definitive third card game (did research for which would be better out of the ones we had or others)
+>		  Settled for "The Crew"
+>		  Got an explanation on how the game works
+> [9/07/23 15:40] Done for the time being
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:30 HOURS:MINUTES of work this week so far <<
+
+> [9/08/23 14:40] Got to lab, helped test some speakers for the microcontrollers
+> [9/08/23 14:55] Started working on A3 again
+>		  Finished part 3 (part 2 still on hold, as I don't yet quite comprehend the game "The Crew")
+> [9/08/23 15:36] Started making the State Machine Diagram for part 5.0
+> [9/08/23 16:30] Finished the State Machine for Part 5 of the software review [Pic related]
+> [9/08/23 16:30] Took Small break
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 8:20 HOURS:MINUTES of work this week so far <<
+
+> [9/08/23 17:10] Began investigation on "The Crew" and its rules and how to play
+>		  Watched video explaning the rules (https://youtu.be/f9ruNhiIXy4)
+> [9/08/23 17:10] Maybe We're not doing "The Crew". Began Investigating a card game called "Skull"
+>		  Read the Rule Book for "Skull"
+> 		  Much more reasonable
+> [9/08/23 17:40] Began the final stretch of A3
+> [9/08/23 17:50] Started making the Flowchart for "Skull"
+> [9/08/23 18:35] Finished the Flowchart for "Skull" [Pic Related]
+> ---------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 9:45 HOURS: MINUTES of work this week so far <<
+
+>>> == 18:45 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+
+WEEK 4
+
+> [9/12/23 14:05] Got to lab, Began re-refactoring the game logic code
+>		  Realized a fair amount of things
+>			- User input will be given to the main program, which will, itself, have to act on it as it goes
+>				* this is actually quite difficult, since we're programming this in C
+>			- Main problem is sending, receiving, and checking for input
+>			- everything else is actually not that bad
+> [9/12/23 14:35] Completed an ASCII mockup for the main menu screen, which could be used for testing before we have real graphics [pic related]
+> [9/12/23 14:35] Restarted the entirety of game logic, using MULTIPLE stand-ins for things such as
+>			- Receiving a signal from controller
+>			- Sending a signal to the controller
+> 			- Displaying anything, really, for the moment
+> [9/12/23 15:15] Completed the Main Menu Logic [Pic related]
+>		  Print logic took a while, it's not included in the figure, as it will be replaced later for certain
+> [9/12/23 15:15] Immediately begun working on the different possible next states
+> [9/12/23 15:25] Created an idea for the settings file format. Here's the gist:
+>			- There are, say, X settings that can either be yes or no (true/false, 1/0)
+>			- Have X lines in the settings file, each of them with a single bit- 1 or 0
+>			- If setting Y is selected during the setting select loop
+>			- Go to line Y in the file, and flip its bit
+> [9/12/23 15:40] Since I'm rusty with File modification, I decided to go on to the next loop for the time being and leave a description for this loop in the Code.
+> [9/12/23 15:40] break
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>>  1:35 HOURS:MINUTES of work this week so far << 
+
+> [9/12/23 17:45] Got back to lab, started researching interfacing for C with Paul
+>		  Found a library that could be used to interface USB with C (https://libusb.info)
+>		  How to interface my C code with Varun's cpp OpenGL
+>		  Send a message to Varun about this
+> 		  Discussed software spec with Paul
+> [9/12/23 18:00] Dinner
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 1:50 HOURS:MINUTES of work this week so far <<
+
+> [9/12/23 23:30] Started working on the actual game loop for UNO
+>		  Began following the flow chart that was made for A3 previously
+>		  Also followed the state machine I drew last week
+>		  Realized that I'd have to send and receive specific packets that were undefined, so I started defining these packets for specific actions
+>		  Declared the following packet constants: [pic related]
+>			- CONNECTION (to verify a controller is connected)
+>			- SET_UP (to let a controller know what game its playing so it expects that game's packets)
+>			- Game-specific SETUP_[game] constants
+>			- UNO-specific packet constants such as:
+>				* UNO_SUCCEED
+>				* UNO_FAIL
+>				* A specific packet for each color (so you can simply add GOT_COLOR to the color packet and get the GOT_COLOR packet)
+>				* UNO_GOT_COLOR (and its different variants per color)
+>				* UNO_WANT_COLOR (when sending this, an UNO_COLOR contant is expected)
+>		  Wrote the function detailed in the general state machine that checks for controller connection
+> [9/13/23 00:30] Started realizing that maybe having Structs for Cards might be a little too complex
+>		  Began consdiering simply having an integer of sorts, with a fixed amount of bits, as follows:
+>			- 4 MSB for number in the card
+>			- 3 next bits for Suit/Color
+>			- 3 next bits for ability (most games don't have card abilities anyways, and UNO only has 5: +2, +4 (which is a wild), WILD, skip, and reverse)
+>		  This strategy has a total of 10 bits per card, as opposed to the previous 16 bytes for Card struct
+> [9/13/23 00:35] Decided to finish for the day, as the idea of changing cards would result in a massive overhaul of the code, but it might actually make it more efficient
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:55 HOURS:MINUTES of work this week so far <<
+
+> [9/13/23 14:45] Got to lab and began working on refactoring the code to disallow Card structs and instead use 16-bit codes for cards.
+>		  A char has a single byte of data (8 bits), but a short int has 2 bytes (16 bits), which is perfect. 
+> [9/13/23 14:55] Finished removing all traces of a Card struct
+> 		  Started adding functions and such to deal with the new cards 
+> [9/13/23 15:05] Took a look at the screens with Paul
+> [9/13/23 15:10] Back to coding.
+>		  Started making a function that would populate the deck for an UNO game
+> [9/13/23 16:20] Completed the Function that populates an UNO deck [Pic Related]
+> [9/13/23 16:25] Started Thinking of strategies for dealing cards (which would eventually help with drawing cards)
+>			- Dealing a card is the same as drawing a card, in spirit. Doesn't matter who grabs the card, it's being randomly given
+>			- So Dealing cards will use the "draw" function. 
+>			- Drawing a card involves taking a random card from the deck and making sure it doesn't get taken again
+>			- There's a reason I made the deck have X many of each card
+>			- Current working idea:
+>				* Every time I card is drawn, move it to the end of the deck (order of the other cards doesn't matter)
+>				* Shorten the size variable of the deck by 1
+>				* next time you draw, only consider the cards in the range [0, size_of_deck]
+> [9/13/23 16:30] Began trying to implement this in the draw function
+> [9/13/23 16:30] Group talk, so the next 15 minutes don't count
+> [9/13/23 16:45] Team meeting
+>		  Got to explain some of the software I've been working on
+> [9/13/23 17:00] Team meeting over
+> [9/13/23 17:10] We started our own personal team meeting about priorities and whatnot (without instructors)
+>		  decided to change my priorities from coding UNO the game, to making sure we can send and receive information on the Microcontroller's side
+>		  Asked about what software I needed to send code to the Microcontroller
+>		  Asked about the MCs libraries for use with C
+>		  Divvied up software responsibilities with Varun
+> [9/13/23 17:45] Team meeting ended. 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 5:10 HOURS:MINUTES of work this week so far <<
+
+> [9/15/23 00:00] Started trying to download the necessary software and drivers and plugins to be able to flash C code to the ESP 32
+>		  Began by downloading Eclipse IDE for C and C++
+>		  Unsure why, but apparently the IDE doesn't isntall any C libraries or set up any Makefiles, which are necessary to test code
+>		  Also it seems I don't have GCC on my machine
+>		  Download GCC on my machine. Code can now be opened without any issues
+> [9/15/23 00:15] At the moment, trying to build or run the code, gives one of two different errors [next two pics related]
+>		  This makes me suppose that I'm meant to build the project before running it, which actually makes a lot of sense
+>		  Attempted to make my own makefile
+>		  Failed, Eclipse wasn't detecting the makefile
+>		  Tried moving it around all the directories listed as possible directories and building
+>		  Did not work
+> [9/15/23 00:35] Found a stack overflow post (https://stackoverflow.com/questions/11579135/program-make-not-found-in-path) with help
+>		  Followed instructions (took me a while to realize where the settings were even though it says so right there)
+>		  For clarification, it's the project settings, not just the IDE settings, which can be accessed by right-clicking the project folder
+>		  found an auto-makefile in the setting, selected it, and got to build a hello world program
+> [9/15/23 00:45] Ran the hello world code... Binary not found again
+>		  Where is the binary?
+>		  Changed the current toolchain to something called MinGW (mentioned during week 1)
+>		  Found the binary. It was empty.
+>		  Added a home directory for MinGW by going to Project_settings->C/C++_Build->Environment and changing the value for MINGW_home
+> [9/15/23 00:58] Built again. Checked binary- Not empty
+>		  Ran Again. New Error
+>		  Was going to take a picture of the failed run, but selected a different setting
+> [9/15/23 01:00] Code Runs (just hello world)
+> [9/15/23 01:00] Started looking at the libraries necesssary to flash code onto the ESP32
+>		  Found the official GitHub for Espressif, which had an option to install plugins directly in Eclipse IDE
+>		  https://github.com/espressif/idf-eclipse-plugin/blob/master/README.md#Installation
+> [9/15/23 01:05] Started going through the install process as is detailed in the above website.
+>		  Failed. Not entirely sure what I did. 
+> [9/15/23 01:10] Started trying again.
+> 		  Seems I was missing java on my machine
+> [9/15/23 01:20] Started installing java
+>		  Java wasn't the problem
+> [9/15/23 01:25] Tried downloading the GitHub respository for ESP-IDF 4, which is implied is needed but never explained how to get working
+>		  Here's how I installed ESP-IDF 4
+>			- First, I downloaded the Git repository into my computer and unzipped it
+>			- Ran install.sh (took suspiciously short, didn't work)
+>			- Ran install.ps1 (that one took a reasonable amount of time)
+>			- Didn't work yet
+>			- Ran export.ps1, which is allegedly imporant
+>			- Turns out I needed to run export.bat
+>			- Ran export.bat (got a warning from windows saying it might be malicious)
+>			- Still didn't work
+>			- Ran install.bat and export.bat again, then restarted the computer
+>			- did not work
+> [9/15/23 2:00] Done for the night. Will continue with this later today/ tomorrow
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 7:10 HOURS:MINUTES of work this week so far <<
+
+> [9/15/23 14:40] went into lab, since I'm alone at the moment, I attempted to look for a youtube video or similar explaining how to install the IDF
+>		  found a website that has a direct download link https://dl.espressif.com/dl/esp-idf/?idf=4.4
+> 		  Install was 1.46 GB so it took a small while
+>		  went to the bathroom, returned to an "installation failed" dialogue. I hope it's not too bad
+>		  The video I was following did not work
+>		  Found a different video (both videos are about 5 minutes if you don't follow along, which took me to different download links
+>		  used the new installer to reinstall everything
+> [9/15/23 15:15] FINALLY got the Espressif IDE working, It's not what I was initially going for, but it looks just like Eclipse, and it compiled first try.
+> [9/15/23 15:15] Cleaned up my desktop from all the junk I made on accident
+>		  Also started trying to build a project that I can upload to the ESP32
+>		  Espressif website said I have to download drivers
+> [9/15/23 15:30] No way to build target onto ESP32. Going to restart everything using a third video https://www.youtube.com/watch?v=zXfBuLe1C_U 
+>		  Video didn't work either
+>		  Look at install error again [pic related]
+>		  Notice missing requirement isn't ESP-related, but rather, ESP-IDF requires "osgi.bundle"
+> [9/15/23 15:52] Started doing research on what osgi.bundle is
+>		  osgi is a java bundle, as I'm sure I have java, but I installed it after everything else, I decided to restart the process, now with java in my machine
+> [9/15/23 15:57] Started again. 
+>		  Downloaded Eclipse
+>		  Reinstalled all ESP-IDF software
+>		  Install failed with error code 127. [pic related]
+>		  Went to find the "missing" path
+>		  Path is there, command says it's wrong, but I'm unsure how to fix that
+> [9/15/23 16:15] Started installing with a different installer
+> [9/15/23 16:30] Installer has been stuck in the same screen for 15+ minutes
+> [9/15/23 16:37] Installation process cannot be redone for some reason. Restarted computer
+> [9/15/23 16:40] Deleted and uninstalled everything pertaining to ESP-IDF and started downloading a new installer
+> [9/15/23 16:50] Installed ESP-IDF from https://dl.espressif.com/dl/esp-idf/?idf=4.4 with no errors or warnings
+> 		  On to setting up eclipse
+>		  Did not work
+> [9/15/23 17:06] Decided to install an older version of Eclipse
+>		  Didn't work.
+> [9/15/23 17:22] After asking Paul if he could help, I realized I didn't have to use Eclipse, I can try downloading the VSCode extension! 
+> [9/15/23 17:23] Started looking at how to get the VsCode extension
+>		  Immediately got an error
+> [9/15/23 17:30] No longer have any idea what to do, so I am officially giving up
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 10:00 HOURS:MINUTES of work this week so far <<
+
+>>> == 28:45 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 5
+
+> [9/17/23 17:00] Got back to lab. Decided to start investigating how to use the USB ports on the ESP to be able to program the send and receive functions for the MCU
+>		  Started by looking at the technical reference manual
+> [9/17/23 17:05] Found the manual
+>		  Since we're planning on interfacing with the main computer through USB, I'll go read excluisvely the USB sections first
+>		  MC USB supports speeds from 1.5 Mbit/s to 12 Mbit/s, which is different from what we expected, but still fast enough
+>		  Sending a 10-16 bit packet at 12 Million bits a second vs 120 Million bits a second will likely not make a difference
+>		  While reading the Reference Manual, found the GPIO register map [picrel]  
+>		  IO register maps start in Page 489, the GPIO_PINn_REG map is in page 495
+>		  Got some insight from a stackexchange post (https://arduino.stackexchange.com/questions/89488/my-esp32-s3-devkitc-1-has-two-usb-micro-ports-labeled-usb-and-uart-what-are)
+>			- USB is nothing but V+, V-, Serial Tx and Serial Rx pins
+>			- Wondering whether or not the ESP32 "USB" simply consists of connecting a GPIO pin to Rx, another to Tx, and then just V+ and -
+>			- Seems plausible
+> [9/17/23 17:45] Found a Dev board picture from ESP detailing what is connected to where [picrel]
+>		  Not very descriptive, states that GPIO 39-42 are connected to the USB, but other than that, it doesn't elaborate on what MTMS, MTDI, MTDO, and MTCK mean
+>		  Also lists 4 pins for USB other than the voltage pins, which is not how USB works. 
+>		  page 502 of the datasheet lists these 4 variables as IO-MUX registers rather than GPIO registers
+>		  	- Tried finding out what MTDI, MTDO, MTMS, and MTCK mean
+>			- Did not find anything anywhere online, was left to assume DI and DO stand for Data In and Data Out, respectively 
+>			- MT stands for "matrix", potentially. Then MTDI is MaTrix Data In, MTDO is MaTrix Data Out, MTMS is MaTrix Master Select, and lastly, MTCK is MaTrix Clock
+>			- All of these are speculation, but knowing the acronyms helps
+> [9/17/23 18:00] Had to go
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 1:00 HOURS:MINUTES of work this week so far <<
+
+> [9/17/23 08:15] Decided to try installing the ESP IDF once more
+>		  Heard online that ESP-IDF doesnt work with 2023-09 version of eclipse, has to be 2023-06
+>		  Decided to try it out
+>		  Uninstalled Eclipse IDE 2023-09
+>		  Installed Eclipse IDE 2023-06
+> [9/17/23 08:25] Worked first try
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 1:10 HOURS:MINUTES of work this week so far <<
+
+> [9/18/23 15:05] Got to lab to try and flash software into the ESP32
+>		  Got a python error (missing idf_tools.py)
+>		  Redownloaded the idf-master from the github, which contains some files I seem to have been missing
+> [9/18/23 15:25] Managed to open a new project, but I'm getting the same issue I was having much earlier when I was originally trying to build something in eclipse
+>		  I tried going through the same steps I did before
+>		  Settings aren't the same
+>		  Followed instructions for debugging error on this stack github issue report (https://github.com/espressif/idf-eclipse-plugin/issues/22)
+> [9/18/23 15:55] Began writing my own error report to submit
+> [9/18/23 16:10] As I was writing the error report, I noticed some strange things happening, so I started debugging for myself, got to a new error [Pic related]
+>		  In order to get to this error, I am not exactly sure what I did, but I recall playing around with the toolchain settings in window->preferences->CMake
+> [9/18/23 16:15] Changed my issue report to pertain to my new error
+> [9/18/23 16:30] Realized fatal flaw: not git repository on my fake esp-idf-master that I downloaded
+> [9/18/23 16:40] Decided to actually finish the Issue report
+> [9/18/23 16:55] Finished the Issue report, it can be found here (https://github.com/espressif/idf-eclipse-plugin/issues/821) if it doesn't get removed.
+> [9/18/23 16:55] I'm going to wait to see if I got a response
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:00 HOURS:MINUTES of work this week so far <<
+
+> [9/19/23 13:55] Looked at the asnwers to my GitHub issue. Some solutions were posed, but I decided to fix that later
+>		  For now, a laptop with Eclipse and the ESP IDF was left here in lab by Paul, so I can start dealing with the code for the ESP32
+> [9/19/23 13:55] Tried using the IDE in the other laptop, and it had the same problems I have
+>		  Back to trying to solve my poroblem in my laptop, using the GitHub tips I was given.
+>		  Something about PATH and build toolchains being in different folders
+> [9/19/23 14:25] Asked a question under one of the comments on my issue and left lab for a bit
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:30 HOURS:MINUTES of work this week so far <<
+
+> [9/19/23 15:45] Got back to lab to keep trying to install the proper tools until class
+> [9/19/23 16:00] Left lab. Decided to wait for my question to get answered
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:45 HOURS:MINUTES of work this week so far <<
+
+> [9/20/23 14:30] Got to lab, started discussing software with team mates online
+>		  Asked about what they had been doing with code, as I noticed they had been doing a bunch a things while I was gone
+>		  
+> [9/20/23 14:50] Started working on code for the USB interface and researching how USB works on the ESP32
+>		  Read the section on USB in the Technical Reference Manual (pages 1191 to 1206)
+> [9/20/23 15:15] Paul arrived at lab and let me know that there's example code for USB interfacing (https://github.com/espressif/esp-idf/tree/master/examples/peripherals/usb), so I started reading that
+>		  Resumed reading both the TRM and the example code
+> [9/20/23 15:25] Got interrupted by team discussion on interfacing
+> [9/20/23 15:35] Resumed reading
+>		  Read the example code for HID (keyboard and whatnot)
+>		  Not exactly what I'm looking for
+>		  Started reading console
+> [9/20/23 16:30] After reading the examples, decided to read from https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/peripherals/usb_device.html
+> [9/20/23 16:30] Immediately got pulled aside for the group group meeting
+> [9/20/23 16:40] Group group meeting ended, back to reading the USB Driver API reference
+> [9/20/23 17:10] Had the 15-minute meeting with prof. Walter
+>		  We simply showed him what we had so far in terms of hardware
+>		  Didn't have much to share regarding software
+>		  Went back to reading
+> [9/20/23 17:30] Had to stop reading.
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:35 HOURS:MINUTES of work this week so far <<
+
+> [9/20/23 20:00] On the bus, decided to finish reading the API Reference
+>		  Found example code for using the ESP32 as a serial device, complete with Tx and Rx
+>		  Started to read it on my phone, but some functions were unclear and I'd need to look into them to understand better
+> [9/20/23 20:15] Finished reading the API reference manual
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:50 HOURS:MINUTES of work this week so far <<
+
+> [9/20/23 12:30] got to lab to try running the Serial device example code
+>		  Downloaded the files from the example into a new blank project
+>		  Build failed, had two errors in code
+>		  The first error was asking me to enable TinyUSB CDC driver in menuconfig, which I was unsure how to do
+> [9/20/23 12:45] Got to looking for how to add the CDC driver in Menuconfig 
+>		  The API Reference says to run a python command that, when I try to run it, it gives me an error saying that the command must be run within the ESP idf >		  shell.
+>		  Found out that the dependencies can be installed without using python, so I installed it from the Eclipse IDE.
+>		  Install worked, but I still have to access menuconfig and tell it to enable TinyUSB CDC driver
+> [9/20/23 13:15] This (https://github.com/espressif/esp-idf/issues/5084) issue report has an answer that states the mcongif file was removed in a commit 3 years ago
+> 		  It's not menuconfig anymore, it's sdkconfig now
+>		  Found sdkconfig and enabled the CDC driver for TinyUSB
+> [9/20/23 13:24] Built project again
+>		  Project built, but I was trying to understand how the code functions, and the ESP doesn't seem to be doing anything
+>		  Not sure if it got flashed into the ESP at all...
+> [9/20/23 13:30] Confirmed that my code did not, in fact, get flashed
+>		  Tried flashing the code, but the online instructions didn't work
+>		  Started looking for instruction elsewhere
+> [9/20/23 13:40] I just had to press "run"
+>		  Flashed the software, but the device showed no behavior whatsoever to be quite frank.
+>		  Started reading the code, tried connecting the device to my latop (as a USB device) and I still am not sure what it's doing
+>		  It does show up in my laptop as a "serial device", rather than anything else, which is good. 
+> [9/20/23 14:00] Decided to try something
+>		  Flashed the old project that only displayed the word "ESP32" on the screen
+>		  Connected the ESP32 through USB to my laptop
+>		  Checked what the device was listed as
+>		  Serial Device
+> [9/20/23 14:05] Went back to reading to try figuring out what the code actually does
+>		  Was able to read the output from a serial console, but not send any inputs
+>		  Sending inputs was supposed to be allowed
+> [9/20/23 14:30] Paul got to lab and started debugging with me
+>		  Restarted eclipse, but that didn't work
+>		  Neither did opening a different terminal
+>		  Couldn't even change settings
+>		  Restarted computer
+> [9/20/23 14:50] worked
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 8:10 HOURS:MINUTES of work this week so far <<
+
+> [9/21/23 15:20] Got to lab, and helped paul debug an issue he was having, but at 3:20, I started doing my own work
+>		  Having Already gotten a simple idea of how the microcontroller might work with sending and receiving data, I draw a brief Tx Rx diagram for my first idea 
+>		  of how the Rpi might communicate with the Microcontroller [picrel]
+>		  I also wrote some pseudo code on the white board to instantly rule out errors that might come to mind when initially reviewing the code [picrel]
+>		  After writing the code, I stepped back and read it to Paul, explaining what I meant
+> [9/21/23 15:40] Paul pointed out the code might be unneccesarily inefficient
+>		  Maybe the MCU might not need to wait to receive a signal before it could send one itself
+>		  Maybe the send signal from the MCU could be an interrupt that sends information over and then immediately waits to receive a response
+>		  The MCU sends a signal over and expects one or two of the following responses back from the Rpi:
+>			- Denial of Request (if it's not the player's turn, they get their request denied)
+>			- Approval of Request (If the player sends a good request, it will be approved)
+>			- Requested object (if the player requested to play, the game takes the player's card, if they requested to draw, they get a card, etc.)
+>		  So activating the Tx interrupt also immediately activates the Rx function to receive from the Rpi
+>		  Discussed other possible functionality
+>			- What if we need to steal a card from a separate player (unlikely for planned games)
+>			- How will the Pi know when to give cards to the players (in UNO, for example)
+>				* We just ended up agreeing to let the Pi know every player's deck at all times
+> [9/21/23 16:15] Finished discussion with Paul, and started figuring out how to set up interrups on the ESP 32
+>		  Time to read the reference manual
+> [9/21/23 16:30] Realized we might not want interrups for eveyrthing
+>		  Just call "send" then "receive" whenever you swipe up. No need to interrupt anything
+>		  Maybe interrupts for Buttons, which do need to receive and send inputs and outputs to and from the Rpi
+> [9/21/23 16:45] Went to get the computer in order to begin to try and program something
+> [9/21/23 16:50] Started playing around with code in the other laptop to check results
+>		  Some of the things I discovered and did, in order: (write later)
+>			- Ran the script with no modifications, and found the part of the code that prints out a message [picrel]
+>			- From that, I went into the code that details the print functions, and found out that the letter is stored in a 513-element 8-bit integer list
+>			called "buf"
+>			- Started playing around with the functionality of buf
+>			- after changing the print statements a bit, I found out that every time a letter was typed in the USB's serial, the UART serial would receive
+>			said character (one character at a time)
+>			- This character would be stored in buf[0]
+>			- every character typed would overwrite buf[0], so buf[1] through buf[512] would never be used
+>			- The code used for testing this was simply to try priting the elements of buf[2] every time a character was typed [picrel]
+> [9/21/23 17:30] Finished playing around for the day		   
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 10:20 HOURS:MINUTES of work this week so far <<
+
+>>> == 39:05 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 6
+
+> [9/25/23 14:50] Got to lab, started working on properly receiving and sending info from USB to USB
+>		  Made it so the code receives the buf in increments of up to 513 characters, it exhibits the following behavior:
+>			- A string it typed through the USB interface (the UART receives each letter separately, have to change this to USB)
+>			- As the characters in the string come in, they get saved in a buffer, which shifts right every time a new character comes in through the left
+>			- When character [0] in the buffer is the enter key, it'll print out the buffer (which is in reverse order) and then it'll erase the buffer
+>			- One can start again [picrel (2 pics)]
+> [9/25/23 15:40] Having gotten that to work, I decided to try a different approach, from the USB's side
+>		  To do this, I must read through the code to find out where the USB sends the data from
+>		  First though, I reverted the code back to something close to what it originally was (by commenting out my additions, not deleting them)
+>		  Realized I have no idea where the USB side of things is
+>		  Started reading more documentation:
+>			- https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-guides/usb-otg-console.html	  
+>			- https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/get-started/establish-serial-connection.html
+>			- https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-guides/usb-serial-jtag-console.html
+>			- I also read from the declarations of functions in the code itself
+> [9/25/23 16:15] Found a seemingly useful function in the code
+>		  function is called "tinyusb_cdcacm_register_callback"
+>		  I'm unsure what it does, but it seems important, as per the device driver api reference (https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/usb_device.html#usb-serial-device-cdc-acm)
+>		  After reading through it and some subfunctions, I decided I am lost	  
+> [9/25/23 16:30] Started writing a stack overflow post asking for help interfacing USB
+>		  Here's a link to it (https://stackoverflow.com/questions/77175688/esp-usb-interfacing-without-using-serial-terminals-or-consoles-tinyusb)
+>		  While I was writing the stackoverflow post (https://stackoverflow.com/questions/4583623/usb-and-a-personal-created-device-interfacing-in-windows-using-c-c), I found a similar post (because they give you similar posts to ensure you're not repeating a question)
+>		  I read through the post and its answers but it wasn't useful so I went back to writing 
+> [9/25/23 17:00] Finished the stackoverflow post
+>		  Waiting for answers	   
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:10 HOURS:MINUTES of work this week so far <<
+
+> [9/26/23 17:40] Got an answer (of sorts) to my question, just not a very descriptive one.
+>		  It contained a link (https://www.usbmadesimple.co.uk/) to a USB basics site but I haven't looked at it properly
+>		  I did skim it (it's quite a long document), and it looked mostly like a hardware overview of USB. I decided I'd read it later
+>		  The answer did, however, ask me "What is stopping you from sending and receiving 2-byte messages using USB CDC?"
+>		  This gave me a small idea of what to do.
+> [9/26/23 17:55] Started looking for how to simply drive the CDC
+>		  Began by reading carefully through the USB Driver API reference (https://docs.espressif.com/projects/esp-idf/en/v4.3/esp32s2/api-reference/peripherals/usb.html?#_CPPv422tinyusb_driver_installPK16tinyusb_config_t)
+> [9/26/23 18:05] Found two functions which appear to do what I want them to do (but I have to try it out first)
+>			- tinyusb_cdcacm_write_queue_char
+>			- tinyusb_cdcacm_read
+> [9/26/23 18:05] Started rereading the example to try and understand what was actually going on
+>		  Formed a hypothesis:
+>			- the code first reads from the USB console
+>		  	- Then, if there's an input given to the console, the cosnsole will log this value, as it's received the value
+>			- Then, now that we have this value, we write it back to the USB console
+> [9/26/23 18:10] In order to test my hypothesis, I decided to try to change the buffer being passed into tinyusb_cdc_acm_write_queue into a constant value
+>		  the constant value I picked was "0x00" (as a string)
+>		  was having trouble with that, but I was able to change tinyusb_cdc_acm_write_queue into tinyusb_cdc_acm_write_queue_char and use "0"
+> [9/26/23 18:24] Was able to have the USB set a character in the USB Console every time I type something
+> [9/26/23 18:40] Got the code to exhibit the following behavior (all in the USB's terminal, not UART)
+>			- Receive a character from the terminal (a string works as well, ig)
+>			- If the user presses enter 
+>				* check the latest character sent by the user
+>				* if the latest character is "y", print "recv"
+> 		  [picrel]
+> [9/26/23 18:45] Decided to comment on the code so that I knew what was going on
+> [9/26/23 18:50] Done with the comments, now I gotta figure out how to split the behavior (difficult part, need to colab with varun)
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:25 HOURS:MINUTES of work this week so far <<
+
+> [9/27/23 14:30] Got to lab and started reading on how to change the target device for the signals
+>		  Began by going back to here (https://docs.espressif.com/projects/esp-idf/en/v4.3/esp32s2/api-reference/peripherals/usb.html?#_CPPv422tinyusb_driver_installPK16tinyusb_config_t) to take a look at the functions and variables.
+>		  I'm still not really sure what ITF is
+>			- It is listed as "CDC Device number"
+>			- Can be between 0 and 2 (labaled MAX), inclusive
+>			- Does CDC_ACM_1 connect to something else? 
+>		  Decided to connect the other Dev board we had to see if it appeared as "TINYUSB_CDC_ACM_1"
+>		  It did at first, but then they both stopped appearing, which was odd to me
+>		  The Serial terminal wouldn't stop spazzing out, so I decided to try something else
+> [9/27/23 15:05] Decided to try opening a terminal window and accessing the USB from my own laptop
+>		  Had to go boot into linux to be able to try this
+>		  Couldn't get it to properly connect
+>		  The serial window kept exiting immediately.
+>		  Decided it was probably a fault with the baud rate so I decided to try and go back to the original code to see what baud rate the window was configured for
+>		  		 
+> [9/27/23 15:30] The code was no longer building or running
+>		  Turns out earlier the computer crashed and it caused some things to get moved around
+> [9/27/23 15:40] Started looking for solutions online
+>		  It was attributed online to the ESP-IDF
+>		  Solution was to delete the managed_components folder and them reactivating TUSB CDC on sdkconfig
+> 		  Code Ran now
+> [9/27/23 15:45] Still wasn't working on linux terminal
+>		  Ran command with sudo
+>		  serial worked [picrel]
+> [9/27/23 15:50] Took some time to explain the current code to Varun
+> [9/27/23 16:00] Looked at furniture for the project (we've been considering embedding the design into a table) with Orry and Paul
+> [9/27/23 16:15] Started working on splitting the functions to send and to receive
+>		  issue with splitting is everything is being handled by the callback function
+>	  	  the callback function takes in input and returns an output (very cool)
+>		  but I want different functions for input and output
+>		  the callback is perpetually running, too, which is not what we want
+>		  Through dialogue with Paul decided to try deactivating the callback function and running my own functions
+> [9/27/23 16:30] Write function is not working outside of the callback function
+> [9/27/23 16:30] Had large meeting with multiple teams (time doesn't count)
+> [9/27/23 16:45] said meeting ended
+> [9/27/23 16:45] Decided to read on what the different callback cdcacm config functions are and what their differences are
+> [9/27/23 17:00] Team meeting started
+>		  Lasted 15 minutes
+> [9/27/23 17:15] Talked to Varun about plans for coding and interfacing the ESP with the Raspberry pi for a couple of minutes
+> [9/27/23 17:30] Finished talking to Varun about interfacing
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:10 HOURS:MINUTES of work this week so far <<
+
+> [9/28/23 14:00] Got to lab to start testing the behavior of the different versions of callback functions
+> 		  I already know that callback_rx expects an input, saves it in a buffer, and then gives you the contents of the buffer
+> [9/28/23 14:05] Started testing callback_rx_wanted_char
+>			- adding my old callback function in the spot of callback_rx_wanted_char makes it not work at all anymore. This leads me to believe something is missing
+>			- Looked some constants: The difference is the event triggering the callback function (good to know)
+>			- Unsurprisingly, callback_rx_wanted_char's event is getting a character it wants.
+> [9/28/23 14:15] Started looking around for where to set wanted_char for the callback_rx_wanted_char event
+>			- Google turned up 2 results (both diferent versions of the API ref), and I couldn't find how in the code. This might not be quite useful anyways
+>			- Spent some time trying to run the callback function or anything callback related outside the event-based functions
+>			- Did not work. Went back to what I was doing earlier
+> [9/28/23 14:30] Moved my callback function over to the callback_line_state_changed part of the cofig struct
+>		  Again, dead end. I'm not entirely sure how to trigger any of these events.
+>		  Maybe a stack overflow post might help?
+> 		  Started writing said post
+> [9/28/23 14:50] Finished writing the stack overflow post (https://stackoverflow.com/questions/77197536/esp-usb-callback-function-functionality-and-event-triggers)
+> [9/28/23 14:50] While I wait for an answer, I have an idea to modify the callback function to work more like I want
+>		  Commented out all of the code in the old callback function
+>		  Tried making the callback function just give out an input then wait for input
+>		  Found out that the event for callback_rx is actually a keypress, so the device actually has to get an input before it can get an output
+>		  This is less than ideal
+> [9/28/23 15:05] But what if the callback function contained an infinite loop where everything is handled?
+>		  That way, we just need to give the controller 1 input (say, an input to confirm it's connected) and then it gets turned on
+> [9/28/23 15:05] Began trying to implement the above behavior
+>		  Made the code for the loop [picrel]:
+>			- Send out a "connected" text when a signal is encountered
+>			- Open a loop that runs until the exit command is asserted
+>			- When anything is asserted, print it to the console (i.e., when an input is given, output it to the console)
+>			- If the given character is the exit command, simply exit the loop
+> [9/28/23 15:20] This behavior makes the console time out [picrel]
+>		  Safe to say this behavior isn't desired
+>		  I decided it's best I just wait for a response to my Stack overflow post. 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 7:30 HOURS:MINUTES of work this week so far <<
+
+>>> == 46:35 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 7
+
+> Note- at this time, I am ill, so progress might be slower/ more ineffective
+> [10/2/23 16:15] Went online to check on my stack overflow post
+>		  Received a mostly satisfactory response
+>			- callback_rx simply activated whenever something is received
+>			- callback_rx_wanted_char is when something is requested from the other device
+>			- callback_line_state_changed is for whether or not the USB device is connected, i.e. it'll activate when that fact changes
+>			- The other function the answerer mostly guessed22:49 10/6/2023
+>		  Realized that maybe I was looking at the incorrect example codes
+>		  I'm going to look at the HID code once more (Which is code for mouse and keyboard)
+> [10/2/23 16:30] Started looking at the code for the ESP as an HID. 
+>		  This works completely different from what I was doing earlier
+>		  Still don't completely understand it, to be honest
+> [12/2/23 16:45] Talked to Varun and we concluded it's better to wait and see if it's even allowed to make such a big change
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 30 MINUTES of work this week so far <<
+
+> [10/3/23 18:00] Started preparing to test the HID code to later modify it
+>		  had trouble re-installing te dependencies for tinyusb on the new project (this has to be done for every new project) 
+> [10/3/23 18:30] Fixed the dependency issues, mostly
+>		  Now I have a different issue, which says that the following functions can't be resolved:
+>			- tud_hid_n_keyboard_report
+>			- tud_hid_n_mouse_report
+> [10/3/23 18:30] Decided to run and see what happens
+>		  Didn't work
+> [10/3/23 18:45] While looking for a solution online, I found a stackoverflow post (https://stackoverflow.com/questions/71090220/linking-error-using-idf-py-build-on-esp32s2) with my exact problem
+>		  The post was defunct and there was no real answer to it
+> [10/3/23 18:50] Found a Reddit post (https://www.reddit.com/r/esp32/comments/10kk9c8/tinyusb_undefined_references/) with what seemed to be a helpful comment
+>		  the comment said to define the constant CFG_TUD_HID to be 1 in the file tusb_config.h
+>		  went into tusb_config.h, and CFG_TUD_HID was already defined, but it was defined to be 0
+>		  Changed that
+> [10/3/23 18:52] Tried building again
+>		  Project built suspiciously with no issues
+>		  project was successfully flashed onto the ESP, and it does what it's meant to do
+>			- It presses the 'a' key
+>			- It draws a rectangle with the mouse
+> [10/3/23 19:00] Began to consider the possible implications of this before deciding to move forward with it
+>		  This is direct keyboard input, which is not what anybody had in mind when considering input to the main console
+>		  I'm not sure this would quite work
+> [10/3/23 19:10] Started looking at maybe using the USB CDC without necessarily using callback functions
+>		  Stuck
+>		  Decided to take a step back and reconsider what the device itself has to be able to do through USB
+>		  Drew a diagram [picrel]
+>		  Still struggling to properly describe functionality in terms of the USB interface with the ESP32
+> 		  Is there no way to simply receive an input and transmit an output separately?
+>		  Just drive the USB.
+> [10/3/23 19:20] Went back to reading code
+>		  Got nowhere
+>		  Looked around the internet for sources that might have what I want
+>		  Found nothing
+> [10/3/23 19:45] Gave up. 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:15 HOURS:MINUTES of work this week so far <<
+
+> [10/4/23 15:00] Got to lab.
+>		  I need help
+>		  went back to read my UNO code to try and see if I understood what was going on
+>		  I'm going to have to do this anyways
+> [10/4/23 15:30] The game code seems understandable, but a lot needs to be updated:
+>			- The setting screen isn't at all ready
+>			- The setup function still needs to deal cards to players
+>			- The Deal function doesn't work yet
+>			- The parts of the game code that are made have the old communication protocol (see figure 30 in week 5) assumed to work
+> [10/4/23 15:30] Team mates got to lab and we decided to put our heads together to figure this out
+> [10/4/23 15:50] After 20 minutes of looking through libraries and example code with varun there was no real progress made
+> [10/4/23 16:05] After another 15 minutes, I decided the best course of action would be to make another stack overflow post
+>		  Eventually Paul helped us fix the issue, no need to Stack overflow post
+>		  Issue fixed
+> 		  At some point there was the meetings, so take away 15 minutes
+> [10/4/23 17:00] Sat down and listened to Orry talk about the hardware and show us schematics
+> [10/4/23 17:15] Started making functions to send and receive data
+> [10/4/23 17:30] Finished the functions [picrel]
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 4:45 HOURS:MINUTES of work this week so far <<
+
+> [10/5/23 23:00] As I've been sick and home all day, I decided to work a little on the game logic again.
+>		  Also since the part of the ESP coding I was working on was finally figured out
+>		  First order of business was to fix the code that wasn't in accordance with what we changed
+>		  Decided to put the waiting part of the process of receiving inside of the receive function
+>		  Made a note of it, but since Varun is working on it, I'll have to talk it over with him
+> [10/5/23 23:30] Realized that some parts of my code had uint16_t as the format for the card and others had short
+>		  Started looking into which is better, because they're both theoretically 16 bits long
+>		  Quick search revealed that uint16_t is better, as the size of a short is not guaranteed
+> [10/5/23 23:35] Changed all short types in the code to uint16_t
+> [10/5/23 23:35] Started making new things
+>		  Worked on the get_from_deck function, which simply returns a card from the deck
+> [18/5/23 23:50] Finished the get_from_deck function [picrel]
+> [10/6/23 00:05] Started adding new things
+>			- Added a new constant: UNO_NO_CARDS_TO_PLAY for when a player has no cards to play, and set it equal to 0xFACC, since no card should ever have this code, making it available
+>			- Added a new constant; CARD_REQUEST_DENIED for when an illegal move is made. Another impossible number, 0xF0CC was used
+> [10/6/23 00:30] Completed basic UNO game loop (by "basic", I mean incomplete) [picrel]
+>		  List of things it can do
+>			- Change turn (crudely)
+>			- Get a card from a player and ensure it's the right card
+>			- Put it in the top of the pile face up
+>			- repeat forever (no winning condition yet)
+>		  Saved changes and commited to git
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:15 HOURS:MINUTES of work this week so far <<
+
+> [10/6/23 14:50] Got to lab to work on code
+>		  Found some new parts on the desk
+>		  Did some inventory on the parts (i.e. Made sure we had all the parts we'd ordered)
+>			- 5 Charge Pump Inverters
+>			- 5 USB to UART bridges
+>			- 6 low dropout regulators (from 5 to 3.3V)
+>			- 10 Mini USB receptacles
+>			- 6 pre-biased NPN BJTs
+>			- 10 TVS diode pairs
+>			- 10 TVS single diodes
+>		  That is all the parts that had been ordered
+> [10/6/23 15:00] Booted up the lab laptop
+>		  Made a new ESP project named "digital_decks_controller", where the bulk of the code will go
+>		  Installed the necessary components to make it work with what we need
+>			- Tinyusb
+>			- ESPs additions to Tusb
+>			- TinyUSB core code as ESP-IDF component
+>			- ESP LCD Touch
+>			- ESP LCD Touch TT21100
+> [10/6/23 15:15] Started making my .c and .h files 
+>		  Made the .c and .h files with the following functions: [picrel]
+>			- send_signal
+>			- recv_dignal
+>			- setup_USB
+> [10/6/23 15:40] Tried building the code to make sure there were no syntax errors in my code
+>		  There weren't, but the code didn't build because it couldn't resolve an inmport
+>		  Tried fixing it for a small while, but ultimately decided to fix it later (all I did as an atempt to fix it was enabling the USB ACM CDC on sdkconfig)
+> [10/6/23 15:50] Left lab 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 7:15 HOURS:MINUTES of work this week so far <<
+
+> [10/6/23 21:30] Went back to the game code to make some final adjustments before the end of the week
+>		  Made a new constant "CARDS_LEFT" (0xFECC) to ask a player how many cards they've left
+>		  Did the logic for card abilities [picrel] with some exceptions still
+>			- Stacking still is not possible
+>			- Although this is not aprt of the abilities, I also made it so it's not yet possible to keep playing after drawing a card
+>		  Now the game code also has a win condition making it technically playable (assuming it runs, which, if we go back to the first couple of weeks, we know I was having trouble getting it to resolve some imports)
+> [10/6/23 22:30] Finished working on the UNO game logic, which is almost done (aside from the homebrew rules)
+>		  Saved and committed to git
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 8:15 HOURS:MINUTES of work this week so far <<
+
+>>> == 54:50 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 9
+
+> [10/16/23 15:00] Got to lab to start working on DAC interfacing 
+>		   Created a new project intended to test only the DAC code
+>		   realized we didn't have an external DAC connected to the dev board
+> [10/16/23 15:10] Found the external DAC that paul had previously soldered and spent about 10 minutes figuring out what pin 1 was
+>		   Marked it on the small PCB (where it's mounted), as the smaller divot on the package was too difficult to read
+>		   Looked for breadboard wire, which took a while and only left me with three wires.
+>		   Went to look for wire strippers to cut and strip the wire but our team didn't have any
+>		   Put the chip on the breadboard and connected the pins in the following manner: [picrel]
+>			- Pin 10 (on the devboard, GPIO 17 on the ESP itself) to Pin 5 (SCL on the DAC)
+>			- Pin 11 (on the devboard, GPIO 18 on the ESP itself) to Pin 4 (SDA on the DAC)
+>			- 3.3V (pin ii on the devboard) to pin 3 (VDD on the DAC) 
+>			- GND to pin 2 (VSS on the DAC) and 6 (Vref on the DAC)
+>			- An Oscilloscope probe to Pin 1 (Vout on the DAC)
+> [10/16/23 16:00] Finished cutting, peeling, plugging in all the wires (It took long because I measured)
+>		   Got to setting up the coding for the DAC
+>		   Read the DACs datasheet (https://ww1.microchip.com/downloads/en/DeviceDoc/22272C.pdf)	
+>		   After not understanding that, I decided to set up the I2C in the code
+>		   Started reading through ESP documentation about the I2C
+> [10/16/23 16:30] While figuring out how to assign the pins, I looked at the pins schematic and realized that GPIO 17 and 18 were not connected to pins 10 and 11 on the devboard
+> [10/16/23 16:55] Trying to replicate setup in the Example code for "simple" i2c, I found that two of the constants used in the setup cannot be resolved
+>		   Even after I made sure all the imports were the same, the constants don't exist
+>		   Unsure what do to about this [picrel (2 pics), one is the example code, another is my error]
+>		   Left assuming that these are the GPIO pins used for SCL and SDA respectively, so I just simply put the numbers in as is.
+> [10/16/23 17:30] Left the lab after making the simple change in the code, left to assume this later. 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 2:30 HOURS:MINUTES of work this week so far <<
+
+> [10/18/23 15:00] Got to lab. Helped connect the 4-wire interface of the resistive touch screen to the ESP
+>			- Connected X- and Y- to gnd
+>			- Connected X+ to GPIO7 and Y+ to GPIO3
+>			- Connected X+ and Y+ to ground also via 10k resistors
+> [10/18/23 15:30] Began testing the touch screen with Paul
+> [10/18/23 15:35] It's not working that well
+>		   Assisted in making two more connections [picrel]
+>			- Connected X+ to GPIO15 (did not disconnect it from previous spots)
+>			- Connected Y+ to GPIO16 (did not disconnect it from previous spots)
+> [10/18/23 15:40] Started looking at the code for I2C again
+>		   Since my code wasn't running, I decided to simply copy/paste the code from the example 
+>		   Doesn't run, same issues (i.e. libraries do not exist)
+> [10/18/23 16:05] Looked up the problem online
+>		   Found a post online (https://github.com/espressif/esp-idf/issues/8799) on the ESP github
+> [10/18/23 16:10] Stopped to help Paul rewire the touchscreen: [picrel]
+>			- Connected X- to GPIO 40
+>			- Connected Y- to GPIO 41
+> [10/18/23 16:15] Went back to figuring out what it means to require the "driver" component
+>		   Figured out the requirements are set in the makefile, so I went and put it there
+> [10/18/23 16:30] driver/i2c.h still doesn't exist
+>		   tried using "driver" instead of just driver for the 'requires' but it didn't work
+> [10/18/23 16:50] Noticed that stdio.h and esp_log.h were also unresolved, which leads me to believe the issue is deeper
+>		   changed the build configuration to build for the eSP32s3 instead of the default c6 and ran it
+>		   still no luck
+> [10/18/23 17:00] Out of frustration, I closed eclipse and opened it again
+>		   that worked. No more problems. 
+>		   Now I can resume doing the things I was trying to do
+> [10/18/23 17:00] Went into the code to see how to set the pins for the I2C
+>		   My assumption from earlier was correct, the pins were simply being set as integers.
+>		   Our SDA was already set to default (pin 18) but the SCL wassetto 19, and ours is on pin 17 (or it will be)
+>		   Made other relevant variable checks to be sure they'd all work fine
+> [10/18/23 17:15] Resumed looking at the documentation for the external DAC
+>		   The section on software is in section 6 (pg 49-58)
+>		   Began reading it carefully in order to make sure I understand it
+> [10/18/23 17:30] Did a decent amount of reading and called it a day. 
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 5:00 HOURS:MINUTES of work this week so far <<
+
+> [10/19/23 18:00] Got to lab and started to work on the Code again
+>		   Connected the ESP to the laptop and flashed the software
+>		   While the software ran, it didn't run ok
+> [10/19/23 18:10] Started trying to find the cause of why the software might not be running well
+>		   Stared by reading the example code's Git Repo for "main"
+>		   Found the issue [picrel]
+>		   Turns out there's special hardware needed
+> [10/19/23 18:15] Started looking for other code that might be useful to test the ESP's I2C
+>		   Found another example "i2c self test" (https://github.com/espressif/esp-idf/tree/master/examples/peripherals/i2c/i2c_self_test)
+>		   Read the description, no external hardware strictly required, though some hardware is used for testing (it is mentioned to be optional)
+> [10/19/23 18:20] Started looking at the code to make sure it didn't actually need the external hardware
+>		   The device looks like it's written all over the code
+>		   Decided to try anyways to see if the code could still run properly without the device
+>		   Read through the code a little to try and understand what it's meant to do
+>		   Copy it and paste it into the "DAC Test" project that I had created earlier to test the i2c interface with the DAC
+>		   Get multiple errors saying that many constants cannot be resolved
+>		   Initially ignored these errors, as often times these sorts of errors will clear out after building
+>		   Built the code, but the errors did not go away [picrel]
+>		   Made sure that I had all required dependencies, and made sure that all the imports at the top had been resolved. Yes and Yes
+>		   Checked the makefile and the Kconfig.projbuild files to make sure they were the same as the example. Also Yes
+> [10/19/23 18:45] Confused, I decided to finish reading the coding documentation on the DAC (at least for the first time, I plan on continuing to need it later on)
+> [10/19/23 19:30] Finished reading section 6 of the technical manual for the DAC as well as some of section 5.
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:45 HOURS:MINUTES of work this week so far <<
+
+> [10/20/23 14:30] Got to lab to try to start figuring out what was wrong with the code and why many constants couldn't be resolved. 
+>		   The nature of which constants are and aren't available seems mostly random (some are slave constants, some are master constants, and some are related to the device mentioned previously)
+>		   Looked at the README.md, as the code itelf suggests doing for "more info" 
+>		   there's no real information on the missing constants
+>		   This is par for the course, as outdated references to non-existant files are constantly made with no explanation on the ESP IDF
+> [10/20/23 14:50] Looked again, turns out the code can no longer resolve any of the imports either.
+>		   Attempted to build again
+> [10/20/23 15:00] Partial success.
+>		   The code runs and builds, but since the device (Which was marked as optional) is not connected to the ESP, it constantly asserts error signals [picrel]
+> [10/20/23 15:05] Decided to try and look elswhere for help on how to interface the i2c on the ESP32 with the external DAC
+>		   Started reading documents left and right. Namely went back to reading manuals and official reference material:
+>			- The DACs reference manual (https://ww1.microchip.com/downloads/en/DeviceDoc/22272C.pdf)
+>			- ESP's official API reference on I2C (https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html)
+>			- The code (while reading other material in order to try to figure out what everything is doing) 
+>		   Gathered some things, but not the complete picture:
+>			- I understand I first have to set up the ESP to be able to deal with i2c commands
+>			- Then I can start sending commands to the DAC through i2c, but
+>				* How do these commands get sent (i.e. what functions do I use?)
+>				* The commands are read and write commands, I think after a write command, I'm simply meant to send the data in 1 or 2 bytes (Depending on command, it'll write different # of bytes, I believe)
+>				* After a command is received, how do I tell the DAC to output the data I just dumped into it? 
+>			- Then I can do it again, allegedly
+> 		   I am clearly missing quite a bit of important information.
+> [10/20/23 15:25] Asked Orry if he knew about where the line is between writing to DAC and outputting from DAC (I technically did this earlier, but it fits still)
+>		   Decided to also read the DAC manual to see if output was specified anywhere on it.
+> [10/20/23 16:30] After reading through the entire manual, there isn't really anything in there that says how the output pin really works
+>		   Got tired of looking around to no avail so I tested to see if GPT had any viable answers. As expected, ChatGPT simply gave two contradictory answers
+> [10/20/23 16:45] Paul offered to help. 
+>		   Started looking at the manual and other reference material with Paul
+>		   Found a website (https://www.programming-electronics-diy.xyz/2021/10/dac-library-for-mcp4706-mcp4716-mcp4726.html#Output_Buffer) that sayss they use a library to write to it
+>		   Seems incompatible with our ESP but decided to check anyways.
+>		   As expected, no such library exists for ESP
+> [10/20/23 17:00] Decided it was best to simply assume that writing into the DAC volatile memory would write to output
+>		   Started trying to figure out how to send commands to the DAC through i2c
+>		   Started to read the i2c.c file from the i2c library on the esp example code website (https://github.com/espressif/esp-idf/blob/master/components/driver/i2c/i2c.c#L986)
+> [10/20/23 17:30] found function "master_write_to_device", which seems promising:
+>			- Starts an interaction using a cmd handle
+>			- (Allegedly) Properly addresses the device
+>			- Writes a buffer to the device (using a specifed command handle that is given to the devive itself)
+>			- Stops the interaction
+>		   Based on what I've seen in the manual, this is mostly proper operation of the DAC, but I would be concerned about.
+> [20/20/23 17:50] Decided to leave it at that and start tinkering with the commands next time.
+> --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 10:05 HOURS:MINUTES of work this week so far <<
+
+>>> == 64:55 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK10
+
+> [10/23/23 14:30] Got to lab and went on to look for capacitors and resistors at Orry's request
+> [10/23/23 14:55] Found some of the required Capacitors, but I was unable to find one type of Capacitor and the 0ohm resistor Orry wanted
+> [10/23/23 14:55] Went and got the computer to keep working on the DAC. 
+>		   Connected oscilloscope probes to:
+>			- DAC Out (Blue Probe)
+>			- DAC SDA (Green Probe)
+>			- DAC SCL (Yellow Probe)
+> [10/23/23 15:15] Started working with the code to try to check the signals
+>		   Went back to reading example code to make sure I'd properly call the "i2c_master_write" function
+>		   Made some code similar to what is shown in the examples with some minor differences, namely to adjust for the difference in external device
+>		   Got stuck in a part where I had to figure out what address to give the write command, since the example uses two addresses: 
+>			- Device address
+>			- Address of the power management register 
+> [10/23/23 16:30] Ran the code, but it seems to be looping endlessly. Can't properly read the log, so I stopped it running. 
+>		   Here's a list of errors and warnings I got (in order from first to last in boot loop):
+>			- W (285) spi_flash: Detected size(8192k) larger than size in the binary image header(2084k). Using the size in the binary image header
+>				* I don't think this will be that big an issue, but it's worth noting it's there
+>			- W (298) This driver is an old driver, please migrate your application code to adapt 'driver/i2c_master.h'
+>				* This warning refers to our use of the 'driver/i2c.h' library, which is the one used in all the available i2c examples online
+>				* This is a big issue because not only are there now limited examples of how to use the functions in the new library, but very little documentation for it
+>			- ESP_ERROR_CHECK failed [fail addr] main.c line 57 -- This is The Write function
+>				* This is probably related to the above issue
+> [10/23/23 16:45] Started reading the code in the new drivers
+>		   All the functions are completely different
+>		   There's no master_write_to_device function
+>		   There is a "master_write_command" function, but never anything to write data
+>		   	- There's a function called "s_i2c_asynchronous_transaction"
+>			- Decided to look at that one
+>		   These functions are much more confusing and have less comments in them (in fact, this specific one I'm looking at has no comments at all) [picrel (2 pics)]
+>			- All I can really make out is the names of variables, but It's difficult to follow it
+>			- Only example code using the new driver is the eeprom code, which mostly uses functions from i2c_eeprom.h, which isn't going to be useful for us
+> [10/23/23 17:30] Decided to come back to this later. /--------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 3:00 HOURS:MINUTES of work this week so far <<
+
+> [10/24/23 14:00] Got to lab
+>		   Got to reading the code for the new code once more, trying to understand what's happening, as the example do not help
+>			- First looked at the function s_i2c_write_command.
+>				* This funciton has a small brief comment above it (and little else)
+>				* Started looking at the parameters for the function, ended up on what can only be described as a wild goose chase
+>			- Stopped looking at s_i2c_write_command because I got distracted by the preceeding function: i2c_new_master_bus
+>				* This is one of many functions with 1 comment or less
+>				* The basic gist of it seems to be that it'll take in an i2c_master_bus_config_t and an i2c_master_bus_handle_t and use the config type to create a master handle type and put it inside the given i2c_master_bus_handle_t. 
+>				* This "i2c_master_bus_handle_t" is the first argument to the aforementioned "s_i2c_write_command" 
+>		   	- The next component of s_i2c_write_command is an i2c_operation_t, which was the next thing I decided to look into.
+>				* the i2c operation type is actually quite a simple struct which has 4 parameters, which seem self-explanatory
+>					~ Hardware Command (in my case, I believe this is either 00000010 or just 010)
+>					~ Device Address (in my case this is a 7-bit code: 1100001)
+>					~ Bytes Used (Doesn't seem like it's my place to modify or set this.=
+>					~ Total Bytes (I believe this depends on the use)
+>			- Now that I've seen that, I believe that the function I've been looking for is i2c_write_command. Which is good to know. 
+>			- The next parameter input to the function is one that should be empty. It's called fifo_fill
+>				* fifo_fill is simply an integer that will, in the end, hold the number of bytes written to the hardware by the i2c peripheral
+>			- Lastly, there's a parameter called "address_fill", which I'll have to investigate more:
+>				* The one comment at the top of the function describes it in the following way: "I2C device address with read or write information"
+>				* I'm not entirely sure what that means, so I'm going to go and read a little more.
+>				* First of all, address_fill is a uint8_t*, which implies that it's either a list or something that is not exaclty of my concern
+>				* Read the three lines where address_fill isused (as well as context) and couldn't figure out what it does.
+> [10/24/23 15:15] Decided to take a break for now --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 4:15 HOURS:MINUTES of work this week so far <<
+
+> [10/25/23 15:30] Got to lab
+>		   Resumed my reading of the i2c code
+>		   Got to explain some of it to Paul, as well as re-read some of the timing diagrams in the DAC manual with him
+>		   Decided to start writing some code to see if it would properly work
+> [10/25/23 16:45] Gave up on the new library and decided to try using the depricated library, as Paul said it should work and all the examples are depricated anyways.
+>		   After multiple fails of the code, the oscilloscope shows this [picrel]:
+>		   Turns out we need digital mode on the scope
+> [10/25/23 17:15] Started figuring out how to use the digial probes and modes on it
+>		   Got Joe to help, and he was able to tell us a bunch of things
+>			- He helped us get the scope
+>			- Told us to maybe troubleshoot with the AD2 to make sure our DAC was ok
+>			- Then we can try sending commands to the DAC
+> [10/25/23 17:30] Lab time ended and I had to go --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 6:15 HOURS:MINUTES of work this week so far <<
+
+> [10/26/23 17:30] Got to lab. While I was gone, Orry verified with the AD2 that the DAC does, in fact, work.
+>		   Asked Orry what inputs he gave to the DAC from the AD2 to get it to work
+> [10/26/23 17:30] While I waited for an answer, I decided to practice soldering, as It would come in handy later. Used one of the example boards and defective MCs
+> [10/26/23 18:00] After failing to solder a microcontroller to a PCB, I decided to try something else
+> [10/26/23 18:30] I found a different MC with some bent pins and managed to solder it whilst only shorting together 7 pins (as well as the two thatwere bent together) [picrel]
+> [10/26/23 18:30] Looked at Orry's response, and I didn't quite understand it
+>		   Decided to try it out for myself
+>		   Moved the DAC to its own little breadboard for testing [picrel]
+> [10/26/23 18:50] Went on to try to show some DAC behavior using waveforms
+>		   Tried sending in the following pattern:
+>			- 49 1s (IDLE)
+>			- 0 (Start bit)
+>			- 1100001 (Address)   \
+>			- 0 (R/W bit, write)  / these two are the first byte
+>			- 0 (ack)
+>			- 00 (command bits)	   \
+>			- 00 (power-down bits) 	   |- There make up the second byte of data sent
+>			- 1111 (First 4 data bits) /
+>			- 01010101 (Last byte of data)
+> 		   This yielded no actual output, which was disappointing, to say the least. [picrel]
+> [10/26/23 19:30] After a little bit of debugging (looking at the waves and the manual), I realized I was missing a couple of ACK bits, as well as a stop bit, so I added those to my wave
+>		   The new pattern is as follows:
+>			- 49 1s (IDLE)
+>			- 0 (start bit)
+>			- 11000010 (Address and R/W bit in write mode) -- First byte of packet
+>			- 0 (ack)
+>			- 00001111 (2 Command bits, 2 power-down bits, 4 data bits) -- second byte of packet, first nibble of data
+>			- 0 (ack) 
+>			- 01010011 -- third byte of packet, last byte of data
+>			- 0 (ack)
+>			- 1 (STOP)
+>		   Still Nothing. Could my signal be just so bad that it basically makes the output equal to 0? [picrel]
+> [10/26/23 19:45] Decided to try setting the DAC up for continuous operation. Maybe constantly writing to the DAC would make it work better
+>		   Couldn't figure out how to only repeat the last bit of the command (the start bit, address bit, r/w bit and initial ACK don't need to be repeated)
+> [10/26/23 20:15] Left lab because I had to go eat something. --------------------------------------------------------------------------------------------------------------------------------------------
+
+>> 9:00 HOURS:MINUTES of work this week so far <<
+
+>>> == 73:55 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+> [10/30/23 14:30] Got to lab and continued trying to figure out the DAC on Waaveforms using the AD2
+>		   Orry had gotten it to work using a built-in function in waveforms, so I decided to check what was going on 
+> [10/30/23 14:30] Downloaded Orry's waveforms code
+> [10/30/23 14:50] After playing around with Orry's code, I got a bunch of errors and realized that I was unable to see the input to the system, as it happened too fast and immediately got erased from the scope
+> [10/30/23 15:00] After a lot and a lot of changing the code to try and read the input, I realized that the oscilloscope would stop every time we sent anything from the code
+>		   My solution to this was to try and use the normal scope
+> [10/30/23 15:20] Managed to get a somewhat stable reading from the Scope [picrel]
+>		   Decided to compare my input to the input from the code that Orry made
+>		   Used Photoshop to overlay an image of the input I was giving the DAC with an image of the input that the code was giving the dac [picrel]
+>		   Aside from the difference in data and some glitches, the data_in is exactly the same, which leads me to wonder what I did wrong.
+> [10/30/23 15:35] Tried sending in my old code and checking the output properly.
+>		   Still didn't work so I called Joe over to help
+> [10/30/23 16:20] After almost an hour of debugging and explaining my waves and signals to Joe, we were able to find the apparent problem
+>			- We were sending the Ack bit ourselves, when we were supposed to be getting it from the DAC
+>			- While this wasn't clear in the Manual, it makes sense if you know about I2C
+> [10/30/23 16:25] Started to make my new signal
+> [10/30/23 16:25] Did not work
+> [10/30/23 16:40] Attempted to set the wave to High Z when exptecting Acknowledge but it doesn't work
+>		   Had a eureka moment
+>		   Sending just a wave doesn't actually wait for the ack bit, it just continues and the DAC gets confused and doesn't go forward
+>		   Thus this cannot be done in the way I want it to be done
+> [10/30/23 16:45] With new knowledge gained, I decided to connect the DAC back to the ESP and try to get it to work
+> [10/30/23 16:45] Found out that I2C only works if you believe in yourself, so I had a change of attitude
+> [10/30/23 17:00] Plugging the DAC back into the ESP took a little longer than expected, and I had to leave		--------------------------------------------------------------------------------------------------------------------------------------------  
+
+>> 2:30 HOURS:MINUTES of work this week so far << 
+
+> [10/31/23 14:00] Got to lab and continued to try and figure out i2c
+>		   Went through a step-by-step debugging of everything with Orry
+> [10/31/23 14:45] Turns out that the command to write data to DAC is a lot more complicated
+>		   Consists of 7 different functions, rather than one:
+>			- i2c_cmd_link_create
+>			- i2c_master_start
+>			- i2c_master_write_byte
+>			- i2c_master_write
+>			- i2c_master_stop
+>			- i2c_master_cmd_begin
+>			- i2c_cmd_link_delete
+>		   I think there's a chance these 7 functions are called in the function I used before, but better safe than sorry
+>		   Made a new function called "mcp4706_write_FFF" which writes 12 1s to the device (allegedly)
+> [10/31/23 15:15] The function failed at i2c_master_cmd_begin with no real explanation
+>		   I went to read the documentation and example codes again, now knowing what I was doing a little better
+>		   Found an error when running master_write_byte where the address was being incorrectly utilized
+>		   I was meant to be also adding the r/w bit, but had assumed that that would be handled by the functions
+> [10/31/23 15:30] Ran again, it seemed to work ,as the scope measured both the input and output to be 3.3 volts at the end
+>		   Ran more times to verify functionality
+> [10/31/23 15:45] The DAC functions run perfectly, so it's a good time for a break [picrel]
+--------------------------------------------------------------------------------------------------------------------------------------------  
+
+>> 4:15 HOURS:MINUTES of work this week so far << 
+
+> [11/01/23 15:30] Got to lab and started working on sending a simple sine signal over to the DAC
+>		   first I made a function that writes any two bytes to the DAC [picrel]
+>		   Managed to use the function to output a sawtooth wave onto the scope [picrel]
+> [11/01/23 16:30] While the function was working alright, the stepping stopped working when we got to higher intervals (i.e. 500, which was already 1/8th of the possible steps)
+> 		   Decided to go ahead and attempt to make a function that doesn't stop between buffer writes [picrel]
+> [11/01/23 17:00] The function worked and produced a rising edge multiple times [picrel]
+> [11/01/23 17:30] After fixing an issue with the loop that was filling the buffer, I had to leave lab
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 6:15 HOURS:MINUTES of work this week so far <<
+
+> [11/02/23 11:30] Got to lab to connect the speaker to the output of the dac and see if it makes sound
+>		   Makes a little bit of sound (can barely be heard due to low voltage and lack of amp)
+> [11/02/23 11:45] Stopped messing around with the DAC and worked on other classes' stuff
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 6:30 HOURS:MINUTES of work this week so far <<
+
+> [11/02/23 15:15] Got back to lab to work on other things
+>		   First thing's first: Try to write a sine wave to the DAC
+>		   Actually, earlier the DAC output stopped existing for no reason so I have to check that
+>		   It does appear that sometime while I was testing the DAC, I might've burnt it 
+>		   The ESP works fine.
+> [11/02/23 15:30] Began harware tests with the AD2 once again
+>		   Testing confirms that the DAC has, indeed stopped working
+> [11/02/23 15:40] Checked how many additional DACs we had, considering making a new DAC chip to see if that works
+>		   Confirmed that we, in fact, only have enough DACs for the amount of controllers we plan on making
+>		   Testing will have to resume on the completed board
+> [11/02/23 16:00] Speaking of the completed board, I soldered the three main buttons on the board because I was unable to resume the DAC code [picrel]
+> [11/02/23 16:00] Spent some time organizing my documents for the progress report
+>		   Then immediately got to starting to look into the wrapper to program the ESP from our new chip
+> [11/02/23 16:15] Had to go to class, but I read the README on the wrapper's github (https://github.com/jimparis/esptool-ftdi) and it looks simple enough
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 7:30 HOURS:MINUTES of work this week so far <<
+
+> [11/02/23 17:30] Got to lab to try using the wrapper to upload the code to the actual controller (exciting)
+>		   Spent a long time trying to set the environment variable they wanted me to set
+>		   Couldn't find it, so I went on to the next best thing: Renaming the file and putting it where the original wrapper used to be
+>		   This mostly worked, which means it tried using that file to upload the code
+>		   This DID give me an error: Import error- usb.core no module named usb
+>		   Fair enough, I installed the pyUsb module, and made sure that usb.core existed
+>			- Although usb is a folder and core is a file, it does exist
+>		   Still the wrapper is not working
+> [11/02/23 18:15] Tried retarting the idf, closing and opening the code, editing and saving the code, nothing worked, so I left lab
+>		   Considering restarting the computer next time
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 8:15 HOURS:MINUTES of work this week so far <<
+
+> [11/02/23 14:20] Got to lab. Tried restarting the laptop and building again
+> [11/02/23 14:30] Took a while to restart the computer, but after running, still getting the "no module named usb" error
+> [11/02/23 14:35] Moved the pyusb Library to the same folder as the wrapper 
+>		   This stopped giving me the import error, but instead threw a new error:
+>			- "No such file --chip"
+>		   No clue what this means, time to read the code
+>		   It's an issue with the makefile.
+>			-  The makefile is trying to make file with the following arguments (in order):
+>				* /home/team11/esp/esp-idf/components/esptool_py/esptool/esptool.py
+>				* --chip
+>				* esp32s3
+>				* -p
+>				* /dev/ttyUSB0/esptool-ftdi.py wrapper
+>		   In the given error, it's trying to get some sort of file/ directory from the second argument, which in this case is --chip
+>		   Unsure how to fix this, going to see what the readme says about modifying the Makefile.
+>		   Readme says I am missing a library, libftdi, but when I install it nothing changed.
+>		   Says the file has to be the path to esptool.py, probably the one we're using right now, so I changed the code so it'd take arg[0] instead of arg[1]
+> [11/02/23 15:00] This stopped giving me the "no such file" error, and is now calling an error in the last set of lines of the code, which means that if I can fix  this, I should be in the clear for errors
+> 		   New error stays that the file I'm using doesn't have attributes 'main' or 'esptools', which is true
+>		   How do I give the file these attributes??? The code has a main function and the name of the file is esptools, but idk if those are attributes
+> [11/02/23 15:20] Turns out tt's not really a file type, it's more of a module named "esptool" which I don't really understand.
+>		   depending on what version of "the system" (unsure what they mean by this) we're using, it'll import the module from a different file
+>		   version info for us is 3.10.12, which just so happens to be our version of python
+>		   this issue (https://github.com/jimparis/esptool-ftdi/issues/3) on the github says I should probably hardcode the old path into the code
+>		   Trying that again
+> [11/02/23 15:45] That did not work, same error. But I'm keeping it anyways, as the issue report implies that it should be that way.
+>		   Decided to check what the attributes of esptool are;
+>			- __builtins__
+>			- __cached__
+>			- __doc__ 
+>			- __file__
+>			- __loader__
+>			- __name__
+>			- __package__
+>			- __spec__
+>			- subprocess
+>			- sys
+>		   None of these are .main or .esptool, which makes the error throw make sense, but not why the code wants these
+>		   Tried priting some of the modules, but I got useless garbage.
+> [11/02/23 16:10] Restarted all my progress because I wanted to see what would happen if I just created the Environment Variable ESPTOOL_WRAPPER that I was told I needed and set it to what I needed to
+>		   That also didn't work. 
+> [11/02/23 16:20] Delegated the task over to Paul because I had to go
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 10:15 HOURS:MINUTES of work this week so far <<
+
+>>> == 84:10 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 12
+
+> [11/06/23 14:30] Got to lab for a scheduled team meeting which was meant to get us checked off for the prelim. PSDRs
+>		   Initially had Paul explain to all of us how he managed to flash the software to the ESP on the board that wasn't the Dev Board
+>		   Apparently it's quite a janky setup, and it requires to build a project 2-4 times for the first time before being able to upload it 
+>		   	- The process involves modifying a line (I don't remember which off the top of my head) in the build.ninja file in multiple instances
+>			- But this has to be done after building the project, deleting everything under the build folder, and building again
+>			- Tedious But it works
+> [11/06/23 15:15] After getting an explanation on flashing to the ESP, we went on to begin testing all of our functioning subsystems on the final prototype board.
+>		   The first subsystem we tested was my DAC interface code, which was flashed properly and worked in the same way as it had before (see figure 64 for reference)
+>		   We were able to get checked off for it
+> [11/06/23 15:30] The next subsystem we tested was Paul's display code (the one that simply displays the string "ESP32" in funky characters) 
+>		   Initially, the code wouldn't flash and we were unaware why
+>		   After some time going at it, someone (don't remember who) proposed we Flash the device with the screen disconnected, then we try connecting the screen
+>		   Doing this worked; however, it wasn't idea, as we'd have to disconnect the screen every time we flashed the software
+>		   We started looking for the root cause of the issue
+>		   After trying the flashing process disconnecting one pin at a time, we were able to narrow it down to the backlight pin
+>			- Turns out the backlight pin had been connected to one of the bootstrap pins on the GPIO
+>			- This meant that flashing it like that would not work 
+>		   Luckily, there was a resistor between the GPIO and the backlight pin, so Orry was able to simply desolder the resistor
+>		   Without  the backlight pin, the code flashed and, surpisingly, the backlight was on as a default state.
+>		   As the system now worked, we were able to get it checked off
+> [11/06/23 16:30] The next subsystem that was tested was Paul's touchscreen display code.
+>		   While this was happening, Varun and I were working on the interfacing subsystem, since his code for it had been deleted, and I was helping him remember some crucial details about it
+>		   I helped him flash the interfacing code into one of our ESP32 devboards, and after we confirmed it worked, we began testing the subsystem with the final prototype board
+>		   Initially, the board was not appearing on the Raspberry Pi as either USB0 or ACM0, so I tried helping Varun figure out the issue.
+>		   I went into the Linux terminal and typed in 'ls /dev/' which should show if there was any ACM0/USB0 device in the rpi
+>		   To my suprise, there are a plethora of /tty/ devices, so it was really difficult for me to be able to focus on finding a single thing.
+>		   I thought then it'd be smart to simply disconnect the device, 'ls /dev/' again, and find the difference
+>		   	- I'm not sure it was the best method, but it worked, and we were able to find the device
+>			- The device was ACM1, not ACM0 (probably a bug due to the other device having been connected ther eearlier)
+>		   After reconnecting the device and checking for its port name, it was once again /dev/ttyACM0
+>		   The code ran and he subsystem worked
+> [11/06/23 17:00] Team meeting over. We got the three preliminary checkoffs and we all left lab.
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 2:30 HOURS:MINUTES of work this week so far <<
+
+> [11/07/23 14:00] Got to lab to try and get the first interfacing system: Button presses (input) producing an output through USB that is read by the raspberry pi
+>		   First thing's first, finding out where in the GPIO the buttons are
+>		   Also while I was gone yesterday, Paul figure out a new way to flash the software, and I have to figure that one out
+> [11/07/23 14:15] While I waited for answers to my questions, I tried building my script for the TxRx
+>		   Got a familiar error: tusb_config.h no such file or directory
+>		   I recall this error from earlier. Decided to check out what I did last time.
+>		   Realized that that fix was ONLY for HID...
+>		   Still cannot find any fix
+>			- One fix (https://github.com/esp-rs/esp-idf-sys/issues/231) proposes to change a file named project.cmake, which I cannot seem to find.
+> [11/07/23 15:00] Decided to try uninstalling the component that was giving me trouble: leeebo__tinyusb_src
+>			- No uninstall option for components??
+>			- WHAT?
+> 	 	   Made new project and installed all previous components EXCEPT FOR leeebo__tinyusb_src
+> [11/07/23 15:00] Tried building, got a familiar error, easy fix: CDC must be enabled in menuconfig (Which is not really a file, but I know how to fix that one)
+> [11/07/23 15:10] Tried again, new errors, now with my own code (i.e. undefined references to functions I declared, particularly, stup_usb())
+>		   Decided to try and add my TxRx functions to the CMakeLists to no avail
+>		   Added TxRx.c to the source files directory in CMakeLists and it worked
+>			- I feel like they'd be better off in an 'includes' directory, but for now this will do
+> [11/07/23 15:15] Code builds with no errors and 3 warnings.
+>		   One of the errors is unimportant (unused variable errror) but the other two could be bad (pointer from integer without casting)
+> [11/07/23 15:15] Went on to investigate THOSE errors
+> 		   Turns out the functions being used to read and write wanted a pointer to a list of integers, and I'm giving them a single integer
+>		   Thought it'd be a great idea to simply give them a list of 1 integer (which is a pointer and also just one integer. Redundant, but should work)\
+> [11/07/23 15:25] Turns out the functions want a uint8_t buffer, not a uint16_t buffer (like I wanted).
+>		   While I could technically simply make a uint8_t buffer of size 2 and put the 16-bit integer there, it does complicate things when reading AND writing
+>			- Now we'll have to send a single message in two packets instead of one 
+> [11/07/23 15:30] Started completely refactoring my functions to work with a uint16_t that gets split into 2 uint8_t and sent over to and from the ESPs USB interface
+> [11/07/23 15:45] Completed the new functions, which built with no warnings or errors, which is strange, as I haven't used the variable that was previously 
+>		   Functions now split the variable before writing it to the buffer
+>		   Then when reading, it'll concatenate the two uint8_t values into a single uint16_t value
+>		   [picrel]
+> [11/07/23 15:50] Started looking into using GPIO on the ESP
+>		   Started reading the GPIO documentation from the API Reference (https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/gpio.html)
+>		   API Reference basically just tells me to go read the example (https://github.com/espressif/esp-idf/tree/master/examples/peripherals/gpio/generic_gpio) code, so I went and did that.
+> [11/07/23 16:00] Started reading the example code 
+> [11/07/23 16:15] Stopped for the time being although I did not finish
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 4:45 HOURS:MINUTES of work this week so far <<
+
+> [11/08/23 14:50] Got to lab with the hopes of FINALLY starting the buttons code that I couldn't get last time
+>		   Started by opening up the example code for GPIO on the lab machine 
+>		   Began by meticulously copying all the code related to input from the Example code (while neglecting all the output code), including comments
+> [11/08/23 16:50] Finished the code for basic GPIO [picrel] but the output given was incorrect [picrel]
+> [11/08/23 17:00] After debugging for a while, I realized that I had flashed the wrong code. Not even sure why the output was partially what was expected.
+>		   After flashing the right code, it worked first try
+> [11/08/23 17:00] Started making the part of the code that was going to send a signal when the button was pressed [picrel]
+> [11/08/23 17:15] Confirmed functionality for my code using the USB terminal
+>		   Varun made some code on the rpi that reads the input, and it works well
+> [11/08/23 17:20] Used larger integers to test whether or not my send function worked with an acutal 16-bit number
+> [11/08/23 17:30] Verified correct functionality of 16-bit integer sending
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 7:25 HOURS:MINUTES of work this week so far <<
+
+> [11/08/23 14:55] Resumed working on game code, should start on solitaire, but first have to free up the Deck struct after a game is done
+>		   In fact, I fist made a to do list (not in order of priority):
+>			1- Add a struct to free a deck
+>			2- Fix the deck struct to make reshuffling the deck easier
+>				* an idea I have for this is to have a separate list in the deck struct with all the cards that players don't have
+>				* then when reshuffling the deck (which, by the way, would simply involve moving the cards to the front of the deck so they're not considered "out of the deck"
+>				* An issue with this approach would be it would double the memory necessary to have a deck
+>					- Then I remembered there are 2 unused bits on a card int (i.e. a uint16_t but I call it a card)
+>					- Thought of the idea to make in-use cards have a 1 as the msb... but this would introduce some complexity to the code
+>			3- Make the code for Solitaire
+>			4- Make the code for Skull
+>			5- Fix type issues in the code (many signals that are going to be received are of the wrong type, so I should probably fix this)
+>		   If I had to give these some priority, it would be: 5, 1, 3, 4, 2 (as re-shuffling is a thing that is not ENTIRELY necessary)
+> [11/08/23 15:15] Started on #5, which shouldn't take too long
+>		   Realized that there is no actual code that will get you IN the game
+>		   Had to fix that
+> [11/08/23 15:30] Finally added logic that allows the code to go INTO a game
+>		   Started ACTUALLY working on #5
+> [11/08/23 15:45] Finished #5
+> [11/08/23 15:45] Started working on the freeing function
+>		   Since I never allocate the struct itself (might need to do this, but for now I'm assuming it's not necessary), I only free the deck inside of it
+> [11/08/23 16:00] Finished the Free function [picrel]
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 8:30 HOURS:MINUTES of work this week so far <<
+
+> [11/08/23 14:30] Got to lab and started Helping Orry debug the new PCB for every subsystem
+>		   The programming system worked
+>		   USB works
+>		   DAC works
+>		   Amplifier Suspicious, so we went ahead and did a bit more testing
+>		   	- Orry said we might not be supplying the amp with a high-enough frequency
+>			- Checked frequency. It was 266 Hz, which is less than what is necessary
+>			- Orry says there might also be a Hardware issue
+>		   Display needed a little bit of a touchup because it wasn't working properly
+>		   	- Gave orry some time to fix it
+>			- It worked 
+>		   Touchscreen Works
+> [11/08/23 15:30] Finished testing subsystems
+>		   We now have two controllers that can be programmed
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 9:30 HOURS:MINUTES of work this week so far <<
+
+> [11/08/23 22:00] Started working on solitaire code, starting with defining some macros for a normal deck of cards
+>		   Didn't need too many macros for the cards, only the four suits and a joker. Numbers aren't macros
+> [11/08/23 22:05] Started making the part of the setup script where we set up a deck of normal playing cards
+>		   Realized jokers aren't used in solitarie
+>		   Still kept the joker Macro just in case it'd come in handy later on
+> [11/08/23 22:30] Finished the part of the code that populates a 52-card deck for solitaire (so a 52-card deck with no jokers) [picrel]
+>		   Started working on the actual game code for solitarie
+>		   Initialized some important variables and started the deck up
+>		   Realized players were never dealt cards in UNO, so I fixed that real quick
+> [11/08/23 22:45] Got really tired and couldn't think straight so I stopped coding
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 10:15 HOURS:MINUTES of work this week so far <<
+
+
+>>> == 94:25 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 13
+
+> [11/13/23 14:45] Got to lab to start working on the User Manual. I don't need to be in lab for this, but I had nowhere else to go.
+> [11/13/23 16:40] Finished making a skeleton for the User Manual
+>		   This means that I have the manual mostly done, with the expception of unknown details and images
+> [11/13/23 16:40] While I was making the user Manual, Paul suggested that perhaps my previous issue with the DAC breaking earlier could be fixed by calling malloc instead of having a fixed size for the buffer.
+>		   Changed my code to use a dynamically allocated buffer and tried making it 20 times as large as my previous buffer that would give the dac a single edge fo a sawtooth wave.
+>		   This code will have nowhere that it can free the buffer, but it should be OK, as the buffer is exclusively allocated once, and it used forever until the process is killed.
+> [11/13/23 17:00] Malloc worked for 20 repetitions (this lasts from -46.8ms to 28.2 ms, which totals 75 ms or 0.075 seconds)
+>		   I was able to push it all the way to 500 repetitions, which should last almost two seconds before a stop bit
+>		   After this, I got scared something would happen to the DAC (or worse, the ESP), so I stopped there
+> [11/13/23 17:15] Finished Testing for the DAC
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 2:30 HOURS:MINUTES of work this week so far <<
+
+> [11/14/23 13:50] Started working on technical diagrams for the manual Using Paul's CAD
+> [11/14/23 14:00] Computer decided to be unable to close programs so I had to restart it
+> [11/14/23 14:40] Made the technical diagrams for the Center Console
+>		   Started contacting the team about possible hiccups we might be having, since we don't have GUI or anything of the sort
+> [11/14/23 14:45] Started making a GUI of sorts for the Console so I could be able to put something
+> [11/14/23 16:00] Finished the GUI for the main screen [picrel]
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 4:40 HOURS:MINUTES of work this week so far <<
+
+> [11/15/23 15:20] Got to lab
+> 		   Resumed working on solitaire code. Specifically, part 3, where I left off. I already had code to set up solitaire... somewhat
+>		   The setup for Solitaire only sets up a deck, and we need 12 piles of cards in the board other than the main deck. These piles are:
+>			- The 7 piles the player will move around
+>			- The 4 piles that will be made by the end
+>			- The draw pile, which starts being just the normal deck with the exception that you can pile the deck up backwards until you're out and can only use the last card you drew
+> [11/15/23 16:20] Finished the code that sets up the piles [picrel] and started working on the actual game logic
+> [11/15/23 16:50] Realized that I was going to have problems figuring out which cards were face up and which were facedown, so I added an "ability" to the cards
+>		   Now if a card has ability 2, it'll be considered "face down" 
+>		   This means I have to change the part of the code that sets up the card piles, as the top card in each pile, must be face up.
+>		   Realized that the ability should be FACE UP, as that's the least common type of card, I think, and once you're FUP you can't be face down anymore
+>		   Also realized that being able to return cards to deck would be an integral part of this game's gameplay, so I considered making a function
+> [11/15/23 17:20] Had to leave
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 6:40 HOURS:MINUTES of work this week so far <<
+
+> [11/16/23 23:00] Resumed work on the Usere manual, hoping to finish a deliverable version of it by tonight
+> 		   Begun by labeling a picture of the controller (which I first had to download, as Paul just updated the CAD files)
+>		   The CAD software had to update before being able to view the file I wanted to view
+> [11/16/23 23:30] Finished labeling the items
+> [11/17/23 00:20] Couldn't get a deliverable version of the manual, but I got decently close
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 8:00 HOURS:MINUTES of work this week so far <<
+
+> [11/17/23 14:50] Started making more Menus Screens and GUI elements
+>		   Started by making the Settings menu
+>		   Stopped along the way to explain my TxRx functions to Varun
+>		   While I was explaining my code to Varun, I found the following bugs in my game logic
+>			- The UNO game loop assumed there were 4 players every time
+>			- If, in UNO, a player played a +2 or WILD +4 card, they would have to draw the cards themselves, not the next player
+>		   I fixed those bugs
+>		   I also noticed a little feature missing from my ESP send function, in which it needs an acknowledgement from the Raspberry Pi, I will fix that later
+> [11/17/23 15:50] Finished making a mockup for the setting screen [picrel]
+>		   Added the different states of the Settings screen to the Manual and continued with the Manual 
+>		   While I worked on the manual, I often stopped to help Varun debug his code, which was not properly working
+>		   Almost finished with the manual
+> [11/17/23 17:00] Finished work for the day (did not finish manual)
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 10:10 HOURS:MINUTES of work this week so far <<
+
+>>> == 104:35 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+> [11/20/23 14:30] Got to lab, originally planning on working on solitarie, but decided to check out Varun's code instead, as I was unsure why it wasn't working and I got curious
+>		   After reading through the entirety of it, I found only 1 mistake that I could fix. Anything regarding the Serial port (Which is what we are currently using to communicate) I don't deal with, and decided to leave it alone.
+>		   It is also rude to touch others' code while they're debugging. 
+> [11/20/23 14:50] Got back to programming Solitaire.
+>		   Reading through my code, concerns arose:
+>			- Hands. There is still no tangible for a player to store one in the controller because I haven't coded for it
+>			- Ending a game. When a game is over, what do the controllers do? They also need a main menu screen, don't they? 
+>			- Displaying a large set of cards, such as in solitaire, where the cards don't cover each other, and changing that every time a player selects a pile to move around
+>		   Tried ignoring them and pushing forward. I can't really do much about them until the controllers work, which is why I want to work closely with varun today
+> [11/20/23 15:00] Fell asleep
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 0:30 HOURS:MINUTES of work this week so far <<
+
+> [11/20/23 16:50] Woke up to resume work, this time with Varun here to try and get the controllers to properly interface
+>		   Got some strange yet mostly desired behavior from the code. 
+>		   We started looking for issues
+>		   Baud Rate was ruled out as a potential culprit, since we had the same Baud in the controller and the raspberry pi
+>		   Turns out Paul's code was there and it wasn't sending anything with the press of a button, but rahter, a tap of the screen. 
+> [11/20/23 17:00] Although we were certain the code in the ESP was right this time, there ws no output from the code when an input was given
+>		   The code reads from serial when "printf" is used, but not when the serial is written to directly, like I do when I'm sending data from the controller
+
+>		   The serial monitor seems to be looking for an escape character before it can take in an input
+>		   Added return and newline to the sending and it worked mostly
+> [11/20/23 18:45] New issue: The connection port of the devices was changing every time we connected and disconnected a device
+>		   Unsure why
+>		   Spent 15 minutes testing and weren't able to get anywhere
+> [11/20/23 19:00] Left lab for the day
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 2:40 HOURS:MINUTES of work this week so far <<
+
+> [11/21/23 14:30] Got to lab to try to get the controller to send signals using the buttons as well as the touchscreen (shouldn't be too difficult) 
+>		   Started by copying Paul's Touchscreen code into my TxRx code, all the time making sure to organize the code by what's buttons code and what's touch screen code
+> [11/21/23 15:00] Code builds fine, but I decided to change some constants in order for me to be able to properly send in cards
+>		   Since sending in more than one card without being able to select a card is a pain in the ass, I decided to have the card be selected randomly from one of 10 cards:
+>			- Red 0
+>			- Red reverse
+>			- Yellow +2
+>			- Green 0
+>			- Yellow 0
+>			- Blue 0
+>			- Yellow 2
+>			- Blue skip
+>			- WILD
+>			- Green 6
+>		   The idea is to have the controller select a NEW card every time it is tapped, and send it every time it is swiped. That way, I can select a card without having to see it
+>		   It's always random
+> [11/21/23 15:30] Finished reappropritating the code and flashed it to the controller, hoping it would work
+>		   Code seems to work fine at first glance. Which is good because it means I'll be able to at least send things over to the game console when I'm playing
+>		   Changed some printing scheme and found out the code was working exactly as expected
+>		   This means I can start uploading the TxRx code from the Pi into the Github and take the thing home with me over break
+> [11/21/23 15:45] Went over to set thigns up to work on  my linux
