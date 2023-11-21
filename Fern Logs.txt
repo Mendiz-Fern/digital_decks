@@ -1539,16 +1539,16 @@ WEEK 13
 >		   Started by copying Paul's Touchscreen code into my TxRx code, all the time making sure to organize the code by what's buttons code and what's touch screen code
 > [11/21/23 15:00] Code builds fine, but I decided to change some constants in order for me to be able to properly send in cards
 >		   Since sending in more than one card without being able to select a card is a pain in the ass, I decided to have the card be selected randomly from one of 10 cards:
->			- Red 0
->			- Red reverse
->			- Yellow +2
->			- Green 0
->			- Yellow 0
->			- Blue 0
->			- Yellow 2
->			- Blue skip
->			- WILD
->			- Green 6
+>			- Red 0 0x0408
+>			- Red reverse 0x040C
+>			- Yellow +2 0x0421
+>			- Green 0 0x0410
+>			- Yellow 0 0x0420
+>			- Blue 0 0x0418
+>			- Yellow 2 0x04A0
+>			- Blue skip 0x041B
+>			- WILD 0x0405
+>			- Green 6 0x0590
 >		   The idea is to have the controller select a NEW card every time it is tapped, and send it every time it is swiped. That way, I can select a card without having to see it
 >		   It's always random
 > [11/21/23 15:30] Finished reappropritating the code and flashed it to the controller, hoping it would work
