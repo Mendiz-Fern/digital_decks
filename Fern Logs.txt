@@ -1555,4 +1555,12 @@ WEEK 13
 >		   Code seems to work fine at first glance. Which is good because it means I'll be able to at least send things over to the game console when I'm playing
 >		   Changed some printing scheme and found out the code was working exactly as expected
 >		   This means I can start uploading the TxRx code from the Pi into the Github and take the thing home with me over break
-> [11/21/23 15:45] Went over to set thigns up to work on  my linux
+> [11/21/23 15:45] Went over to set things up to work on  my linux
+> [11/21/23 16:10] Was able to finish adding all the necessary files to the Github so I would be able to finally able to do the entirety of the work on a better OS than windows
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+  
+>> 4:20 HOURS:MINUTES of work this week so far <<
+
+> [11/22/23 14:00] Opened up Linux to make sure I'm able to run the code properly
+>				
