@@ -17,7 +17,7 @@ These are structs that will be useful to us (maybe) in the future
 //   char* image_path; // The path where the image for the card is stored
 // } Card;
 
-// THE CARD STRUCT HAS BEEN REMOVED AND INSTEAD REPLACED WITH A uint16_t, WITH THE BITS DEFINED AS FOLLOWS:
+// THE CARD STRUCT HAS BEEN REMOVED AND INSTEAD REPLACED WITH A __uint16_t, WITH THE BITS DEFINED AS FOLLOWS:
 // [ 2 ][    4    ][     4     ][     3     ][   3   ]
 // [n/a][GAME NAME][CARD NUMBER][COLOR/ SUIT][ABILITY]
 // This allows to have cards with 8 different abilities picked from 6 different colors, with numbers 1-16 picked from a selection of 16 games.
@@ -27,7 +27,7 @@ These are structs that will be useful to us (maybe) in the future
 typedef struct _deck {
 
   int size; // Size of the deck
-  uint16_t* in_deck; // A list of cards found in the deck
+  __uint16_t* in_deck; // A list of cards found in the deck
   char game; // The game this deck is for (might be useful for verification purposes)
   int to_deal; // Directly tied to game, how many cards you should be dealing from this deck
 
@@ -38,7 +38,7 @@ typedef struct _deck {
 typedef struct _hand {
 
   int size; // Size of the player's hand
-  uint16_t* in_hand; // A list of cards found in the player's hand
+  __uint16_t* in_hand; // A list of cards found in the player's hand
 
 } Hand;
 
@@ -74,11 +74,11 @@ These functions will have a more concrete explanation in game_functions.c
 // void shuffle_hand(int player); // shuffles a player's hand (might get moved over to player_functions.h)
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
 void setup_game(int game, Deck* deck, int num_players); // Sets game up (will be tricky)
-uint16_t get_from_deck(Deck* deck); // Gets a card from deck lol
+__uint16_t get_from_deck(Deck* deck); // Gets a card from deck lol
 
 
-uint16_t recv(int controller); // recieves a signal from a controller
-void send(int controller, uint16_t packet); // sends a signal from a controller
+__uint16_t recv(int controller); // recieves a signal from a controller
+void send(int controller, __uint16_t packet); // sends a signal from a controller
 
 
 void free_deck(Deck* deck); // guess what this does
