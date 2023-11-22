@@ -4,7 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include 'game_functions.h'
+#include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
+#include <termios.h>
+
+
+#include "game_functions.h"
 
 // SHUFFLE
 // THIS FUNCTION HAS BEEN MARKED AS OBSOLTETE. INSTEAD, SHUFFLING WILL BE DONE WHEN THE PLAYER GRABS A 
@@ -39,7 +45,7 @@
 //   }
 // }
 
-uint16_t recv(int controller){
+__uint16_t recv(int controller){
   // Button press code ideas- 
   // 0x1 - Left Button
   // 0x2 - Center Button
@@ -54,9 +60,9 @@ Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Ca
 
 }
 
-uint16_t get_from_deck(Deck* deck){
+__uint16_t get_from_deck(Deck* deck){
   int randy; //create a random variable
-  uint16_t card;
+  __uint16_t card;
 
   srand(time(NULL)); // use the current time as seed for the number
   randy = rand() % ((deck->size) - 1); // select a random card from the deck
@@ -78,38 +84,38 @@ void setup_game(int game_ID, Deck* deck, int num_players){
   players.
   */
   
-  switch(game_ID):
+  switch(game_ID) {
     case UNO_GAME: // Setup for UNO
       // We start by adding all the cards to the deck
-      deck->in_deck = (uint16_t*)malloc(108 * sizeof(uint16_t)); // Allocate for all 108 cards that will be in the deck
+      deck->in_deck = (__uint16_t*)malloc(108 * sizeof(__uint16_t)); // Allocate for all 108 cards that will be in the deck
       deck->size = 108;
       for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
-        uint16_t color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
+        __uint16_t color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
 
-        (deck->in_deck)[i*19] = (uint16_t)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
+        (deck->in_deck)[i*19] = (__uint16_t)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
         for(int j = 1; j < 10; j ++){
-          (deck->in_deck)[i*19 + j]   = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // add the card with number j in the jth position after its color's 0 card
-          (deck->in_deck)[i*19 + j + 10] = (uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // and also the j + 10th position after its color's 0 card
+          (deck->in_deck)[i*19 + j]   = (__uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // add the card with number j in the jth position after its color's 0 card
+          (deck->in_deck)[i*19 + j + 10] = (__uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // and also the j + 10th position after its color's 0 card
         }
         // If the above loop runs all four times, we have the first 76 cards populated.
         // If the loop below runs all four times, we have the next 24 cards populated. 
-        for(j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
-          (deck->in_deck)[76 + i*6 + j]   = (uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
-          (deck->in_deck)[76 + i*6 + j + 3] = (uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
+        for(int j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
+          (deck->in_deck)[76 + i*6 + j]   = (__uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
+          (deck->in_deck)[76 + i*6 + j + 3] = (__uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
         }
       }
       // At this moment we have 100 cards in the deck. Missing the 8 wilds
-      for(i = 100; i < 105; i ++){ // Populating with wild +4s
-        (deck->in_deck)[i] = (uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_P4 << CARD_ABILITY_SHIFT)); 
+      for(int i = 100; i < 105; i ++){ // Populating with wild +4s
+        (deck->in_deck)[i] = (__uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_P4 << CARD_ABILITY_SHIFT)); 
       }
-      for(i = 104; i < 107; i++){
-        (deck->in_deck)[i] = (uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_WILD << CARD_ABILITY_SHIFT)); 
+      for(int i = 104; i < 107; i++){
+        (deck->in_deck)[i] = (__uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_WILD << CARD_ABILITY_SHIFT)); 
       }
       // We have completely populated the deck now
       // Now we have to Deal cards to the players. 
-      for(i = 0; i < num_players; i++){ // for each connected player
-          for(j = 0; j < 7; j++){ // for each of 7 cards
-            uint16_t card_drawn = get_from_deck(deck); // grab a card
+      for(int i = 0; i < num_players; i++){ // for each connected player
+          for(int j = 0; j < 7; j++){ // for each of 7 cards
+            __uint16_t card_drawn = get_from_deck(deck); // grab a card
             send(i, card_drawn); // and send it over
           }
       }
@@ -118,12 +124,12 @@ void setup_game(int game_ID, Deck* deck, int num_players){
   
     case SOLITAIRE_GAME:// Setup for Solitaire (not Rummy)
       // we start by adding all the cards to the game
-      deck->in_deck = (uint16_t*)malloc(52 * sizeof(uint16_t));
+      deck->in_deck = (__uint16_t*)malloc(52 * sizeof(__uint16_t));
       deck->size = 52;
       for(int i = 0; i < 4; i++){ // divide cards by suit
-        uint16_t suit = i << CARD_COLOR_SHIFT;
+        __uint16_t suit = i << CARD_COLOR_SHIFT;
         for(int j = 0; j < 13; j ++){
-          (deck->in_deck)[13*i + j] = (uint16_t)(CARD_GAME_SOLITAIRE + suit + ((j + 1) << CARD_NUMBER_SHFIT)); 
+          (deck->in_deck)[13*i + j] = (__uint16_t)(CARD_GAME_SOLITAIRE + suit + ((j + 1) << CARD_NUMBER_SHFIT)); 
           // add a card in the (13i+j)th position that corresponds to the (i+1)th suit and the (j+1)th number (if j=1 this card will be interpreted as an ace, duh)
         }
       }
@@ -132,6 +138,7 @@ void setup_game(int game_ID, Deck* deck, int num_players){
     case 0x3: // Setup for skull!
 
     break;
+  }
 }
 
 void free_deck(Deck* deck){
