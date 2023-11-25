@@ -8,7 +8,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <termios.h>
-
+#include <dirent.h>
+#include <errno.h>
 
 #include "game_functions.h"
 
@@ -54,6 +55,86 @@ __uint16_t recv(int controller){
   // Also put the busy waiting here! 
 
   // if there's no response, just return FN_RET_NULL
+    char *port = malloc(13);
+    char *port_use = port;
+    __uint8_t msb;
+    __uint8_t lsb;
+    __uint16_t output = -1;
+    switch(controller)
+    {
+        case 0:
+        case 1: 
+        port_use = "/dev/ttyACM0";
+        break;
+        case 2: 
+        port_use = "/dev/ttyACM1";
+        break;
+        case 3:
+        port_use = "/dev/ttyACM2";
+        break;
+        case 4:
+        port_use = "/dev/ttyACM3";
+        break;
+        default: port_use = "err";
+    }
+    if(port_use == "err")
+    {
+        printf("[RECV] Wrong Controller Input\n");
+        free(port);
+        return FN_RET_NULL;
+    }
+
+    int serial_port = open(port_use, O_RDWR);
+    // printf("%d\n", serial_port);
+    if(serial_port < 0)
+    {
+        printf("[RECV] Error opening serial port. \n");
+    }
+
+    struct termios tty;
+    memset(&tty, 0, sizeof(tty));
+
+    if(tcgetattr(serial_port,&tty) != 0)
+    {
+        printf("[RECV] Error getting serial port attributes 3\n");
+    }
+    cfsetospeed(&tty,B1152000);
+    cfsetispeed(&tty, B1152000);
+
+    tty.c_cflag != (CLOCAL | CREAD);
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag != CS8;
+    if (tcsetattr(serial_port,TCSANOW,&tty) != 0)
+    {
+        printf("[RECV] Error setting serial port attributes \n");
+        free(port);
+        return FN_RET_NULL; 
+    }
+    char readbuff[256];
+    memset(&readbuff, '\0',sizeof(readbuff));
+    printf("[RECV] waiting... \n");
+
+    int num_bytes = 0;
+    while(num_bytes < 2)
+    {
+        num_bytes = read(serial_port, &readbuff, sizeof(readbuff));
+        if(num_bytes > 0)
+        {
+            // printf("Recieved [%s]\n", readbuff);
+            msb = (__uint16_t)readbuff[0]; // set MSB
+            // printf("msb: %x\n", msb);
+            lsb = (__uint16_t)readbuff[1]; // set LSB
+            // printf("lsb: %x\n", lsb);
+            memset(&readbuff, '\0', sizeof(readbuff)); // DELETE BUFFER
+        }
+    }
+    
+    free(port);
+    output = (msb << 8) + lsb; // set output
+    return output;
+
 }
 
 Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Can't we just call "draw" multiple times? 
@@ -87,6 +168,7 @@ void setup_game(int game_ID, Deck* deck, int num_players){
   switch(game_ID) {
     case UNO_GAME: // Setup for UNO
       // We start by adding all the cards to the deck
+      deck->game = UNO_GAME;
       deck->in_deck = (__uint16_t*)malloc(108 * sizeof(__uint16_t)); // Allocate for all 108 cards that will be in the deck
       deck->size = 108;
       for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
@@ -111,19 +193,24 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       for(int i = 104; i < 107; i++){
         (deck->in_deck)[i] = (__uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_WILD << CARD_ABILITY_SHIFT)); 
       }
+      // printf("segfault after \n");
       // We have completely populated the deck now
       // Now we have to Deal cards to the players. 
-      for(int i = 0; i < num_players; i++){ // for each connected player
-          for(int j = 0; j < 7; j++){ // for each of 7 cards
-            __uint16_t card_drawn = get_from_deck(deck); // grab a card
-            send(i, card_drawn); // and send it over
-          }
-      }
+      
+      // FOR NOW, IGNORE SENDING ANYTING TO THE PLAYERS, AS THE CONTROLLERS CANNOT HANDLE THIS FUNCTIONALITY
+
+      // for(int i = 0; i < num_players; i++){ // for each connected player
+      //     for(int j = 0; j < 7; j++){ // for each of 7 cards
+      //       __uint16_t card_drawn = get_from_deck(deck); // grab a card
+      //       send(i, card_drawn); // and send it over
+      //     }
+      // }
 
     break;
   
     case SOLITAIRE_GAME:// Setup for Solitaire (not Rummy)
       // we start by adding all the cards to the game
+      deck->game = SOLITAIRE_GAME;
       deck->in_deck = (__uint16_t*)malloc(52 * sizeof(__uint16_t));
       deck->size = 52;
       for(int i = 0; i < 4; i++){ // divide cards by suit
@@ -144,5 +231,57 @@ void setup_game(int game_ID, Deck* deck, int num_players){
 void free_deck(Deck* deck){
   free(deck->in_deck);
   // if I end up having to maloc the deck, I'll also uncomment the below line:
-  // free(deck);
+  free(deck);
+}
+
+void print_deck(Deck* deck, int print_cards){
+  printf("<Fern Deck with %d cards> {\n", deck->size);
+  printf("GAME           -- 0x%x\n", deck->game);
+  printf("CARDS TO DEAL  -- 0x%x\n", deck->to_deal);
+  printf("AVAILABLE CARDS:\n");
+  if(print_cards){
+    printf("--");
+    for(int i = 0; i < deck->size; i++){
+      printf("[");
+      printf("%x", deck->in_deck[i]);
+      printf("]");
+    }
+    printf("\n");
+  }
+  else{
+      printf("--'print_cards' [arg 2/2 in function] is set to 0\n");
+      printf("--to view cards, please set arg to a positive integer\n");
+  }
+  printf("}\n");
+}
+
+int check_players(){
+  int retval = 0;
+  int p1 = open("/dev/ttyACM0", O_RDWR); 
+  int p2 = open("/dev/ttyACM1", O_RDWR);
+  int p3 = open("/dev/ttyACM2", O_RDWR);
+  int p4 = open("/dev/ttyACM3", O_RDWR);
+
+  if(p4 >= 0){
+    retval = 4;
+    printf("4\n");
+  }
+  else if(p3 >= 0){
+    retval = 3;
+    printf("3\n");
+  }
+  else if(p2 >= 0){
+    retval = 2;
+    printf("2\n");
+  }
+  else if(p1 >= 0){
+    retval = 1;
+    printf("1\n");
+  }
+  else{
+    retval = 0;
+    printf("0\n");
+  }
+
+  return retval;
 }

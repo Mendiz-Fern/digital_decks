@@ -1503,6 +1503,8 @@ WEEK 13
 
 >>> == 104:35 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
 
+WEEK 14
+
 > [11/20/23 14:30] Got to lab, originally planning on working on solitarie, but decided to check out Varun's code instead, as I was unsure why it wasn't working and I got curious
 >		   After reading through the entirety of it, I found only 1 mistake that I could fix. Anything regarding the Serial port (Which is what we are currently using to communicate) I don't deal with, and decided to leave it alone.
 >		   It is also rude to touch others' code while they're debugging. 
@@ -1576,8 +1578,39 @@ WEEK 13
 >			Tried all three of these things and they all worked properly
 > [11/22/23 15:45] Tried compiling my game code
 >			Did not compile 
-> [11/22/23 16:00] There was too many errors before but I managed to get it down to 9 errors
+> [11/22/23 16:00] There was too many errors before but I managed to get it down to 9 then 7 errors
+> [11/22/23 16:05] Finally got it down to 0 errors
 >			Called it a day and stopped for today
 --------------------------------------------------------------------------------------------------------------------------------------------
   
->> 6:20 HOURS:MINUTES of work this week so far <<
+>> 6:25 HOURS:MINUTES of work this week so far <<
+
+>>> == 111:00 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
+
+WEEK 15
+
+> [11/25/23 14:45] Started debugging the game code. Began with the setup script to make sure that I was properly setting up the deck
+>			Actually decided to make a function to print out a deck
+> [11/25/23 15:10] Finished said function [picrel, don't forgor to import]
+>			put it in the game after I setup the deck for UNO to make sure it functioned properly
+>			Got a slew of entirely new errors upon new compilation
+> [11/25/23 15:30] Got the code down to no errors and 8 warnings
+> [11/25/23 15:35] Got the code to no errors, no warnings, so I can finally test it
+>			Actually, spent a little bit of time making sure there's a function to check how many players are connected
+>			Then I put it in the code and started testing
+> [11/25/23 16:00] Main Menu code doesn't work.
+			Turns out the selection variable was being reset with every loop (not ideal, tbh)
+			fixed that
+> [11/25/23 16:15] Main Menu navigation works now. Time to test for Main menu selections.
+			Made placeholders for every selection possible (except for games, as those don't need placeholders because they've already been implemented)
+			Started testing out the selections
+> [11/25/23 16:30] Got a fully functional main menu. Selected UNO to test the code and immediately got a segmentation fault.
+>			Started checking where the game was segfaulting, starting with a print statement after "setup_game" in what is currently line 193 of main.C
+>			Segfault clearly happens in "setup_game", but I decided to double check
+>			After double checking, it's clear that segfault does, in fact, happen during the "setup_game" function
+>			Fixed the sefaults in setup_game, but print_deck was segfaulting now
+>			Managed to fix all of my Segault errors by mallocing the deck at the beginning
+>			Got other memory errors
+> [11/25/23 17:00] Computer died, so I couldn't keep on working
+
+>> 1:15 HOURS:MINUTES of work this week so far <<

@@ -18,6 +18,10 @@ int main(int argc, char* argv[]){ // This will run in the Center console
   FILE* settings;
   settings = fopen(settings_filepath, "wb+"); // Open for reading and writing.
   
+
+  game_deck = (Deck*)malloc(sizeof(Deck));
+  // This bit here ahs proven... useless
+  /*
   while(!num_players){ // This will change, but it'll be strange so I'll have to see to it
     for(int i = 0; i < 4; ){ // check controllers
       __uint16_t response;
@@ -27,10 +31,17 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       else break;
     }
   }
+  */
 
+  num_players = check_players(); // YIPPEEEE
+  if(!num_players){
+    printf("No controllers conected... exiting... \n");
+    return 0;
+  }
+  printf("%d controller(s) connected.\n", num_players);
   
-
   while(game_on){ // Main game loop
+    __uint8_t hovering = 0;
     while (!current_game && !current_selection){ // Main Menu Loop
       // This is going to be the main menu screen. Here's ascii art of what I imagine it'll look like :)
       //
@@ -49,13 +60,13 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       //
       // (c) Paul, Varun, Orry, and I
       //
-      char hovering = 0;
       __uint16_t instr = recv(0);
-      if(instr == 0x1){ // if we receive a left arrow click
-        hovering --; // we go to the previous element
-        hovering %= 4; // with, of course, circular logic :)
+      if(instr == 0x4C20){ // if we receive a left arrow click
+        // printf("leff\n");
+        hovering = (hovering - 1) % 4; // we go to the previous element with, of course, circular logic :)
       }
-      else if (instr == 0x2){ // if we receive a center button click
+      else if (instr == 0x4320){ // if we receive a center button click
+        // printf("caatnre\n");
         current_selection = hovering; // we make the thing we're hovering the current selection
         if(current_selection == 0){ // if we selected item 0 (select game)
           sel0 = ~sel0; // we tell the computer that we're inside the Select Game sub-menu, unless we already were, in which we aren't anymore
@@ -66,10 +77,12 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           current_selection = 0; // and also the  current selection is set to 0 because if you select a game we're going into a different statement
         }
       }
-      else if (instr == 0x3){ // if we receive a right arrow click
-        hovering ++; // we go to the next element
-        hovering %= 4; // with circular logic again
+      else if (instr == 0x5220){ // if we receive a right arrow click
+        // printf("right\n");
+        hovering = (hovering + 1) % 4; // we go to the next element with circular logic again
       }
+
+      // printf("hovering = %u\n", hovering);
 
       // STAND IN CODE INSTEAD OF DISPLAY
       // for the time being, we're only displaying the current selection to avoid very long and annoying Print Statements
@@ -109,7 +122,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     }
     if(!current_selection){ // we're playing a game
       // Display stand in
-      printf("Starting game %d", current_game); // We tell the player we're loading their game
+      printf("Starting game %d\n", current_game); // We tell the player we're loading their game
       // This is here EXCLUSIVELY because we don't want the code to accidentally go into power off mode bc the currrent_selection isn't 1 or 2
     }   
     else if(current_selection == 0x1){ // Options Loop
@@ -145,13 +158,25 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         //    - go to line x of the file
         //    - should have a single bit atm (as all settings are t/f)
         //    - if the setting is selected, flip the bit
+        printf("settings not yet implemented. :)\n");
+        in_settings = 0;
+        current_selection = 0;
+        current_game = 0;
       }
     }
     else if(current_selection == 0x2){ // Credits
-
+      printf("Hardware - Orry and Paul but mostly Orry\n");
+      printf("Game Code - Fern\n");
+      printf("Main console graphics - Varun\n");
+      printf("Cartroller graphics - Paul\n");
+      printf("Other programmed subsystems - Paul, Varun, and Fern\n");
+      printf("Pain and suffering - all of us\n");
+      current_selection = 0;
+      current_game = 0;
     }
     else{ // Power Off
       game_on = false;
+      return 1; 
     }
 
     if(current_game == UNO_GAME){ // UNO Game Loop!! 
@@ -166,7 +191,12 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       __uint16_t fuc_color, fuc_num, fuc_ability; // face-up card
       __uint16_t plc_color, plc_num, plc_ability; // played card
     
-      setup_game(UNO_GAME, &game_deck, num_players); // Setup UNO
+
+      setup_game(UNO_GAME, game_deck, num_players); // Setup UNO
+      // Deck* deck2 = game_deck;
+      printf("segfault after \n");
+      print_deck(game_deck, 1); 
+
       __uint16_t face_up_card = get_from_deck(game_deck);
 
       while(winner == 0x4){ // as long as nobody has won
@@ -204,11 +234,12 @@ int main(int argc, char* argv[]){ // This will run in the Center console
             winner = curr_player; // give the win to the currrent player
           }
           else { // Otherwise activate the card's ability
+            __uint16_t card_drawn;
             switch(plc_ability){
               case 0x0: // if the card has no ability
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
-                __uint16_t card_drawn = get_from_deck(game_deck);
+                card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn); // this is about as efficient as a for loop
@@ -232,7 +263,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 fuc_color = recv((int)(curr_player));
                 break;
               default:
-              // ERROR
+                printf("YOU GOT AN ERROR MOTHERFUCKER (still have to code it so this does something, but in short: your dumb card shouldn't exist)\n");
             }
           }
         }
@@ -253,9 +284,9 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       // Pile 11 is the pile where you can grab cards from
       // The face-down version of said pile will simply be the deck
 
-      setup_game(SOLITAIRE_GAME, &game_deck, 1); // Setup the solitaire deck
+      setup_game(SOLITAIRE_GAME, game_deck, 1); // Setup the solitaire deck
       for(int i = 0; i < 7; i++){ // filling in the first 7 decks
-        piles[i]->in_hand = (__uint16_t)malloc(20 * sizeof(__uint16_t)); // Pile size here will not exceed 20
+        piles[i]->in_hand = malloc(20 * sizeof(__uint16_t)); // Pile size here will not exceed 20
         piles[i]->size = 0;
         int j;
         for(j = 0; j < i+1; j++){
@@ -266,14 +297,14 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         piles[i]->in_hand[j] |= CARD_ABILITY_FCUP; // make the top card be face up in each pile
       }
       for(int i = 7; i < 11; i ++){ // the 4 final piles
-        piles[i]->in_hand = (__uint16_t)malloc(13 * sizeof(__uint16_t)); // Pile size here will not exceed 13
+        piles[i]->in_hand = malloc(13 * sizeof(__uint16_t)); // Pile size here will not exceed 13
         piles[i]->size = 0;
       }
 
-      piles[11]->in_hand = (__uint16_t)malloc(24 * sizeof(__uint16_t)); // this pile will start having a max size of 52-7-6-5-4-3-2-1 = 24
+      piles[11]->in_hand = malloc(24 * sizeof(__uint16_t)); // this pile will start having a max size of 52-7-6-5-4-3-2-1 = 24
       piles[11]->size = 0;
 
-      holding->in_hand = (__uint16_t)malloc(13 * sizeof(__uint16_t));
+      holding->in_hand = malloc(13 * sizeof(__uint16_t));
       holding->size = 0;
       // Pile setup complete
 
@@ -321,10 +352,13 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     }
     else if(current_game == SKULL_GAME){ // Skull Game Loop
     }
+    else if(current_game == 0){ // game = 0 should just leave
+    }
     else{
       printf("More games [might be] coming soon!!!\n");
     }
-    }
   }
+  return 1;
+}
 
 // } Uhhhh...

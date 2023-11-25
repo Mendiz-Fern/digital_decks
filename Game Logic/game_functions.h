@@ -28,7 +28,7 @@ typedef struct _deck {
 
   int size; // Size of the deck
   __uint16_t* in_deck; // A list of cards found in the deck
-  char game; // The game this deck is for (might be useful for verification purposes)
+  __uint8_t game; // The game this deck is for (might be useful for verification purposes)
   int to_deal; // Directly tied to game, how many cards you should be dealing from this deck
 
 } Deck;
@@ -75,7 +75,8 @@ These functions will have a more concrete explanation in game_functions.c
 Hand* deal(Deck* deck, int num_players); // Deals from Deck* deck to all num_players players
 void setup_game(int game, Deck* deck, int num_players); // Sets game up (will be tricky)
 __uint16_t get_from_deck(Deck* deck); // Gets a card from deck lol
-
+void print_deck(Deck* deck, int print_cards);
+int check_players();
 
 __uint16_t recv(int controller); // recieves a signal from a controller
 void send(int controller, __uint16_t packet); // sends a signal from a controller
