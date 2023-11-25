@@ -139,7 +139,7 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY    0x0007 // 3 bits
 
 #define CARD_GAME_SHIFT       0xA // You shift your 4 game bits by 10 bits to get the bits for the game
-#define CARD_NUMBER_SHFIT     0x6 // You shift your 4 number bits by 6 bits to get the bits for the number
+#define CARD_NUMBER_SHIFT     0x6 // You shift your 4 number bits by 6 bits to get the bits for the number
 #define CARD_COLOR_SHIFT      0x3 // You shift your 3 color bits by 3 bits to get to the bits for color
 #define CARD_ABILITY_SHIFT    0x0 // You don't really have to shift, but it's here for completion 
 // 0000 0000 0000 1111 << 10 = 0011 1100 0000 0000

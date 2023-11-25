@@ -129,7 +129,7 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       for(int i = 0; i < 4; i++){ // divide cards by suit
         __uint16_t suit = i << CARD_COLOR_SHIFT;
         for(int j = 0; j < 13; j ++){
-          (deck->in_deck)[13*i + j] = (__uint16_t)(CARD_GAME_SOLITAIRE + suit + ((j + 1) << CARD_NUMBER_SHFIT)); 
+          (deck->in_deck)[13*i + j] = (__uint16_t)(CARD_GAME_SOLITAIRE + suit + ((j + 1) << CARD_NUMBER_SHIFT)); 
           // add a card in the (13i+j)th position that corresponds to the (i+1)th suit and the (j+1)th number (if j=1 this card will be interpreted as an ace, duh)
         }
       }

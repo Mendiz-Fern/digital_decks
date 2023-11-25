@@ -3,7 +3,7 @@
 // inputs." -Fern
 
 #include <stdio.h>
-#include 'game_functions.h'
+#include "game_functions.h"
 
 int* select_card(int player_ID, int pos_in_deck){
   /* Selects a card from a deck and returns a list of integers representing multiple things. The deck

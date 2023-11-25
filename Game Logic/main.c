@@ -182,7 +182,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
 
-        while((plc_color != fuc_color) | (plc_number != fuc_number) | (plc_ability != fuc_ability) | (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
+        while((plc_color != fuc_color) | (plc_num != fuc_num) | (plc_ability != fuc_ability) | (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           send((int)(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
           played_card = recv((int)(curr_player)); // and ask for another one
           plc_color = played_card & CARD_COLOR;
@@ -208,7 +208,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
               case 0x0: // if the card has no ability
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
-                card_drawn = get_from_deck(game_deck);
+                __uint16_t card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn); // this is about as efficient as a for loop
@@ -219,7 +219,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                   send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 }
                 send((int)(curr_player), UNO_WANT_COLOR); // ask what color they want
-                fuc_color = recv((int)(player));
+                fuc_color = recv((int)(curr_player));
                 break;
               case CARD_ABILITY_UNO_REVERSE:
                 direction = (direction == 1) ? 0 : 1; // can't just flip the bits, sadly
@@ -229,7 +229,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 break;
               case CARD_ABILITY_UNO_WILD:
                 send((int)(curr_player), UNO_WANT_COLOR); // ask what color they want
-                fuc_color = recv((int)(player));
+                fuc_color = recv((int)(curr_player));
                 break;
               default:
               // ERROR
@@ -299,7 +299,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
               selected_pile = hovering_pile; // and we tell the game which pile we have in our hands
             }
             else if(hovering_pile == 11){ // if we clicked on the draw pile
-              __uint8_t draw_pile_size = piles[11]->size
+              __uint8_t draw_pile_size = piles[11]->size;
               piles[11]->in_hand[draw_pile_size - 1] = get_from_deck(game_deck); // The last card is a random drawn card
               piles[11]->size ++; // and also increase the size of the pile so we can keep at it
             }
