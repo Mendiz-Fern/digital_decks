@@ -113,6 +113,9 @@ void free_deck(Deck* deck); // guess what this does
 // other setups go here
 #define CARD_REQUEST_DENIED   0xF0CC
 #define CARDS_LEFT            0xFECC // Asking the player how many cards they've left
+#define GAME_OVER             0xFFFF // Send this when the game is over
+#define CARDS_SEND_BEGIN      0xFF00 // Send this when we're going to start sending cards
+#define CARDS_SEND_END        0xFF01 // Send this when we're done sending cards
 
 // other game setups can go here when I use them
 // Constants from 0x11-0xA are reserved for this, although this wouldn't be scalable above 15 games, it's important to note we only even thought of 7
