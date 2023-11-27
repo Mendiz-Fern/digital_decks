@@ -223,7 +223,9 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         if(played_card == 0xFACC){ // if the player doesn't have any useful cards
           // CHANGE
           __uint16_t card_drawn = get_from_deck(game_deck);
+          send((int)(curr_player), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
           send((int)(curr_player), card_drawn); // for now, just give them a card and skip their turn
+          send((int)(curr_player), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
         }
         else{ // if the player DOES have playable cards and plays a card
           face_up_card = played_card; // change the face_up_card to the card that was just played
@@ -239,16 +241,20 @@ int main(int argc, char* argv[]){ // This will run in the Center console
               case 0x0: // if the card has no ability
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
+                send((int)(curr_player), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn); // this is about as efficient as a for loop
                 break;
+                send((int)(curr_player), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
               case CARD_ABILITY_UNO_P4:
+                send((int)(curr_player), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
                 for(int i = 0; i < 3; i ++){
                   card_drawn = get_from_deck(game_deck);
                   send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
                 }
+                send((int)(curr_player), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
                 send((int)(curr_player), UNO_WANT_COLOR); // ask what color they want
                 fuc_color = recv((int)(curr_player));
                 break;

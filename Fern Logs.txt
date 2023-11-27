@@ -1623,4 +1623,28 @@ WEEK 15
 >			Started working on doing SOMETHING with the inputs when the controller receives one
 > 			Added some constants to help with the receiving and sending of signals:
 >				- GAME_OVER (0xFFFF) This constant will let the controller know to delete its current hand COMPLETELY bc the game is over
->				- 
+>				- CARDS_SEND_BEGIN (0xFF00) This one will let the controller know we're about to start sending cards, so it should add whatever comes next to its hand
+>				- CARDS_SEND_END (0xFF01) This one will let the controller know that we're done sending cards so it should listen for other kinds of signals
+>			With these new constants, there's also a new global variable that will keep in mind whether we're receiving a card or a normal signal
+> [11/27/23 16:30] Was able to start coding logic for when an unexpected signal is received (in this case, unexpected simply means a signal is being sent without the controller having waited for it, for example, being sent a card)
+>			This logic also considers unprecedented signals, which are just signals that do not exist (it could also be that a signal isn't recognized because it is a card when we're noe expecting one)
+> [11/27/23 16:50] Started the logic for waiting for an acknowledgement after a card is sent. If none is given, the card will not be sent
+>			Started by giving the Acknowledge signal 100 for-loop cycles to appear before we time out
+>			After receiving a card, we also want to make sure it's valid before letting it go, so we have a similar logic waiting for the CARD_REQUEST_DENIED, where if it is denied, the controller cannot send the card
+>				- This logic; however, has twice the timeout wait
+>			As I was doing this, I kept looking at the game code, realizing I missed a lot of receive cases 
+> [11/27/23 17:45] Started looking into handling all possible cases of what we could receive that we weren't expecting. Here's a list of those cases:
+>				- CARDS_SEND_BEGIN
+>				- CARDS_SEND_END
+>				- GAME_OVER
+>				- CARDS_LEFT
+>				- UNO_WANT_COLOR
+>			While I was dealing with these cases, I stopped to make sure that the game was now sending out the CARDS_SEND_BEGIN and CARDS_SEND_END signals before and after sending cards to the ESP
+> [11/27/23 18:15] Had to leave, but I leave here this to-do list for future Fern:
+>				- Ensure that you can send the 0xFACC signal from the ESP if you don't have any cards. This will require some tweaking of the game code
+>				- Add a send function that works 
+>				- Fix the setup_game function in game_functions.c in accordance to the send function. Don't forget the CARDS_SEND_BEGIN and CARDS_SEND_END constants when dealing cards
+>				- Fix the segfault issues in UNO
+>				- Playtest UNO to ensure proper functionality beyond just a lack of errors (for example, at the moment, there's a '0' card being sent 4 times to the UNO deck. 0 shouldn't be an UNO card)
+
+>> 5:35 HOURS:MINUTES of work this week so far <<

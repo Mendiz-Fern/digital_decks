@@ -100,8 +100,8 @@ void free_deck(Deck* deck); // guess what this does
 
 // == CONSTANTS FOR SENDING AND RECEIVING DATA == //
 
-#define CONNECTION      0x1 // Will be sent and received as a connection confirmation. Send 1, receive 1, done.
-#define RECV_LEFT       0x1 // I know it's the same as CONNECTION, but I mean... I don't see why not?
+#define CONTROLLER_ACK  0x1 // Will be sent and received as a connection confirmation. Send 1, receive 1, done.
+#define RECV_LEFT       0x1 // I know it's the same as CONTROLLER_ACK, but I mean... I don't see why not?
 #define RECV_CENTER     0x2 // I know this is reused
 #define RECV_RIGHT      0x3 // I know this is reused. 
 #define FN_RET_NULL     0x4 //counterintuitive, but who cares? 
@@ -161,7 +161,7 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY_UNO_SKIP 0x0003 // Ability 3 is skip
 #define CARD_ABILITY_UNO_REVERSE 0x0004 // Ability 4 is Reverse
 #define CARD_ABILITY_UNO_WILD 0x0005 // Abiity 5 is a plain wild
-#define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible state to reach, so it will be the indicator that you have no cards to play
+#define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible card to have, so it will be the indicator that you have no cards to play
 
 #define CARD_SUIT_CLUB        0x0008 // suit 2 is clubs
 #define CARD_SUIT_HEART       0x0010 // suit 2 is hearts
