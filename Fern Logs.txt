@@ -1591,7 +1591,7 @@ WEEK 15
 
 > [11/25/23 14:45] Started debugging the game code. Began with the setup script to make sure that I was properly setting up the deck
 >			Actually decided to make a function to print out a deck
-> [11/25/23 15:10] Finished said function [picrel, don't forgor to import]
+> [11/25/23 15:10] Finished said function [picrel, don't forgor to import FROM GITHAB]
 >			put it in the game after I setup the deck for UNO to make sure it functioned properly
 >			Got a slew of entirely new errors upon new compilation
 > [11/25/23 15:30] Got the code down to no errors and 8 warnings
@@ -1614,3 +1614,13 @@ WEEK 15
 > [11/25/23 17:00] Computer died, so I couldn't keep on working
 
 >> 1:15 HOURS:MINUTES of work this week so far <<
+
+> [11/27/23 14:45] Got to lab to try and set up the receiving function 
+>			Used the callback function from WAY earlier so we can recv at any given moment
+>			The callback function works almost as desired, but it only lies taking 1 byte at a time
+>			Tried fixing it by splitting the functions in a strange way [picrel, don't forgor to get FROM PHONE]
+> [11/27/23 15:40] Got a working recv function that only receives a value once a 16-bit unsigned value is placed in the buffer by an outside device
+>			Started working on doing SOMETHING with the inputs when the controller receives one
+> 			Added some constants to help with the receiving and sending of signals:
+>				- GAME_OVER (0xFFFF) This constant will let the controller know to delete its current hand COMPLETELY bc the game is over
+>				- 
