@@ -46,6 +46,74 @@
 //   }
 // }
 
+void send(int controller, __uint16_t data){
+    __uint8_t msb = data & 0xFF;
+    __uint8_t lsb = data >> 8;
+    char *port = malloc(13);
+    char *port_use = port;
+    switch(controller)
+    {
+        case 0:
+        case 1: 
+        port_use = "/dev/ttyACM0";
+        break;
+        case 2: 
+        port_use = "/dev/ttyACM1";
+        break;
+        case 3:
+        port_use = "/dev/ttyACM2";
+        break;
+        case 4:
+        port_use = "/dev/ttyACM3";
+        break;
+        default: "err";
+    }    
+    if(port_use == "err")
+    {
+        printf("Wrong Controller Input");
+        
+    }
+    int serial_port = open(port_use, O_RDWR);
+    if(serial_port < 0)
+    {
+        printf("Error opening serial port. \n");
+        
+    }
+
+    struct termios tty;
+    memset(&tty, 0, sizeof(tty));
+
+    if(tcgetattr(serial_port,&tty) != 0)
+    {
+        printf("Error getting serial port attributes 2\n");
+        
+
+    }
+    cfsetospeed(&tty,B9600);
+    cfsetispeed(&tty, B9600);
+
+    tty.c_cflag != (CLOCAL | CREAD);
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag != CS8;
+    if (tcsetattr(serial_port,TCSANOW,&tty) != 0)
+    {
+        printf("Error setting serial port attributes \n");
+        
+    }
+    __uint8_t buffer1[1] = {msb};
+    __uint8_t buffer2[1] = {lsb};
+    int bytes_written1 = write(serial_port, buffer2, 1);
+    int bytes_written2 = write(serial_port, buffer1, 1);
+    if(bytes_written1 + bytes_written2 != 2)
+    {
+        printf("Error writing to serial port");
+    }
+    free(port);
+    close(serial_port);
+}
+
 __uint16_t recv(int controller){
   // Button press code ideas- 
   // 0x1 - Left Button
@@ -169,15 +237,16 @@ void setup_game(int game_ID, Deck* deck, int num_players){
     case UNO_GAME: // Setup for UNO
       // We start by adding all the cards to the deck
       deck->game = UNO_GAME;
+      deck->to_deal = 7;
       deck->in_deck = (__uint16_t*)malloc(108 * sizeof(__uint16_t)); // Allocate for all 108 cards that will be in the deck
       deck->size = 108;
       for(int i = 0; i < 4; i ++){ // Divide the cards to add by color first
-        __uint16_t color = i << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
+        __uint16_t color = (i + 1) << CARD_COLOR_SHIFT; // Shift i so it's in the position of COLOR
 
         (deck->in_deck)[i*19] = (__uint16_t)(CARD_GAME_UNO + color); // add 0 card of this color to the deck
         for(int j = 1; j < 10; j ++){
           (deck->in_deck)[i*19 + j]   = (__uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // add the card with number j in the jth position after its color's 0 card
-          (deck->in_deck)[i*19 + j + 10] = (__uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // and also the j + 10th position after its color's 0 card
+          (deck->in_deck)[i*19 + j + 9] = (__uint16_t)(CARD_GAME_UNO + color + (j << CARD_NUMBER_SHIFT)); // and also the j + 10th position after its color's 0 card
         }
         // If the above loop runs all four times, we have the first 76 cards populated.
         // If the loop below runs all four times, we have the next 24 cards populated. 
@@ -190,7 +259,7 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       for(int i = 100; i < 105; i ++){ // Populating with wild +4s
         (deck->in_deck)[i] = (__uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_P4 << CARD_ABILITY_SHIFT)); 
       }
-      for(int i = 104; i < 107; i++){
+      for(int i = 104; i < 108; i++){ // Populating with wilds
         (deck->in_deck)[i] = (__uint16_t)(CARD_GAME_UNO + (CARD_ABILITY_UNO_WILD << CARD_ABILITY_SHIFT)); 
       }
       // printf("segfault after \n");
@@ -199,12 +268,14 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       
       // FOR NOW, IGNORE SENDING ANYTING TO THE PLAYERS, AS THE CONTROLLERS CANNOT HANDLE THIS FUNCTIONALITY
 
-      // for(int i = 0; i < num_players; i++){ // for each connected player
-      //     for(int j = 0; j < 7; j++){ // for each of 7 cards
-      //       __uint16_t card_drawn = get_from_deck(deck); // grab a card
-      //       send(i, card_drawn); // and send it over
-      //     }
-      // }
+      for(int i = 0; i < num_players; i++){ // for each connected player
+          send(i, CARDS_SEND_BEGIN);
+          for(int j = 0; j < 7; j++){ // for each of 7 cards
+            __uint16_t card_drawn = get_from_deck(deck); // grab a card
+            send(i, card_drawn); // and send it over
+          }
+          send(i, CARDS_SEND_END);
+      }
 
     break;
   
@@ -285,3 +356,4 @@ int check_players(){
 
   return retval;
 }
+

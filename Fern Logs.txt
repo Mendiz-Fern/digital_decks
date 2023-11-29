@@ -1612,7 +1612,7 @@ WEEK 15
 >			Managed to fix all of my Segault errors by mallocing the deck at the beginning
 >			Got other memory errors
 > [11/25/23 17:00] Computer died, so I couldn't keep on working
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 >> 1:15 HOURS:MINUTES of work this week so far <<
 
 > [11/27/23 14:45] Got to lab to try and set up the receiving function 
@@ -1646,5 +1646,97 @@ WEEK 15
 >				- Fix the setup_game function in game_functions.c in accordance to the send function. Don't forget the CARDS_SEND_BEGIN and CARDS_SEND_END constants when dealing cards
 >				- Fix the segfault issues in UNO
 >				- Playtest UNO to ensure proper functionality beyond just a lack of errors (for example, at the moment, there's a '0' card being sent 4 times to the UNO deck. 0 shouldn't be an UNO card)
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 4:35 HOURS:MINUTES of work this week so far <<
 
->> 5:35 HOURS:MINUTES of work this week so far <<
+> [11/28/23 13:45] Got to lab ready to test the screen Code
+>			Immediately got a segfault of sorts when tapping to select a card: the hand of the controller is empty so when it tries to get a card it crashes
+>			Added a handler for this (simply checks if the hand is empty, and if it is, it'll return UNO_FAIL)
+>			This did not solve the problem. Added some debug print statements to help me figure this out...
+>			Realized that I'm not sure I actually flashed the device earlier
+>			Turns out I hadn't flashed before. The code works fine now.
+> [11/28/23 13:50] Opened the serial window to make sure I can send signals from this device
+>			I can
+> [11/28/23 13:50] Started looking into testing the separate signals the controller can receive. Beginning with entering receive mode, receiving some cards, and then immediately leaving receive mode
+>			For these tests, I used Varun's python script.
+>			Have proven that the card receive script does, in fact, work. Ended up adding 3 cards and sending them all (eventually, after randomly cycling through them)
+>			Next, I have to test CARDS_LEFT.
+>			CARDS_LEFT does, in fact, work.
+>			Lastly, I had to test UNO_WANT_COLOR.
+>			Confirmed that, in fact, all my signals so far work, which is good.
+> [11/28/23 14:30] Now that I've checked all the receiving works in the ESP, I can test sending a card. So far, the card wouldn't get sent because it times out waiting for an acknowledgment.
+>			Now I can try receiving from the esp and then immediately sending back the Acknowledge in order for the ESP to send over one of the cards and actually lose  it
+>			The Acknowledge doesn't seem to be working... for one, the signal being received is not 0x0001 but rather, 0x0100 for some reason 
+>			The way I had it set up, 0x00 cannot be a starting byte for a signal received by the ESP... Going to go recheck my constants...
+>			Changed the following constants:
+>				- CONTROLLER_ACK is now 0xF001 (again, no cards start with F, but now there's less of an issue with cards because we need to tell the controller it's looking for a card rather than just assuming)
+>			Should be OK for now...
+>			Now that I fixed the ACK, it was still not working, so I changed the timeout function, and gave the game a whole 2 seconds before the timeout
+>			While the signal was received before the timeout, it didn't record the ACK. Added an extra debug print statement to check it out.
+>			It seems the callback function isn't being called until after the timeout loop... 
+>			Made a less good offbrand callback function that I could call myself every time I was waiting for input back... Hopefully it works
+> [11/28/23 15:15] it did not work... I did some more testing on it
+>			the received signal is deleted immediately after its use rather than right before its next use
+>			Changed that
+>			While this worked, I am concerned that the other functions I had previously used would no longer work, so I went back to test those again.
+>			Had some hiccups while testing, such as forgetting to clear recv after its used for ACK or for CARD_REQUEST_DENIED
+>			Decided to clear it AFTER use, rather than before replacement (although I kept the before replacement)
+> [11/28/23 15:40] Was able to confirm all previously tested functions were functional
+>			It was now time to test that I could, in fact, get rid of cards from the controller and then add more.
+>			I managed to confirm that I do, indeed, lose a card if I send it properly. Given that in too many tries, I was unable to get the card I just got rid of.
+>			I was able to get all others and not once did I get a 0 (value of the card if it was still there).
+>			Next step was to try to send in a new card to the controller.
+> [11/28/23 16:00] Confirmed that all the controller code works. I can now begin making a send function in C
+> [11/28/23 16:20] Finished a functional send function in C [picrel, don't forgor to import from GITHAB]
+>			Started looking at the setup function, as it wasn't working properly
+>			Found out some things that weren't ideal were going on in there
+>			Fixing the function that fills the deck got rid of 20 out of my 24 valgrind errors. 
+> [11/28/23 17:15] Went to take a small break and eat a snack
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 7:55 HOURS:MINUTES of work this week so far <<
+
+> [11/28/23 18:00] Tried to show the functional product to Paul, but it suddenly stopped working (the buttons weren't sending the right signals and I'm not sure why)
+>			After re-running everything from scratch, the controller still doesn't work
+>			Not sure what I did but it works Now
+> 			Finished adding necessary print statements and send/ receive bits that are necessary 
+>			Started making print statements to be able to debug the game.
+> [11/28/23 19:00] Left to go eat Dinner
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 8:55 HOURS:MINUTES of work this week so far <<
+
+> [11/28/23 21:00] Got back to lab to finish playtesting/ debugging the controller
+>			Started making a function to handle telling the console if the controller has a card in its deck
+>			Finished that and began playtesting
+>			Noticed a discrepancy between the card being sent and the card being received (not sure why)
+>			Went back to testing the receive function separately
+> [11/28/23 22:00] recieve function stopped reading for whatever reason
+>			Got that working again, but there's an issue wherein if a card starts with 0x04, it'll change 0x04 to 0x0a and switch the endianness
+>			Never gotten this problem before, so I'm checking for possible causes
+>			Now we're back to the problem where things aren't sending properly
+>			Also the ESP is now receiving random signals each time it sends something and I'm not sure why
+> [11/28/23 22:55] I tried everything I could short of starting again and nothing worked so I decided to restart the process of writing my send function on the ESP size 
+>			This with the one caveat that I would keep the old function and simply start from scratch and see what I could get 
+>			Removed the receive function from use and also turned the send function into the most rudimentary it could be, then tested it
+>			This did not work... so I am left to assume it's an issue with the recieve function in my C code on the game side of things
+> [11/28/23 23:20] Found out the surface of the issue (not the root yet)
+>			Through printing out the bugger whilst sending cards both with a 0x06 start and a 0x04 start, I was able to find out the following:
+>				- All my signals are sent as: 0xXXYY, 0x0A0D, where XXYY is the signal and 0A0D is simply a '\n' in order for the recv funciton to register the input
+>				- Then when written into the buffer, the signals show up in the buffer as [XX, YY, 0A, 00, 00 - etc]. For some inexplicable reason, the 0D is never registered, but it doesn't matter because that's irrelevant
+>				- However, when I try to send in a signal with XX = 04, the buffer looks as follows: [YY, 0A, 00, 00, - etc]
+>				- This means that, for some reason, the buffer is forgoing the 04 signal sent. Unsure why, but I have some theories.
+>			First, I want to see what happens if 04 is replaced with 0D. It might be the case that 0D is forgone for the same reasons as 04, or it might be forgone simply because after the return character the buffer goes 'ding! This is it!' 
+>			Turns out the newline character, 0d, will actually appear in the buffer as a strange sort of 'next' indicator. If it's there, it'll simply take the buffer, read it, and go on
+>			Second, I want to see what happens if 04 is the least significant byte, rather than the most significant
+>			In this case, the buffer will be read in 3 sections of 1 byte each... first the MSB in the signal sent, then 0A (the next byte), and then 0A again, which was the behavior observed last time I set 0D in the first three bytes being read
+> [11/28/23 23:30] Went over to check what the 0x04 character is on an ascii table
+>			0x04 is the EOT (end of transmission) character... this means that every time the code encountered 0x04 in the buffer, it ignored it because it's just the EOT character
+>			I simply have to implement a new card system that will not have 0x04 in any of its bytes... 
+>			But first, I have to check which of the number from 05 to 0F are good to use, because when I make the new deck, I want to ensure only useful numbers will be created 
+>			Here's a list of all the numbers that had a peculiarity:
+>				- 0x04: EOT (explained above)
+>				- 0x0A: Carriage Return- similar to 0x0D, the buffer assumes we're done when we see it and it goes on to the next thing 
+>				- 0x0D: Newline character- behaves exactly like the Carriage Return and I'm not entirely sure why 
+> [11/29/23 00:00] Went on to change some of the UNO constants that would result in these three bytes existing within the deck.
+>			They currently exist as the beginning of most cards (as the UNO_GAME constant is 0x04) as well as the end of WILD +4 cards (because the wild+4 ability is also 0x04)
+>			Added 1 to every game constant and changed the wild+4 ability to 6 instead of 4.
+>			Saw what the new deck looked like. It had 
