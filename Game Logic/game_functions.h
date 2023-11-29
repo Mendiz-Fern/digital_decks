@@ -148,19 +148,19 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY_SHIFT    0x0 // You don't really have to shift, but it's here for completion 
 // 0000 0000 0000 1111 << 10 = 0011 1100 0000 0000
 
-#define CARD_GAME_UNO         0x0800 // 4 bits to set for UNO
-#define CARD_GAME_SOLITAIRE   0x0C00 // 4 bits to set for Solitarie
-#define CARD_GAME_SKULL       0x1000 // 4 bits to set for Skull
+#define CARD_GAME_UNO         0x1400 // 4 bits to set for UNO
+#define CARD_GAME_SOLITAIRE   0x1800 // 4 bits to set for Solitarie
+#define CARD_GAME_SKULL       0x1C00 // 4 bits to set for Skull
 
 #define CARD_COLOR_UNO_RED    0x0008 // Color 1 is red
 #define CARD_COLOR_UNO_GREEN  0x0010 // Color 2 is green
 #define CARD_COLOR_UNO_BLUE   0x0018 // Color 3 is blue
 #define CARD_COLOR_UNO_YELLOW 0x0020 // Color 4 is yellow
-#define CARD_ABILITY_UNO_P2   0x0001 // Ability 1 is plus 2
-#define CARD_ABILITY_UNO_REVERSE 0x0002 // Ability 2 is Reverse
-#define CARD_ABILITY_UNO_SKIP 0x0003 // Ability 3 is skip
-#define CARD_ABILITY_UNO_P4   0x0004 // Ability 4 is wild plus 4
-#define CARD_ABILITY_UNO_WILD 0x0005 // Abiity 5 is a plain wild
+#define CARD_ABILITY_UNO_P2   0x0006 // Ability 1 is plus 2
+#define CARD_ABILITY_UNO_REVERSE 0x0007 // Ability 2 is Reverse
+#define CARD_ABILITY_UNO_SKIP 0x0008 // Ability 3 is skip
+#define CARD_ABILITY_UNO_P4   0x0003 // Ability 4 is wild plus 4
+#define CARD_ABILITY_UNO_WILD 0x0001 // Abiity 5 is a plain wild
 #define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible card to have, so it will be the indicator that you have no cards to play
 
 #define CARD_SUIT_CLUB        0x0008 // suit 2 is clubs
