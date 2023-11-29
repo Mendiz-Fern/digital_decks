@@ -66,6 +66,7 @@ __uint16_t recv(int controller){
     tty.c_cflag &= ~CSTOPB;
     tty.c_cflag &= ~CSIZE;
     tty.c_cflag != CS8;
+
     if (tcsetattr(serial_port,TCSANOW,&tty) != 0)
     {
         printf("[RECV] Error setting serial port attributes \n");
