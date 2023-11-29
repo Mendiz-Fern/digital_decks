@@ -1748,4 +1748,18 @@ WEEK 15
 >			These abilities COULD, however, be {6, 7, 8}, and I can make the WILD be 1 and the WILD+4 be 3
 >			Tried that and it worked. So now all I had to do was pass these new constants on to my code on the ESP and keep debugging the code step by step.
 > [11/29/23 00:30] Put all the new constants inside of the ESP code
- 
+>			Decided to try simply filling in the acknowledgment part of the send function, and fix the next_card function a little so it would simply turn to the next card in one's hand
+> [11/29/23 01:19] As I was doing this, I got distracted by the fact that I wasn't even sure the drawing part of the code would work, so I checked it, and it did not, in fact, work.
+>			The hour-ish of no log is me trying to figure out why 
+>			Turns out I'd forgotten to send the enter key after the message... 
+> [11/29/23 01:30] Managed to get some form of game logic going... HOWEVER, it is important to note that I'm not sure if the game is working properly
+>			Decided to print out some important things about the card I curently have when I select it (in the debug window for the controller) for easier debugging
+> 			Found out that my code was going "hmmm... same ability? these cards should be compatible!" when it should be either same ability or same number...
+> [11/29/23 01:45] Honestly, I'm having trouble thinking about the logic under which we can consider cards compatible or not 
+>			Before I leave, though, I got a very bad-looking error once when I sent a 0, so I'm going to try to fix that really quick 
+>			Should be a simple fix concerning simply telling the code to NOT send a card if it's 0... because that's illegal...
+>			It seems the byte 0x15 might also be cursed... 
+>			consdiering using 24, 28, and 2C for the games instead... but for now, I think it's a good time to leave
+> [11/29/23 02:05] Left lab and went to get a wink of sleep 
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 15:00 HOURS:MINUTES of work this week so far <<

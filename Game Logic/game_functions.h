@@ -112,6 +112,7 @@ void free_deck(Deck* deck); // guess what this does
 #define SET_UP_SKULL    SET_UP + SKULL_GAME // 0x13
 // other setups go here
 #define CARD_REQUEST_DENIED   0xF0CC
+#define CARD_REQUEST_APPROVED 0xF1E1
 #define CARDS_LEFT            0xFECC // Asking the player how many cards they've left
 #define GAME_OVER             0xFFFF // Send this when the game is over
 #define CARDS_SEND_BEGIN      0xFF00 // Send this when we're going to start sending cards
@@ -162,6 +163,7 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY_UNO_P4   0x0003 // Ability 4 is wild plus 4
 #define CARD_ABILITY_UNO_WILD 0x0001 // Abiity 5 is a plain wild
 #define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible card to have, so it will be the indicator that you have no cards to play
+#define UNO_GOT_CARDS_TO_PLAY 0xFACD // 0xFACD is an impossible card to have, so it will be a question to see if you have cards to play
 
 #define CARD_SUIT_CLUB        0x0008 // suit 2 is clubs
 #define CARD_SUIT_HEART       0x0010 // suit 2 is hearts
