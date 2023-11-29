@@ -209,15 +209,16 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
         printf("Current Player: %d\n", curr_player);
 
-        send((int)(curr_player), UNO_NO_CARDS_TO_PLAY); // we're sending this as a question, but we have to handle the game logic for it still in the controller
+        send((int)(curr_player), UNO_GOT_CARDS_TO_PLAY); // we're sending this as a question, but we have to handle the game logic for it still in the controller
         send((int)(curr_player), face_up_card); // we ask if this is ok :)
         played_card = recv((int)(curr_player)); // now receive a card from the current player
+        printf("got a card!! Card %x\n", played_card);
         send((int)(curr_player), CONTROLLER_ACK);
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
 
-        while((plc_color != fuc_color) | (plc_num != fuc_num) | (plc_ability != fuc_ability) | (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
+        while((plc_color != fuc_color) && (plc_num != fuc_num) && ((plc_ability != fuc_ability) || (plc_ability == 0)) && (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           send((int)(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
           printf("This card (%x) is invalid, please select another card...\n", played_card);
           played_card = recv((int)(curr_player)); // and ask for another one
@@ -226,6 +227,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           plc_num = played_card & CARD_NUMBER;
           plc_ability = played_card & CARD_ABILITY;
         } // this repeats until they actually give us what we want
+        send((int)(curr_player), CARD_REQUEST_APPROVED);
 
         if(played_card == 0xFACC){ // if the player doesn't have any useful cards
           // CHANGE
