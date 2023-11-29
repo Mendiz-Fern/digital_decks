@@ -1626,7 +1626,13 @@ WEEK 15
 >				- CARDS_SEND_BEGIN (0xFF00) This one will let the controller know we're about to start sending cards, so it should add whatever comes next to its hand
 >				- CARDS_SEND_END (0xFF01) This one will let the controller know that we're done sending cards so it should listen for other kinds of signals
 >			With these new constants, there's also a new global variable that will keep in mind whether we're receiving a card or a normal signal
-> [11/27/23 16:30] Was able to start coding logic for when an unexpected signal is received (in this case, unexpected simply means a signal is being sent without the controller having waited for it, for example, being sent a card)
+> [11/27/23 16:30] Was able to start coding logic for when an unexpected signal is r
+      // Button press code ideas- 
+      // 0x1 - Left Button
+      // 0x2 - Center Button
+      // 0x3 - Right Button
+    
+      // Also put the busy waiting here! eceived (in this case, unexpected simply means a signal is being sent without the controller having waited for it, for example, being sent a card)
 >			This logic also considers unprecedented signals, which are just signals that do not exist (it could also be that a signal isn't recognized because it is a card when we're noe expecting one)
 > [11/27/23 16:50] Started the logic for waiting for an acknowledgement after a card is sent. If none is given, the card will not be sent
 >			Started by giving the Acknowledge signal 100 for-loop cycles to appear before we time out
@@ -1763,3 +1769,26 @@ WEEK 15
 > [11/29/23 02:05] Left lab and went to get a wink of sleep 
 --------------------------------------------------------------------------------------------------------------------------------------------
 >> 15:00 HOURS:MINUTES of work this week so far <<
+
+> [11/29/23 15:00] Got to lab to post another stackoverflow question, wondering if it's possibly to stop being unable to read characters such as 0x04 and 0x0A
+>			Here is the stack overflow post I wrote: https://stackoverflow.com/questions/77574296/unable-to-read-some-specific-values-from-a-usb-serial-terminal
+> [11/29/23 15:30] Finished the Stack Overflow post and went ahead to fix the logic in the code where it doesn't actually know how to check if two cards are compatible
+>			Decided that making a new variable called "cards_compatible" and set that to what I want
+> [11/29/23 15:35] Added that and now the code is much easier to read
+>			Went on to do the same thing to the ESP code
+> [11/29/23 16:00] Finished the ESP part of the code for verifying cards and started brainstroming how to fix the Byte issue
+>			Below is a list of possible solutions I've come up with, their shortcomings, and possible arguments against the shortcomings
+>				- Add 0x20 to each byte when it's being sent from the ESP, then subtract 0x20 from the byte when receiving in the game
+>					* A possible issue with this is overflow... if I have a card, for example, 15e0 (which I do, it's Yellow 7), adding 0x20 to the LSB will result in overflow to 0x00
+>					* HOWEVER, if I were to subtract the 0x20 back, it would return to 0xe0
+>					* HOWEVER, HOWEVER, if the numbers were to overflow to, say, 0x4, it would be catastrophic... 
+>					* but also if I add 0x21 to all of them, I am almost certain nothing will overflow to any number that doesn't work... this solution is janky at best
+>				- Wait for the Stack Overflow post to receive an answer
+>					* this is bad because of time constraints, but it would surely help with reliability
+>				- Change the constants once again to ensure I don't get any of the forbidden bytes
+>					* this is fine and dandy until I discover a new forbidden constant and I have to start all over again 
+>					* but also it IS fine and dandy
+> [11/29/23 16:30] Paul and Orry came around with the table so I decided to help build it as a form of break, although it's still for the project
+> [11/29/23 17:20] Had to leave
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 17:20 HOURS:MINUTES of work this week so far <<

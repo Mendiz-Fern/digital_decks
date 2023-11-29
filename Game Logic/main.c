@@ -217,8 +217,11 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
+        __uint8_t cards_compatible = (plc_ability == 0) ? (plc_color == fuc_color) || (plc_num == fuc_num)       :      (plc_color == fuc_color) || (plc_ability == fuc_ability);
+        //                             if ability = 0     the cards are compatible if their colors or nums   otherwise    Their numbers will be the same, so we only check for
+        //                                                                are the same                                                    their abilities
 
-        while((plc_color != fuc_color) && (plc_num != fuc_num) && ((plc_ability != fuc_ability) || (plc_ability == 0)) && (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
+        while(!cards_compatible && (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           send((int)(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
           printf("This card (%x) is invalid, please select another card...\n", played_card);
           played_card = recv((int)(curr_player)); // and ask for another one
@@ -226,6 +229,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           plc_color = played_card & CARD_COLOR;
           plc_num = played_card & CARD_NUMBER;
           plc_ability = played_card & CARD_ABILITY;
+          cards_compatible = (plc_ability == 0) ? ((plc_color == fuc_color) || (plc_num == fuc_num)) : ((plc_color == fuc_color) || (plc_ability == fuc_ability));
         } // this repeats until they actually give us what we want
         send((int)(curr_player), CARD_REQUEST_APPROVED);
 
