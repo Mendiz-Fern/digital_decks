@@ -1739,4 +1739,13 @@ WEEK 15
 > [11/29/23 00:00] Went on to change some of the UNO constants that would result in these three bytes existing within the deck.
 >			They currently exist as the beginning of most cards (as the UNO_GAME constant is 0x04) as well as the end of WILD +4 cards (because the wild+4 ability is also 0x04)
 >			Added 1 to every game constant and changed the wild+4 ability to 6 instead of 4.
->			Saw what the new deck looked like. It had 
+>			Saw what the new deck looked like. for a second I thought it would work, but it now had a fair amount of 0x0A MSB in some cards. Also red +2 ends in 0a
+>			Next idea: add a 1 at the beginning of the game numbers. Sadly, this does mean we DO miss a lot of possible games, but also we won't even get to code 5
+>			also change the abilities from numbers ranging from 1-5 inclusive to number ranging from 5-9 inclusive
+>			After these changes two cards had 0x0D as their LSB. These cards were both red +2... but also I can still have the first 3 abilities be numbered 1-3 and then have the wilds be 8 and 9 andthat would be ok... I think
+>			Tried that, but now I have 0x0A LSB, These are now the red reverse...
+>			After seeing this, I have concluded that these three abilities cannot be {1, 2, 3} (because 2 messes it up), {2, 3, 4}  or {3, 4, 5} because 5 messes it up...
+>			These abilities COULD, however, be {6, 7, 8}, and I can make the WILD be 1 and the WILD+4 be 3
+>			Tried that and it worked. So now all I had to do was pass these new constants on to my code on the ESP and keep debugging the code step by step.
+> [11/29/23 00:30] Put all the new constants inside of the ESP code
+ 
