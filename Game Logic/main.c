@@ -69,7 +69,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         // printf("caatnre\n");
         current_selection = hovering; // we make the thing we're hovering the current selection
         if(current_selection == 0){ // if we selected item 0 (select game)
-          sel0 = ~sel0; // we tell the computer that we're inside the Select Game sub-menu, unless we already were, in which we aren't anymore
+          sel0 = sel0 ? 0 : 1; // we tell the computer that we're inside the Select Game sub-menu, unless we already were, in which we aren't anymore
           hovering ++; // we go on to hover on item number 1 (which is now going to be the first game)
         }
         if(sel0 && current_selection != 0){ // if you're in the game submenu
@@ -194,7 +194,6 @@ int main(int argc, char* argv[]){ // This will run in the Center console
 
       setup_game(UNO_GAME, game_deck, num_players); // Setup UNO
       // Deck* deck2 = game_deck;
-      printf("segfault after \n");
       print_deck(game_deck, 1); 
 
       __uint16_t face_up_card = get_from_deck(game_deck);
@@ -205,16 +204,24 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         if((fuc_ability != CARD_ABILITY_UNO_WILD) && (fuc_ability != CARD_ABILITY_UNO_P4)){ // if the player hasn't already picked the color
           fuc_color = face_up_card & CARD_COLOR; // then we look for it
         }
+        printf("Face up card: color: %x, num: %x, ability: %x\n", fuc_color >> CARD_COLOR_SHIFT, fuc_num >> CARD_NUMBER_SHIFT, fuc_ability);
 
         curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
+        printf("Current Player: %d\n", curr_player);
+
+        send((int)(curr_player), UNO_NO_CARDS_TO_PLAY); // we're sending this as a question, but we have to handle the game logic for it still in the controller
+        send((int)(curr_player), face_up_card); // we ask if this is ok :)
         played_card = recv((int)(curr_player)); // now receive a card from the current player
+        send((int)(curr_player), CONTROLLER_ACK);
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
 
         while((plc_color != fuc_color) | (plc_num != fuc_num) | (plc_ability != fuc_ability) | (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           send((int)(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
+          printf("This card (%x) is invalid, please select another card...\n", played_card);
           played_card = recv((int)(curr_player)); // and ask for another one
+          send((int)(curr_player), CONTROLLER_ACK);
           plc_color = played_card & CARD_COLOR;
           plc_num = played_card & CARD_NUMBER;
           plc_ability = played_card & CARD_ABILITY;
@@ -241,6 +248,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
               case 0x0: // if the card has no ability
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
+                printf("player %d played a plus 2\n", curr_player);
                 send((int)(curr_player), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players), card_drawn);
@@ -249,6 +257,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 break;
                 send((int)(curr_player), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
               case CARD_ABILITY_UNO_P4:
+                printf("player %d played a wild plus 4\n", curr_player);
                 send((int)(curr_player), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
                 for(int i = 0; i < 3; i ++){
                   card_drawn = get_from_deck(game_deck);
@@ -256,17 +265,22 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 }
                 send((int)(curr_player), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
                 send((int)(curr_player), UNO_WANT_COLOR); // ask what color they want
-                fuc_color = recv((int)(curr_player));
+                fuc_color = recv((int)(curr_player)); // receive the color they want (yeah... it's going to be random for now)
+                printf("player %d selected color %x\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
                 break;
               case CARD_ABILITY_UNO_REVERSE:
+                printf("player %d played a reverse card\n", curr_player);
                 direction = (direction == 1) ? 0 : 1; // can't just flip the bits, sadly
                 break;
               case CARD_ABILITY_UNO_SKIP:
+                printf("player %d played a skip\n", curr_player);
                 curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // go to the next player, but then this player doesn't get to play, thus skipping the player
                 break;
               case CARD_ABILITY_UNO_WILD:
+                printf("player %d played a wild\n", curr_player);
                 send((int)(curr_player), UNO_WANT_COLOR); // ask what color they want
                 fuc_color = recv((int)(curr_player));
+                printf("player %d selected color %x\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
                 break;
               default:
                 printf("YOU GOT AN ERROR MOTHERFUCKER (still have to code it so this does something, but in short: your dumb card shouldn't exist)\n");
