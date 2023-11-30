@@ -1792,3 +1792,21 @@ WEEK 15
 > [11/29/23 17:20] Had to leave
 --------------------------------------------------------------------------------------------------------------------------------------------
 >> 17:20 HOURS:MINUTES of work this week so far <<
+
+> [11/29/23 16:10] Got to lab to try and fix the issue with the receiving and sending signals
+>			My stack overflow post got an answer saying that I should try to open the window in Binary mode, but that they didn't know how to do it
+>			Did some research and found this (https://stackoverflow.com/questions/39491856/transmitting-binary-data-throught-ttyacm) stackoverflow post about it
+>			One of the answers said to use _setmode(fd, _O_BINARY);
+>			Turns out that was for Windows x32, the linux version is a bit more commplex but still I just did copy-paste
+>			This approach seems to work. I started to wonder if I could now send a card without sending out the '\n' character
+> [11/29/23 16:30] Tried that sending over a card without the '\n' at the end 
+>			Worked. Fixed the code so it wouldn't send the '\n' ever again
+> 			On the controllers side, I was having some trouble waiting for the acknowledge (some errors were being raised regarding timing) so I decided to try to not wait for it. 
+>			That didn't work. The signal takes too long to send
+>			The send function is too slow because it has to open and setup the tty again... maybe if we simply sent the ack within the read function we'd be ok, since we wouldn't have to do any additional setup. 
+> [11/29/23 17:00] After talking it over with Orry, I decided that the best thing to do was to forgo the Ack system in favor of a turn system:
+>				- The way this works is, if it's your turn, the console will tell you so. And if it stops being your turn, the console will ALSO tell you so
+>				- You are not allowed to send any signals if it's not your turn.
+> [11/29/23 17:45] Got all of the controller code working, now I get to playtest UNO (in a way)
+> [11/29/23 18:15] Everything was going OK until the controller started expecting a CARD_REQUEST_DENIED or CARD_REQUEST_APPROVED when one wasn't due. 
+>			Other bugs also manifested themselves, primarily bugs regarding the CARD_REQUEST_DENIED and CARD_REQUEST_APPROVED signals
