@@ -51,7 +51,15 @@ __uint16_t recv(int controller){
         printf("[RECV] Error opening serial port. \n");
     }
 
+
+    struct termios options;
+    tcgetattr(serial_port, &options);
+    options.c_iflag &= ~(INLCR | IGNCR | ICRNL | IXON | IXOFF);
+    options.c_oflag &= ~(ONLCR | OCRNL);
+    options.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
+    tcsetattr(serial_port, TCSANOW, &options);
     struct termios tty;
+
     memset(&tty, 0, sizeof(tty));
 
     if(tcgetattr(serial_port,&tty) != 0)
@@ -81,7 +89,7 @@ __uint16_t recv(int controller){
     while(num_bytes < 2)
     {
         num_bytes = read(serial_port, &readbuff, sizeof(readbuff));
-        printf("numbytes = %d\n", num_bytes);
+        // printf("numbytes = %d\n", num_bytes);
 
         if(num_bytes > 0)
         {
@@ -94,6 +102,14 @@ __uint16_t recv(int controller){
             memset(&readbuff, '\0', sizeof(readbuff)); // DELETE BUFFER
         }
     }
+    __uint8_t buffer1[1] = {0xF0};
+    __uint8_t buffer2[1] = {0x01};
+    int bytes_written1 = write(serial_port, buffer1, 1);
+    int bytes_written2 = write(serial_port, buffer2, 1);
+    if(bytes_written1 + bytes_written2 != 2)
+    {
+        printf("Error sending ACK");
+    }
     
     free(port);
     output = (msb << 8) + lsb; // set output
@@ -101,9 +117,7 @@ __uint16_t recv(int controller){
 
 }
 
-
-void send(int controller, __uint16_t data)
-{
+void send(int controller, __uint16_t data){
     __uint8_t msb = data & 0xFF;
     __uint8_t lsb = data >> 8;
     char *port = malloc(13);
@@ -173,7 +187,20 @@ void send(int controller, __uint16_t data)
 
 int main()
 {
-    __uint16_t inty_djer = recv(1);
-    printf("Received %x\n", inty_djer);
+    __uint16_t messig;
+
+    printf("Test 1: Receving a card when it's not your turn and you're a BAKA\n");
+    // messig = recv(1);
+
+    printf("Test 2: Receiving a card when it's your turn but it's not the right card\n");
+    send(1, 0xF002);
+    messig = recv(1);
+    send(1, 0xF0CC);
+
+    printf("Test 3: Receiving a card when it's your turn but it's the right card\n");
+    send(1, 0xF002);
+    messig = recv(1);
+    send(1, 0xF1E1); // IEI! (yay) (kinda looks like 1E1...)    
+
     return 0;
 }

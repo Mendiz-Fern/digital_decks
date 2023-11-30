@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     return 0;
   }
   printf("%d controller(s) connected.\n", num_players);
-  
+  send(1, YOUR_TURN);
   while(game_on){ // Main game loop
     __uint8_t hovering = 0;
     while (!current_game && !current_selection){ // Main Menu Loop
@@ -120,6 +120,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         }
       }
     }
+    send(1, NOT_YOUR_TURN);
     if(!current_selection){ // we're playing a game
       // Display stand in
       printf("Starting game %d\n", current_game); // We tell the player we're loading their game
@@ -207,7 +208,8 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         printf("Face up card: color: %x, num: %x, ability: %x\n", fuc_color >> CARD_COLOR_SHIFT, fuc_num >> CARD_NUMBER_SHIFT, fuc_ability);
 
         curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
-        printf("Current Player: %d\n", curr_player);
+        printf("Current Player: %d\n", curr_player + 1);
+        send((int)(curr_player), YOUR_TURN);
 
         send((int)(curr_player), UNO_GOT_CARDS_TO_PLAY); // we're sending this as a question, but we have to handle the game logic for it still in the controller
         send((int)(curr_player), face_up_card); // we ask if this is ok :)
@@ -217,9 +219,9 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
-        __uint8_t cards_compatible = (plc_ability == 0) ? (plc_color == fuc_color) || (plc_num == fuc_num)       :      (plc_color == fuc_color) || (plc_ability == fuc_ability);
-        //                             if ability = 0     the cards are compatible if their colors or nums   otherwise    Their numbers will be the same, so we only check for
-        //                                                                are the same                                                    their abilities
+        __uint8_t cards_compatible = (plc_ability == 0) ? (plc_color == fuc_color) || (plc_num == fuc_num)       :      ((plc_ability == 4) || (plc_ability == 5)) ?            1               :      (plc_color == fuc_color) || (plc_ability == fuc_ability);
+        //                             if ability = 0     the cards are compatible if their colors or nums   otherwise        if the ability is a form of wild          it's always good    otherwise     Their numbers will be the same, so we only check for
+        //                                                                are the same                                                                                                                                    their abilities
 
         while(!cards_compatible && (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           send((int)(curr_player), CARD_REQUEST_DENIED); // we tell them that card is not valid
@@ -229,7 +231,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           plc_color = played_card & CARD_COLOR;
           plc_num = played_card & CARD_NUMBER;
           plc_ability = played_card & CARD_ABILITY;
-          cards_compatible = (plc_ability == 0) ? ((plc_color == fuc_color) || (plc_num == fuc_num)) : ((plc_color == fuc_color) || (plc_ability == fuc_ability));
+          cards_compatible = (plc_ability == 0) ? ((plc_color == fuc_color) || (plc_num == fuc_num)) : ((plc_ability == 4) || (plc_ability == 5)) ? 1 : ((plc_color == fuc_color) || (plc_ability == fuc_ability));
         } // this repeats until they actually give us what we want
         send((int)(curr_player), CARD_REQUEST_APPROVED);
 
@@ -244,9 +246,13 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           face_up_card = played_card; // change the face_up_card to the card that was just played
           send((int)(curr_player), CARDS_LEFT); // Asking the current player how many cards they have left
           __uint16_t cards_left = recv((int)(curr_player)); // receive a response
+          printf("Player %d has %x cards left\n", curr_player + 1, cards_left);
 
           if(!cards_left){ // if the player has no cards left
             winner = curr_player; // give the win to the currrent player
+          }
+          else if(cards_left == 1){
+            printf("Player %d says UNO\n", curr_player + 1);
           }
           else { // Otherwise activate the card's ability
             __uint16_t card_drawn;
@@ -293,6 +299,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
             }
           }
         }
+        send((int)(curr_player), NOT_YOUR_TURN);
       }
     }
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop

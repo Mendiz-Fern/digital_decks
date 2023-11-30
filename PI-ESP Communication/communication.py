@@ -5,25 +5,25 @@ inp1_num = 0
 inp2_num = 0
 
 ## THIS HERE IS THE CODE TO READ A CARD AND SEND AN ACK##
-# while(inp1_num == 0 and inp2_num == 0):
-#     inp1 = ser.read()
-#     inp2 = ser.read()
-#     inp1_num = ord(inp1)
-#     inp2_num = ord(inp2)
-# print(f"Read back: {str(inp1_num)} and {str(inp2_num)}")
+while(inp1_num == 0 and inp2_num == 0):
+    inp1 = ser.read()
+    inp2 = ser.read()
+    inp1_num = ord(inp1)
+    inp2_num = ord(inp2)
+print(f"Read back: {str(inp1_num)} and {str(inp2_num)}")
 
-# print('Writing 0xF001 to ESP (ACK)')
-# ser.write((chr(0xF0)).encode('charmap'))
-# ser.write((chr(0x01)).encode('charmap'))
+print('Writing 0xF001 to ESP (ACK)')
+ser.write((chr(0xF0)).encode('charmap'))
+ser.write((chr(0x01)).encode('charmap'))
 
-# THIS HERE IS THE CODE TO SEND 4 CARDS ##
-print('Writing 0xFF00 to ESP (CARD_RECIEVE_BEGIN)')
-ser.write((chr(0xFF)).encode('charmap'))
-ser.write((chr(0x00)).encode('charmap'))
+# # THIS HERE IS THE CODE TO SEND 4 CARDS ##
+# print('Writing 0xFF00 to ESP (CARD_RECIEVE_BEGIN)')
+# ser.write((chr(0xFF)).encode('charmap'))
+# ser.write((chr(0x00)).encode('charmap'))
 
-print('Writing 0x041B to ESP (BLUE_SKIP)')
-ser.write((chr(0x04)).encode('charmap'))
-ser.write((chr(0x1B)).encode('charmap'))
+# print('Writing 0x041B to ESP (BLUE_SKIP)')
+# ser.write((chr(0x04)).encode('charmap'))
+# ser.write((chr(0x1B)).encode('charmap'))
 
 # print('Writing 0x0405 to ESP (WILD)')
 # ser.write((chr(0x04)).encode('charmap'))

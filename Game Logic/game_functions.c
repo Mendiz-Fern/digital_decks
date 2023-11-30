@@ -114,8 +114,7 @@ void send(int controller, __uint16_t data){
     close(serial_port);
 }
 
-__uint16_t recv(int controller){
-  // Button press code ideas- 
+__uint16_t recv(int controller){  // Button press code ideas- 
   // 0x1 - Left Button
   // 0x2 - Center Button
   // 0x3 - Right Button
@@ -149,7 +148,7 @@ __uint16_t recv(int controller){
     {
         printf("[RECV] Wrong Controller Input\n");
         free(port);
-        return FN_RET_NULL;
+        return 0x4;
     }
 
     int serial_port = open(port_use, O_RDWR);
@@ -159,7 +158,15 @@ __uint16_t recv(int controller){
         printf("[RECV] Error opening serial port. \n");
     }
 
+
+    struct termios options;
+    tcgetattr(serial_port, &options);
+    options.c_iflag &= ~(INLCR | IGNCR | ICRNL | IXON | IXOFF);
+    options.c_oflag &= ~(ONLCR | OCRNL);
+    options.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
+    tcsetattr(serial_port, TCSANOW, &options);
     struct termios tty;
+
     memset(&tty, 0, sizeof(tty));
 
     if(tcgetattr(serial_port,&tty) != 0)
@@ -174,11 +181,12 @@ __uint16_t recv(int controller){
     tty.c_cflag &= ~CSTOPB;
     tty.c_cflag &= ~CSIZE;
     tty.c_cflag != CS8;
+
     if (tcsetattr(serial_port,TCSANOW,&tty) != 0)
     {
         printf("[RECV] Error setting serial port attributes \n");
         free(port);
-        return FN_RET_NULL; 
+        return 0x4; 
     }
     char readbuff[256];
     memset(&readbuff, '\0',sizeof(readbuff));
@@ -188,8 +196,11 @@ __uint16_t recv(int controller){
     while(num_bytes < 2)
     {
         num_bytes = read(serial_port, &readbuff, sizeof(readbuff));
+        // printf("numbytes = %d\n", num_bytes);
+
         if(num_bytes > 0)
         {
+            // printf("Some of the readbuf: %x %x %x %x %x %x (0-5)\n", readbuff[0], readbuff[1], readbuff[2], readbuff[3], readbuff[4], readbuff[5]);
             // printf("Recieved [%s]\n", readbuff);
             msb = (__uint16_t)readbuff[0]; // set MSB
             // printf("msb: %x\n", msb);
@@ -198,11 +209,18 @@ __uint16_t recv(int controller){
             memset(&readbuff, '\0', sizeof(readbuff)); // DELETE BUFFER
         }
     }
+    __uint8_t buffer1[1] = {0xF0};
+    __uint8_t buffer2[1] = {0x01};
+    int bytes_written1 = write(serial_port, buffer1, 1);
+    int bytes_written2 = write(serial_port, buffer2, 1);
+    if(bytes_written1 + bytes_written2 != 2)
+    {
+        printf("Error sending ACK");
+    }
     
     free(port);
     output = (msb << 8) + lsb; // set output
     return output;
-
 }
 
 Hand* deal(Deck* deck, int num_players){ // Honestly, is this even necessary? Can't we just call "draw" multiple times? 

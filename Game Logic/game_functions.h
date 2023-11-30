@@ -101,6 +101,8 @@ void free_deck(Deck* deck); // guess what this does
 // == CONSTANTS FOR SENDING AND RECEIVING DATA == //
 
 #define CONTROLLER_ACK  0xF001 // Will be sent and received as a connection confirmation. Send 1, receive 1, done.
+#define YOUR_TURN       0xF002
+#define NOT_YOUR_TURN   0xF003
 #define RECV_LEFT       0x1 // I know it's the same as CONTROLLER_ACK, but I mean... I don't see why not?
 #define RECV_CENTER     0x2 // I know this is reused
 #define RECV_RIGHT      0x3 // I know this is reused. 
@@ -149,19 +151,19 @@ void free_deck(Deck* deck); // guess what this does
 #define CARD_ABILITY_SHIFT    0x0 // You don't really have to shift, but it's here for completion 
 // 0000 0000 0000 1111 << 10 = 0011 1100 0000 0000
 
-#define CARD_GAME_UNO         0x1400 // 4 bits to set for UNO
-#define CARD_GAME_SOLITAIRE   0x1800 // 4 bits to set for Solitarie
-#define CARD_GAME_SKULL       0x1C00 // 4 bits to set for Skull
+#define CARD_GAME_UNO         0x0400 // 4 bits to set for UNO
+#define CARD_GAME_SOLITAIRE   0x0800 // 4 bits to set for Solitarie
+#define CARD_GAME_SKULL       0x0C00 // 4 bits to set for Skull
 
 #define CARD_COLOR_UNO_RED    0x0008 // Color 1 is red
 #define CARD_COLOR_UNO_GREEN  0x0010 // Color 2 is green
 #define CARD_COLOR_UNO_BLUE   0x0018 // Color 3 is blue
 #define CARD_COLOR_UNO_YELLOW 0x0020 // Color 4 is yellow
-#define CARD_ABILITY_UNO_P2   0x0006 // Ability 1 is plus 2
-#define CARD_ABILITY_UNO_REVERSE 0x0007 // Ability 2 is Reverse
-#define CARD_ABILITY_UNO_SKIP 0x0008 // Ability 3 is skip
-#define CARD_ABILITY_UNO_P4   0x0003 // Ability 4 is wild plus 4
-#define CARD_ABILITY_UNO_WILD 0x0001 // Abiity 5 is a plain wild
+#define CARD_ABILITY_UNO_P2   0x0001 // Ability 1 is plus 2
+#define CARD_ABILITY_UNO_REVERSE 0x0002 // Ability 2 is Reverse
+#define CARD_ABILITY_UNO_SKIP 0x0003 // Ability 3 is skip
+#define CARD_ABILITY_UNO_P4   0x0004 // Ability 4 is wild plus 4
+#define CARD_ABILITY_UNO_WILD 0x0005 // Abiity 5 is a plain wild
 #define UNO_NO_CARDS_TO_PLAY  0xFACC // 0xFACC is an impossible card to have, so it will be the indicator that you have no cards to play
 #define UNO_GOT_CARDS_TO_PLAY 0xFACD // 0xFACD is an impossible card to have, so it will be a question to see if you have cards to play
 
