@@ -269,8 +269,8 @@ void setup_game(int game_ID, Deck* deck, int num_players){
         // If the above loop runs all four times, we have the first 76 cards populated.
         // If the loop below runs all four times, we have the next 24 cards populated. 
         for(int j = 0; j < 3; j++){ // now we place the ability cards at the end of the current existing deck
-          (deck->in_deck)[76 + i*6 + j]   = (__uint16_t)(CARD_GAME_UNO + color + ((j + 6) << CARD_ABILITY_SHIFT));
-          (deck->in_deck)[76 + i*6 + j + 3] = (__uint16_t)(CARD_GAME_UNO + color + ((j + 6) << CARD_ABILITY_SHIFT));
+          (deck->in_deck)[76 + i*6 + j]   = (__uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
+          (deck->in_deck)[76 + i*6 + j + 3] = (__uint16_t)(CARD_GAME_UNO + color + ((j + 1) << CARD_ABILITY_SHIFT));
         }
       }
       // At this moment we have 100 cards in the deck. Missing the 8 wilds
@@ -286,14 +286,14 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       
       // FOR NOW, IGNORE SENDING ANYTING TO THE PLAYERS, AS THE CONTROLLERS CANNOT HANDLE THIS FUNCTIONALITY
 
-      // for(int i = 0; i < num_players; i++){ // for each connected player
-      //     send(i, CARDS_SEND_BEGIN);
-      //     for(int j = 0; j < 7; j++){ // for each of 7 cards
-      //       __uint16_t card_drawn = get_from_deck(deck); // grab a card
-      //       send(i, card_drawn); // and send it over
-      //     }
-      //     send(i, CARDS_SEND_END);
-      // }
+      for(int i = 0; i < num_players; i++){ // for each connected player
+          send(i, CARDS_SEND_BEGIN);
+          for(int j = 0; j < 7; j++){ // for each of 7 cards
+            __uint16_t card_drawn = get_from_deck(deck); // grab a card
+            send(i, card_drawn); // and send it over
+          }
+          send(i, CARDS_SEND_END);
+      }
 
     break;
   

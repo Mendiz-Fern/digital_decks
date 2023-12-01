@@ -1810,3 +1810,18 @@ WEEK 15
 > [11/29/23 17:45] Got all of the controller code working, now I get to playtest UNO (in a way)
 > [11/29/23 18:15] Everything was going OK until the controller started expecting a CARD_REQUEST_DENIED or CARD_REQUEST_APPROVED when one wasn't due. 
 >			Other bugs also manifested themselves, primarily bugs regarding the CARD_REQUEST_DENIED and CARD_REQUEST_APPROVED signals
+> [11/29/23 19:00] Decided that the issue was the fact that the serial window was being closed and opened multiple times for every read/write cycle. 
+>			Unsure if keeping the terminal open would cause any issues, but it wouldn't hurt to try in the comm.c file
+>			Removing all that did not actually seem to help my case, and the signals I'm looking for aren't being sent
+>			Realized that the controller actually has everything it needs to check if a card is compatible with the current faace-up-card... 
+>			Decided to simply have the check within the controller as well as within the game as an additional measure 
+> [11/29/23 19:15] Started playtesting
+>			Along the way, I encountered (and fixed) a couple of bugs:
+>				- No cards other than Wilds are compatbile with wilds
+>				- When we send a card, if we don't change it, we get the ability to keep sending that card indefinitely
+>				- A card with ability 6 popped up. This was a remnant of my earlier bug where I changed all the constants 
+>				- Others that I don't even remember
+> [11/29/23 21:00] I believe I have UNO working properly... more testing is needed but it should be enough to get something checked off.
+>			considering it's late, I decided to go eat dinner. 
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 22:10 HOURS:MINUTES of work this week so far <<

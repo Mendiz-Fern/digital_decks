@@ -5,7 +5,6 @@
 #include <termios.h>
 #include <stdlib.h>
 
-
 __uint16_t recv(int controller){
   // Button press code ideas- 
   // 0x1 - Left Button
@@ -187,20 +186,10 @@ void send(int controller, __uint16_t data){
 
 int main()
 {
-    __uint16_t messig;
 
-    printf("Test 1: Receving a card when it's not your turn and you're a BAKA\n");
-    // messig = recv(1);
-
-    printf("Test 2: Receiving a card when it's your turn but it's not the right card\n");
-    send(1, 0xF002);
-    messig = recv(1);
-    send(1, 0xF0CC);
-
-    printf("Test 3: Receiving a card when it's your turn but it's the right card\n");
-    send(1, 0xF002);
-    messig = recv(1);
-    send(1, 0xF1E1); // IEI! (yay) (kinda looks like 1E1...)    
+    send(1, 0xFF00);
+    send(1, 0x0405);
+    send(1, 0xFF01);     
 
     return 0;
 }

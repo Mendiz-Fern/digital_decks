@@ -103,6 +103,7 @@ void free_deck(Deck* deck); // guess what this does
 #define CONTROLLER_ACK  0xF001 // Will be sent and received as a connection confirmation. Send 1, receive 1, done.
 #define YOUR_TURN       0xF002
 #define NOT_YOUR_TURN   0xF003
+#define NO_CARDS_LEFT   0xFFFF
 #define RECV_LEFT       0x1 // I know it's the same as CONTROLLER_ACK, but I mean... I don't see why not?
 #define RECV_CENTER     0x2 // I know this is reused
 #define RECV_RIGHT      0x3 // I know this is reused. 
