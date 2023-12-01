@@ -1825,3 +1825,17 @@ WEEK 15
 >			considering it's late, I decided to go eat dinner. 
 --------------------------------------------------------------------------------------------------------------------------------------------
 >> 22:10 HOURS:MINUTES of work this week so far <<
+
+> [11/29/23 22:45] Tried flashing the code into a new board, now suddenly all boards are stack overflowing and I'm not sure why
+>			Only working theory atm is that Paul might've messed something up regarding the files being flashed onto the ESPs and that's causing issues
+>			Ok I'm not sure why but the ESP_LOGI that was in the interrupt FROM THE START was apparently illegal. Removing it fixed the issue
+> [11/29/23 23:00] Started working with Varun to interface his graphics code with my game code in order to be able to diplay stuff nicely
+>			He decided to ask ChatGPT while I thought of different solutions... 
+>			Played around with the idea of converting my code to CPP, which is what Varun's code is. Started looking at a converter's outputs to sections of my code
+>			Ultimately, the idea of re-debugging my code didn't quite sit right with me, as it would take a lot of time we don't have 
+>			While I was searching for alternatives, Varun got the stuff to work, except the code doesn't compile now because we have two main functions
+>			This wouldn't be an issue if we didn't need to main functions, but we do. We can use multithreading in order to have both running at the same time
+>			The only issue is I don't remember how to multithread
+> [11/29/23 23:45] Since I'm not actively contributing, I will stop counting my time here for the time being
+--------------------------------------------------------------------------------------------------------------------------------------------
+>> 23:10 HOURS:MINUTES of work this week so far <<
