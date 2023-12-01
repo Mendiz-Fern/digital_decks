@@ -35,13 +35,30 @@ int main(int argc, char* argv[]){ // This will run in the Center console
 
   num_players = check_players(); // YIPPEEEE
   if(!num_players){
-    printf("No controllers conected... exiting... \n");
+    printf("\033[0;31mNo controllers conected... exiting... \n\033[0;0m");
     return 0;
   }
   printf("%d controller(s) connected.\n", num_players);
   send(1, YOUR_TURN);
   while(game_on){ // Main game loop
     __uint8_t hovering = 0;
+
+    printf("== DIGITAL DECKS ==\n");
+    printf("____________\n");
+    printf("|            |  ___                     \033[0;31mSelect Game <--\033[0;0m\n");
+    printf("|  A  ___    | /   \\___                    * UNO\n");
+    printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+    printf("|   /     \\  /   __       /                * Skull\n");
+    printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+    printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+    printf("|         /    \\ __/   /\n");         
+    printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+    printf("            \\___  /  /\n");
+    printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+    printf("\n");
+    printf("(c) Paul, Varun, Orry, and I\n");
+    printf("\n\n\n\n\n");
+
     while (!current_game && !current_selection){ // Main Menu Loop
       // This is going to be the main menu screen. Here's ascii art of what I imagine it'll look like :)
       //
@@ -59,6 +76,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       //                 \___/                   Power Off
       //
       // (c) Paul, Varun, Orry, and I
+
       //
       __uint16_t instr = recv(0);
       if(instr == 0x4C20){ // if we receive a left arrow click
@@ -90,32 +108,144 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       if(sel0){
         switch(hovering){
           case 0x0:
-            printf("Select Game\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game <--\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x1:
-            printf("UNO\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO <--\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x2:
-            printf("Solitaire\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire <--\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x3:
-            printf("Skull\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull <--\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
         }
       }
       else{
         switch(hovering){
           case 0x0:
-            printf("Select Game\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game <--\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x1:
-            printf("Options\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions <--\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x2:
-            printf("Credits\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits <--\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
           case 0x3:
-            printf("Power off\n");
+                  printf("== DIGITAL DECKS ==\n");
+                  printf("____________\n");
+                  printf("|            |  ___                     \033[0;31mSelect Game\033[0;0m\n");
+                  printf("|  A  ___    | /   \\___                    * UNO\n");
+                  printf("|    /   \\   |/  /     \\___                * Solitaire\n");
+                  printf("|   /     \\  /   __       /                * Skull\n");
+                  printf("|   \\_/|\\_/ /   /__ \\    /\n");       
+                  printf("|      |   /   / // /   /               \033[0;31mOptions\033[0;0m\n");
+                  printf("|         /    \\ __/   /\n");         
+                  printf("|________/__          /                 \033[0;31mCredits\033[0;0m\n");
+                  printf("            \\___  /  /\n");
+                  printf("                \\___/                   \033[0;31mPower Off <--\033[0;0m\n");
+                  printf("\n");
+                  printf("(c) Paul, Varun, Orry, and I\n");
+                  printf("\n\n\n\n\n");
             break;
         }
       }
@@ -123,7 +253,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     send(1, NOT_YOUR_TURN);
     if(!current_selection){ // we're playing a game
       // Display stand in
-      printf("Starting game %d\n", current_game); // We tell the player we're loading their game
+      printf("Starting game %d ...\n", current_game); // We tell the player we're loading their game
       // This is here EXCLUSIVELY because we don't want the code to accidentally go into power off mode bc the currrent_selection isn't 1 or 2
     }   
     else if(current_selection == 0x1){ // Options Loop
@@ -200,14 +330,32 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       __uint16_t face_up_card = get_from_deck(game_deck);
 
       while(winner == 0x4){ // as long as nobody has won
-        printf("\n\n\n ----- NEW TURN ----- \n");
+        printf("\n\n\n\n \033[0;36m----- NEW TURN ----- \033[0;0m\n");
         fuc_num = face_up_card & CARD_NUMBER;
         fuc_ability = face_up_card & CARD_ABILITY;
         if((fuc_ability != CARD_ABILITY_UNO_WILD) && (fuc_ability != CARD_ABILITY_UNO_P4)){ // if the player hasn't already picked the color
           fuc_color = face_up_card & CARD_COLOR; // then we look for it
         }
-        printf("Face up card: %x\n", face_up_card);
-        printf("Face up card: color: %x, num: %x, ability: %x\n", fuc_color >> CARD_COLOR_SHIFT, fuc_num >> CARD_NUMBER_SHIFT, fuc_ability);
+        printf("Face up card: %x\nFace up card: \n", face_up_card);
+        switch(fuc_color){
+          case CARD_COLOR_UNO_RED: printf("\033[0;31m"); break;
+          case CARD_COLOR_UNO_GREEN: printf("\033[0;32m"); break;
+          case CARD_COLOR_UNO_BLUE: printf("\033[0;34m"); break;
+          case CARD_COLOR_UNO_YELLOW: printf("\033[0;33m"); break;
+          default: printf("\033[0;35m");
+        }
+        printf(" _______________\n");
+        printf("|               |\n");
+        printf("|               |\n");
+        printf("|     _____     |\n");
+        printf("|    /     \\    |\n");
+        printf("|   |  #:%x  |   |\n", fuc_num >> CARD_NUMBER_SHIFT);
+        printf("|   |  A:%x  |   |\n", fuc_ability);
+        printf("|    \\_____/    |\n");
+        printf("|               |\n");
+        printf("|               |\n");
+        printf("|_______________|\n\n");
+        printf("color: %x \033[0;0m, num: %x, ability: %x\n", fuc_color >> CARD_COLOR_SHIFT, fuc_num >> CARD_NUMBER_SHIFT, fuc_ability);
 
         curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
         printf("Current Player: %d\n", curr_player + 1);
@@ -291,7 +439,14 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 send((int)(curr_player + 1), UNO_WANT_COLOR); // ask what color they want
                 fuc_color = recv((int)(curr_player)); // receive the color they want (yeah... it's going to be random for now)
                 face_up_card |= fuc_color;
-                printf("player %d selected color %x\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
+                switch(fuc_color){
+                  case CARD_COLOR_UNO_RED: printf("\033[0;31m"); break;
+                  case CARD_COLOR_UNO_GREEN: printf("\033[0;32m"); break;
+                  case CARD_COLOR_UNO_BLUE: printf("\033[0;34m"); break;
+                  case CARD_COLOR_UNO_YELLOW: printf("\033[0;33m"); break;
+                  default: printf("\033[0;35m");
+                }
+                printf("player %d selected color %x\033[0;0m\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
                 break;
               case CARD_ABILITY_UNO_REVERSE:
                 printf("player %d played a reverse card\n", curr_player);
@@ -306,10 +461,17 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 send((int)(curr_player + 1), UNO_WANT_COLOR); // ask what color they want
                 fuc_color = recv((int)(curr_player));
                 face_up_card |= fuc_color;
-                printf("player %d selected color %x\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
+                switch(fuc_color){
+                  case CARD_COLOR_UNO_RED: printf("\033[0;31m"); break;
+                  case CARD_COLOR_UNO_GREEN: printf("\033[0;32m"); break;
+                  case CARD_COLOR_UNO_BLUE: printf("\033[0;34m"); break;
+                  case CARD_COLOR_UNO_YELLOW: printf("\033[0;33m"); break;
+                  default: printf("\033[0;35m");
+                }
+                printf("player %d selected color %x\033[0;0m\n", curr_player, fuc_color >> CARD_COLOR_SHIFT);
                 break;
               default:
-                printf("YOU GOT AN ERROR MOTHERFUCKER (still have to code it so this does something, but in short: your dumb card shouldn't exist)\n");
+                printf("\033[0;31m YOU GOT AN ERROR MOTHERFUCKER (still have to code it so this does something, but in short: your dumb card shouldn't exist)\033[0;0m\n");
             }
           }
         }
@@ -317,87 +479,89 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       }
     }
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
-      __uint8_t win= 0x0; // this cariable will state if we've won or not yet
-      __uint16_t played_card;
-      __uint16_t move;
-      __uint8_t hovering_pile = 0;
-      __uint8_t selected_pile = 69; // 69 means we haven't selected a pile
-      __uint16_t fuc_color, fuc_num, fuc_ability; // might have to change these a LOT
-      __uint16_t plc_color, plc_num, plc_ability;
-      Hand* piles[12]; // list of hands which will make up the piles in the thing
-      Hand* holding; // cards currently being held 
-      // Piles 0-6 are the piles where the cards go face down 
-      // Piles 7-10 are the piles where the finished cards go
-      // Pile 11 is the pile where you can grab cards from
-      // The face-down version of said pile will simply be the deck
+      printf("This game is somehow still a work in progress. Kinly screw off <3\n");
+      if(false){ // forgoing game for now :)
+        __uint8_t win= 0x0; // this cariable will state if we've won or not yet
+        __uint16_t played_card;
+        __uint16_t move;
+        __uint8_t hovering_pile = 0;
+        __uint8_t selected_pile = 69; // 69 means we haven't selected a pile
+        __uint16_t fuc_color, fuc_num, fuc_ability; // might have to change these a LOT
+        __uint16_t plc_color, plc_num, plc_ability;
+        Hand* piles[12]; // list of hands which will make up the piles in the thing
+        Hand* holding; // cards currently being held 
+        // Piles 0-6 are the piles where the cards go face down 
+        // Piles 7-10 are the piles where the finished cards go
+        // Pile 11 is the pile where you can grab cards from
+        // The face-down version of said pile will simply be the deck
 
-      setup_game(SOLITAIRE_GAME, game_deck, 1); // Setup the solitaire deck
-      for(int i = 0; i < 7; i++){ // filling in the first 7 decks
-        piles[i]->in_hand = malloc(20 * sizeof(__uint16_t)); // Pile size here will not exceed 20
-        piles[i]->size = 0;
-        int j;
-        for(j = 0; j < i+1; j++){
-          __uint16_t card_drawn = get_from_deck(game_deck);
-          piles[i]->size ++;
-          piles[i]->in_hand[j] = card_drawn; 
-        }
-        piles[i]->in_hand[j] |= CARD_ABILITY_FCUP; // make the top card be face up in each pile
-      }
-      for(int i = 7; i < 11; i ++){ // the 4 final piles
-        piles[i]->in_hand = malloc(13 * sizeof(__uint16_t)); // Pile size here will not exceed 13
-        piles[i]->size = 0;
-      }
-
-      piles[11]->in_hand = malloc(24 * sizeof(__uint16_t)); // this pile will start having a max size of 52-7-6-5-4-3-2-1 = 24
-      piles[11]->size = 0;
-
-      holding->in_hand = malloc(13 * sizeof(__uint16_t));
-      holding->size = 0;
-      // Pile setup complete
-
-      while(!win){ // begin GAME LOOP (long as we haven't won)
-        move = recv(0); // get the player's move
-        if(move == RECV_LEFT){ // if the player wants to go left
-          hovering_pile = (hovering_pile - 1) % 12; // we hover over the previous pile
-        }
-
-        else if(move == RECV_CENTER){ // if player pressed center
-          if(selected_pile == 69){ // if we haven't selected a pile
-            if(hovering_pile < 7){ // and we're selecting one of the grabbable piles
-              int u = 0; 
-              while(!(piles[hovering_pile]->in_hand[u] & CARD_ABILITY_FCUP)){ // we look to see what cards are available to grab
-                u ++;
-              }
-              for(int i = 0; i < 13; i ++){ // and we transfer them over to the "holding" hand in the following manner
-                holding->in_hand[i] = piles[hovering_pile]->in_hand[u]; // put card u (first face up to begin) in the pile inside the current holding hand at i (0 to begin)
-                piles[hovering_pile]->in_hand[u] = 0; // remove card u from the deck
-                piles[hovering_pile]->size --; // and also decrease its size 
-                holding->size ++; // also add a number to the size of the holding hand
-              }
-              selected_pile = hovering_pile; // and we tell the game which pile we have in our hands
-            }
-            else if(hovering_pile == 11){ // if we clicked on the draw pile
-              __uint8_t draw_pile_size = piles[11]->size;
-              piles[11]->in_hand[draw_pile_size - 1] = get_from_deck(game_deck); // The last card is a random drawn card
-              piles[11]->size ++; // and also increase the size of the pile so we can keep at it
-            }
-            // if we don't have a selected pile and we select one of the piles that isn't a selectable pile, we can go die
+        setup_game(SOLITAIRE_GAME, game_deck, 1); // Setup the solitaire deck
+        for(int i = 0; i < 7; i++){ // filling in the first 7 decks
+          piles[i]->in_hand = malloc(20 * sizeof(__uint16_t)); // Pile size here will not exceed 20
+          piles[i]->size = 0;
+          int j;
+          for(j = 0; j < i+1; j++){
+            __uint16_t card_drawn = get_from_deck(game_deck);
+            piles[i]->size ++;
+            piles[i]->in_hand[j] = card_drawn; 
           }
-          else{
+          piles[i]->in_hand[j] |= CARD_ABILITY_FCUP; // make the top card be face up in each pile
+        }
+        for(int i = 7; i < 11; i ++){ // the 4 final piles
+          piles[i]->in_hand = malloc(13 * sizeof(__uint16_t)); // Pile size here will not exceed 13
+          piles[i]->size = 0;
+        }
+
+        piles[11]->in_hand = malloc(24 * sizeof(__uint16_t)); // this pile will start having a max size of 52-7-6-5-4-3-2-1 = 24
+        piles[11]->size = 0;
+
+        holding->in_hand = malloc(13 * sizeof(__uint16_t));
+        holding->size = 0;
+        // Pile setup complete
+
+        while(!win){ // begin GAME LOOP (long as we haven't won)
+          move = recv(0); // get the player's move
+          if(move == RECV_LEFT){ // if the player wants to go left
+            hovering_pile = (hovering_pile - 1) % 12; // we hover over the previous pile
+          }
+
+          else if(move == RECV_CENTER){ // if player pressed center
+            if(selected_pile == 69){ // if we haven't selected a pile
+              if(hovering_pile < 7){ // and we're selecting one of the grabbable piles
+                int u = 0; 
+                while(!(piles[hovering_pile]->in_hand[u] & CARD_ABILITY_FCUP)){ // we look to see what cards are available to grab
+                  u ++;
+                }
+                for(int i = 0; i < 13; i ++){ // and we transfer them over to the "holding" hand in the following manner
+                  holding->in_hand[i] = piles[hovering_pile]->in_hand[u]; // put card u (first face up to begin) in the pile inside the current holding hand at i (0 to begin)
+                  piles[hovering_pile]->in_hand[u] = 0; // remove card u from the deck
+                  piles[hovering_pile]->size --; // and also decrease its size 
+                  holding->size ++; // also add a number to the size of the holding hand
+                }
+                selected_pile = hovering_pile; // and we tell the game which pile we have in our hands
+              }
+              else if(hovering_pile == 11){ // if we clicked on the draw pile
+                __uint8_t draw_pile_size = piles[11]->size;
+                piles[11]->in_hand[draw_pile_size - 1] = get_from_deck(game_deck); // The last card is a random drawn card
+                piles[11]->size ++; // and also increase the size of the pile so we can keep at it
+              }
+              // if we don't have a selected pile and we select one of the piles that isn't a selectable pile, we can go die
+            }
+            else{
+
+            }
+          }
+          else if(move == RECV_RIGHT){ // if player goinng right :)
+            hovering_pile = (hovering_pile + 1) % 12; // we hover over the next pile
+          }
+          else if(move == RECV_PAUSE){ // if player pauses
 
           }
         }
-        else if(move == RECV_RIGHT){ // if player goinng right :)
-          hovering_pile = (hovering_pile + 1) % 12; // we hover over the next pile
-        }
-        else if(move == RECV_PAUSE){ // if player pauses
-
-        }
       }
-
-
     }
     else if(current_game == SKULL_GAME){ // Skull Game Loop
+      printf("Skull is not available yet. Kinly screw off <3\n");
     }
     else if(current_game == 0){ // game = 0 should just leave
     }
