@@ -81,6 +81,11 @@ int check_players();
 __uint16_t recv(int controller); // recieves a signal from a controller
 void send(int controller, __uint16_t data); // sends a signal from a controller
 
+int open_serial_player_x(int player); // opens serial
+__uint16_t recv_nu(int controller, int serial_port); // recieves a signal from a controller
+void send_nu(int controller, __uint16_t data, int serial_port); // sends a signal from a controller
+void close_serial_player_x(int player); // this will be likely a single line but want consistency
+
 
 void free_deck(Deck* deck); // guess what this does
 // == CONSTANTS FOR GAME ITEMS AND WHATNOT == //
