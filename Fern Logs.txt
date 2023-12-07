@@ -1842,3 +1842,9 @@ WEEK 15
 
 > [12/01/23 14:30] Got to lab to add colors and whatnot to my game code so It could look nicer 
 > [12/01/23 15:30] Got the game to look prettier, so I'm calling it for that and I'll put it in the github and then in the rpi so we can play from there
+> [12/02/23 15:30] Finished working out some final kinks with the code, as well as making the table look halfway passable. This took until we presented
+> [12/02/23 17:45] We finally got to Present, and finished the project. 
+
+>> 26:25 HOURS:MINUTES of work this week so far <<
+
+>>> == 137:25 HOURS:MINUTES OF WORK SO FAR IN TOTAL == <<<
