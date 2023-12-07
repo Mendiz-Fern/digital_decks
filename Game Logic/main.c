@@ -16,6 +16,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
   char* settings_filepath = ""; // no such file yet
   int num_players = 0;
   FILE* settings;
+  __uint16_t instr;
   settings = fopen(settings_filepath, "wb+"); // Open for reading and writing.
   
 
@@ -32,15 +33,24 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     }
   }
   */
-
+  int player_serials[4] = {-1, -1, -1, -1};
   num_players = check_players(); // YIPPEEEE
   if(!num_players){
     printf("\033[0;31mNo controllers conected... exiting... \n\033[0;0m");
     return 0;
   }
+  // else{
+  //   for(int i = 0; i < num_players; i++){
+  //     player_serials[i] = open_serial_player_x(i+1);
+  //   }
+  // }
   printf("%d controller(s) connected.\n", num_players);
-  send(1, YOUR_TURN);
+
+
   while(game_on){ // Main game loop
+  
+    send(1, YOUR_TURN);
+    // send_nu(1, YOUR_TURN, player_serials[0]);
     __uint8_t hovering = 0;
 
     printf("== DIGITAL DECKS ==\n");
@@ -78,7 +88,8 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       // (c) Paul, Varun, Orry, and I
 
       //
-      __uint16_t instr = recv(0);
+      instr = recv(0);
+      // instr = recv_nu(0, player_serials[0]);
       if(instr == 0x4C20){ // if we receive a left arrow click
         // printf("leff\n");
         hovering = (hovering - 1) % 4; // we go to the previous element with, of course, circular logic :)
@@ -251,6 +262,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       }
     }
     send(1, NOT_YOUR_TURN);
+    // send_nu(1, NOT_YOUR_TURN, player_serials[0]);
     if(!current_selection){ // we're playing a game
       // Display stand in
       printf("Starting game %d ...\n", current_game); // We tell the player we're loading their game
@@ -301,7 +313,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
       printf("Main console graphics - Varun\n");
       printf("Cartroller graphics - Paul\n");
       printf("Other programmed subsystems - Paul, Varun, and Fern\n");
-      printf("Pain and suffering - all of us\n");
+      printf("Pain and suffering - all of us\n\n\n");
       current_selection = 0;
       current_game = 0;
     }
@@ -360,12 +372,17 @@ int main(int argc, char* argv[]){ // This will run in the Center console
         curr_player = (curr_player + ((direction * 2) - 1)) % num_players; // Start by selecting the next player
         printf("Current Player: %d\n", curr_player + 1);
         send((int)(curr_player + 1), YOUR_TURN);
+        // send_nu((int)(curr_player + 1), YOUR_TURN, player_serials[curr_player]);
 
         send((int)(curr_player + 1), UNO_GOT_CARDS_TO_PLAY); // we're sending this as a question, but we have to handle the game logic for it still in the controller
         send((int)(curr_player + 1), face_up_card); // we ask if this is ok :)
-        played_card = recv((int)(curr_player)); // now receive a card from the current player
+        // send_nu((int)(curr_player + 1), UNO_GOT_CARDS_TO_PLAY, player_serials[curr_player]); // we're sending this as a question, but we have to handle the game logic for it still in the controller
+        // send_nu((int)(curr_player + 1), face_up_card, player_serials[curr_player]); // we ask if this is ok :)
+        played_card = recv((int)(curr_player + 1)); // now receive a card from the current player
+        // played_card = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // now receive a card from the current player
         printf("got a card!! Card %x\n", played_card);
         send((int)(curr_player) + 1, CONTROLLER_ACK);
+        // send_nu((int)(curr_player) + 1, CONTROLLER_ACK, player_serials[curr_player]);
         plc_color = played_card & CARD_COLOR;
         plc_num = played_card & CARD_NUMBER;
         plc_ability = played_card & CARD_ABILITY;
@@ -375,8 +392,10 @@ int main(int argc, char* argv[]){ // This will run in the Center console
 
         while(!cards_compatible && (played_card != 0xFACC)){ // if the card is illegal and the player has cards they can play,
           printf("This card (%x) is invalid, please select another card...\n", played_card);
-          played_card = recv((int)(curr_player)); // and ask for another one
+          played_card = recv((int)(curr_player + 1)); // and ask for another one
+          // played_card = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // and ask for another one
           send((int)(curr_player + 1), CONTROLLER_ACK);
+          // send_nu((int)(curr_player + 1), CONTROLLER_ACK, player_serials[curr_player]);
           plc_color = played_card & CARD_COLOR;
           plc_num = played_card & CARD_NUMBER;
           plc_ability = played_card & CARD_ABILITY;
@@ -389,14 +408,21 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           send((int)(curr_player + 1), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
           send((int)(curr_player + 1), card_drawn); // for now, just give them a card and skip their turn
           send((int)(curr_player + 1), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
+          // send_nu((int)(curr_player + 1), CARDS_SEND_BEGIN, player_serials[curr_player]); // we start sending the signal that tells the ESP to start expecting a card
+          // send_nu((int)(curr_player + 1), card_drawn, player_serials[curr_player]); // for now, just give them a card and skip their turn
+          // send_nu((int)(curr_player + 1), CARDS_SEND_END, player_serials[curr_player]); // we no longer expect cards to be sent to the controller, very cool
           printf("Player %d is drawing a card\n", curr_player + 1);
-          __uint16_t cards_left = recv((int)(curr_player)); // receive a response
+          send((int)(curr_player + 1), CARDS_LEFT); // Asking the current player how many cards they have left
+          __uint16_t cards_left = recv((int)(curr_player + 1)); // receive a response
+          // __uint16_t cards_left = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // receive a response
           printf("Player %d now has %x cards\n", curr_player + 1, cards_left);
         }
         else{ // if the player DOES have playable cards and plays a card
           face_up_card = played_card; // change the face_up_card to the card that was just played
           send((int)(curr_player + 1), CARDS_LEFT); // Asking the current player how many cards they have left
-          __uint16_t cards_left = recv((int)(curr_player)); // receive a response
+          // send_nu((int)(curr_player + 1), CARDS_LEFT, player_serials[curr_player]); // Asking the current player how many cards they have left
+          __uint16_t cards_left = recv((int)(curr_player + 1)); // receive a response
+          // __uint16_t cards_left = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // receive a response
           printf("Player %d has %x cards left\n", curr_player + 1, cards_left);
 
 
@@ -411,6 +437,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
             current_selection = 0;
             for(int i = 0; i < num_players; i ++){ // tell everyone the game has ended
               send((i + 1), GAME_OVER);
+              // send_nu((i + 1), GAME_OVER, player_serials[i]);
             }
             printf("Returning to main...\n");
           }
@@ -421,23 +448,33 @@ int main(int argc, char* argv[]){ // This will run in the Center console
                 break; // don't do anything
               case CARD_ABILITY_UNO_P2: // if the card's ability is plus 2: (Add stacking later because PHEW)
                 printf("player %d played a plus 2\n", curr_player);
-                send((int)(curr_player + 1), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
+                send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_BEGIN, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]); // we start sending the signal that tells the ESP to start expecting a card
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn);
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]);
                 card_drawn = get_from_deck(game_deck);
                 send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn); // this is about as efficient as a for loop
-                break;
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]);
                 send((int)(curr_player + 1), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_END, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]); // we no longer expect cards to be sent to the controller, very cool
+                break;
               case CARD_ABILITY_UNO_P4:
                 printf("player %d played a wild plus 4\n", curr_player);
-                send((int)(curr_player + 1), CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
+                send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_BEGIN); // we start sending the signal that tells the ESP to start expecting a card
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_BEGIN, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]); // we start sending the signal that tells the ESP to start expecting a card
                 for(int i = 0; i < 3; i ++){
                   card_drawn = get_from_deck(game_deck);
                   send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn);
+                  // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, card_drawn, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]);
                 }
-                send((int)(curr_player + 1), CARDS_SEND_END); // we no longer expect cards to be sent to the controller, very cool
+                send((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_END);
+                // send_nu((int)((curr_player + ((direction * 2) - 1)) % num_players) + 1, CARDS_SEND_END, player_serials[((curr_player + ((direction * 2) - 1)) % num_players)]);
+                 // we no longer expect cards to be sent to the controller, very cool
                 send((int)(curr_player + 1), UNO_WANT_COLOR); // ask what color they want
-                fuc_color = recv((int)(curr_player)); // receive the color they want (yeah... it's going to be random for now)
+                // send_nu((int)(curr_player + 1), UNO_WANT_COLOR, player_serials[curr_player]); // ask what color they want
+                fuc_color = recv((int)(curr_player + 1)); // receive the color they want (yeah... it's going to be random for now)
+                // fuc_color = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // receive the color they want (yeah... it's going to be random for now)
                 face_up_card |= fuc_color;
                 switch(fuc_color){
                   case CARD_COLOR_UNO_RED: printf("\033[0;31m"); break;
@@ -459,7 +496,9 @@ int main(int argc, char* argv[]){ // This will run in the Center console
               case CARD_ABILITY_UNO_WILD:
                 printf("player %d played a wild\n", curr_player);
                 send((int)(curr_player + 1), UNO_WANT_COLOR); // ask what color they want
-                fuc_color = recv((int)(curr_player));
+                // send_nu((int)(curr_player + 1), UNO_WANT_COLOR, player_serials[curr_player]); // ask what color they want
+                fuc_color = recv((int)(curr_player + 1));
+                // fuc_color = recv_nu((int)(curr_player + 1), player_serials[curr_player]);
                 face_up_card |= fuc_color;
                 switch(fuc_color){
                   case CARD_COLOR_UNO_RED: printf("\033[0;31m"); break;
@@ -476,6 +515,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           }
         }
         send((int)(curr_player + 1), NOT_YOUR_TURN);
+        // send_nu((int)(curr_player + 1), NOT_YOUR_TURN, player_serials[curr_player]);
       }
     }
     else if(current_game == SOLITAIRE_GAME){ // Solitaire Game Loop
@@ -570,6 +610,9 @@ int main(int argc, char* argv[]){ // This will run in the Center console
     }
   }
   return 1;
+  // for(int i = 0; i < num_players; i++){
+  //   close_serial_player_x(player_serials[i]);
+  // }
 }
 
 // } Uhhhh...
