@@ -287,12 +287,12 @@ void setup_game(int game_ID, Deck* deck, int num_players){
       // FOR NOW, IGNORE SENDING ANYTING TO THE PLAYERS, AS THE CONTROLLERS CANNOT HANDLE THIS FUNCTIONALITY
 
       for(int i = 0; i < num_players; i++){ // for each connected player
-          send(i, CARDS_SEND_BEGIN);
+          send(i + 1, CARDS_SEND_BEGIN);
           for(int j = 0; j < 7; j++){ // for each of 7 cards
             __uint16_t card_drawn = get_from_deck(deck); // grab a card
-            send(i, card_drawn); // and send it over
+            send(i + 1, card_drawn); // and send it over
           }
-          send(i, CARDS_SEND_END);
+          send(i + 1, CARDS_SEND_END);
       }
 
     break;
