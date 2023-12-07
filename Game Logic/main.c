@@ -412,6 +412,7 @@ int main(int argc, char* argv[]){ // This will run in the Center console
           // send_nu((int)(curr_player + 1), card_drawn, player_serials[curr_player]); // for now, just give them a card and skip their turn
           // send_nu((int)(curr_player + 1), CARDS_SEND_END, player_serials[curr_player]); // we no longer expect cards to be sent to the controller, very cool
           printf("Player %d is drawing a card\n", curr_player + 1);
+          send((int)(curr_player + 1), CARDS_LEFT); // Asking the current player how many cards they have left
           __uint16_t cards_left = recv((int)(curr_player + 1)); // receive a response
           // __uint16_t cards_left = recv_nu((int)(curr_player + 1), player_serials[curr_player]); // receive a response
           printf("Player %d now has %x cards\n", curr_player + 1, cards_left);
